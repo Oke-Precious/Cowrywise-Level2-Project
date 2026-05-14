@@ -1,0 +1,354 @@
+================================================================================
+                    COWRYWISE CLONE - PROJECT ROADMAP
+================================================================================
+
+This document outlines all phases to clone the complete Cowrywise website.
+Using HTML, CSS, and JavaScript only.
+
+================================================================================
+                            CURRENT STATUS
+================================================================================
+
+COMPLETED (Phase 0):
+✓ index.html - Main landing page (partial)
+✓ login.html - Login page
+✓ signup.html - Signup page
+✓ style.css - Main stylesheet
+✓ bootstrap.css + bootstrap.bundle.js
+
+================================================================================
+                         PHASE BREAKDOWN
+================================================================================
+
+-------------------------------------------------------------------------------
+PHASE 1: LANDING PAGE COMPLETION
+-------------------------------------------------------------------------------
+Tasks:
+□ Fix remaining CSS issues on index.html
+□ Add responsive navbar improvements
+□ Make investment calculator functional (JavaScript)
+□ Add missing navbar links (About, FAQ's, Security, Learn)
+
+Files to modify:
+- index.html
+- style.css
+- Create: calculator.js (new)
+
+Expected outcome:
+- Fully functional investment calculator
+- Working responsive navbar
+- All sections properly styled
+
+-------------------------------------------------------------------------------
+PHASE 2: SAVINGS PAGE
+-------------------------------------------------------------------------------
+Create: save.html
+
+Features:
+- Hero section with "Get on the right side of saving"
+- Regular Savings section (3-month minimum, interest)
+- Money Duo section (couples savings)
+- Halal Savings section (riba-free)
+- Saving Circles section (group savings)
+- Interest rates comparison section
+- Testimonials section
+- CTA + Footer
+
+Files to create:
+- save.html
+- save.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 3: MUTUAL FUNDS PAGE
+-------------------------------------------------------------------------------
+Create: mutual-funds.html
+
+Features:
+- Hero section with coin animations
+- Portfolio cards grid:
+  * Cowrywise Conservative Portfolio (16.67% returns)
+  * Fixed Income Portfolio
+  * Halal Fixed Income Portfolio
+  * Balanced Portfolio
+  * Halal Balanced Portfolio
+  * Equity Portfolio
+  * Halal Commodities Portfolio
+- Each card shows: name, risk level, returns %, "Invest now" button
+- Educational section (What are mutual funds?)
+- FAQ section
+- CTA + Footer
+
+Files to create:
+- mutual-funds.html
+- mutual-funds.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 4: STOCKS PAGE
+-------------------------------------------------------------------------------
+Create: stocks.html
+
+Features:
+- Hero section with "The market is open"
+- Stock logos section (Dangote, GTBank, FirstBank, etc.)
+- Features section:
+  * Discover (find top stocks)
+  * Track (monitor performance)
+  * Grow (build wealth)
+- Market pulse section:
+  * Top gainers
+  * Top losers
+  * Sector heatmap
+- Stock plans section:
+  * First timers plan
+  * Market maverick plan
+  * Wealth builder plan
+- Automation section (auto-invest)
+- FAQ section
+- CTA + Footer
+
+Files to create:
+- stocks.html
+- stocks.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 5: SPROUT (BUSINESS) PAGE
+-------------------------------------------------------------------------------
+Create: sprout.html
+
+Features:
+- Hero section with "Is your business cash doing enough?"
+- Stats section (1000+ businesses, real-time returns)
+- Features:
+  * Growing Businesses
+  * Scaling Startups
+  * Enterprise & Corporates
+- How it works (4 steps)
+- Trust section:
+  * Role-based access
+  * Transparent insights
+  * Professional management
+  * Zenith Nominees custody
+- Comparison (Sprout vs Traditional banks)
+- CTA + Footer
+
+Files to create:
+- sprout.html
+- sprout.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 6: EMBED (DEVELOPER API) PAGE
+-------------------------------------------------------------------------------
+Create: embed.html
+
+Features:
+- Hero section with code snippet image
+- Benefits section:
+  * Easy to set up
+  * Ship 10x faster
+  * Optimized for scale
+- Products available via API:
+  * Wallets
+  * Savings
+  * Mutual Funds
+  * Treasury Bills
+  * Eurobonds
+  * Stocks
+- Use cases:
+  * Healthcare Savings Account
+  * Fund Managers
+  * HR Solutions
+  * Mobile Money
+  * Fintech Startup
+  * E-commerce
+- Request access form
+- CTA + Footer
+
+Files to create:
+- embed.html
+- embed.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 7: HALAL PAGE
+-------------------------------------------------------------------------------
+Create: halal.html
+
+Features:
+- Hero section "Build wealth according to your values"
+- Stats (33,000+ Muslims trust)
+- Benefits:
+  * Riba-free savings
+  * Shari'ah-compliant investments
+  * Clear conscience
+- Portfolio breakdown (41% stocks, 33% Sukuk, 26% assets)
+- Investment options:
+  * Shari'ah-compliant stocks
+  * Sukuk
+  * Non-interest bearing assets
+- Features:
+  * Automated savings
+  * Transparency
+  * Auto re-invest
+  * Join Circles
+  * Financial fitness badges
+- Security section
+- How to switch to Halal (existing customers)
+- FAQ section
+- CTA + Footer
+
+Files to create:
+- halal.html
+- halal.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 8: ABOUT PAGE
+-------------------------------------------------------------------------------
+Create: about.html
+
+Features:
+- Hero "Digitizing wealth management for Africans"
+- Mission statement
+- Team section (50+ team members with photos):
+  * Design
+  * Product
+  * Customer Experience
+  * Engineering
+  * Finance
+  * Legal & Compliance
+  * Growth
+  * Portfolio Management
+  * Risk
+  * People
+- Investors section (logos):
+  * Quona Capital
+  * K50 Ventures
+  * Catalyst Fund
+  * Y Combinator
+  * VentureSouq
+  * SHL Capital
+  * Microtraction
+- Values section:
+  * Customers First
+  * Better Together
+  * Keep it real
+  * Keep it simple
+  * Set the bar high
+  * Never stop learning
+- Press section (news articles)
+- CTA + Footer
+
+Files to create:
+- about.html
+- about.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 9: FAQ PAGE
+-------------------------------------------------------------------------------
+Create: faq.html
+
+Features:
+- Hero section "Frequently asked questions"
+- Categories:
+  * General (What is Cowrywise?, Why use?, Returns?)
+  * Safety & Security (2FA, License, Money safety)
+  * Savings & Returns (Types, Plans, Rates, Earnings)
+  * Mutual Funds (What is, Types, How to invest, SIP)
+  * Fees & Charges
+  * Withdrawals
+- Each category with expandable accordion
+- CTA + Footer
+
+Files to create:
+- faq.html
+- faq.css (or add to style.css)
+- Create: faq.js (accordion functionality)
+
+-------------------------------------------------------------------------------
+PHASE 10: SECURITY PAGE
+-------------------------------------------------------------------------------
+Create: security.html
+
+Features:
+- Hero "How safe is my money?"
+- Security features:
+  * Bank-grade Security (PCI-DSS, 2FA)
+  * Regulatory Compliance (SEC licensed)
+  * Best-In-Class Assets (Professional managers)
+  * Assets Custody (Zenith Nominees)
+- FAQ section
+- CTA + Footer
+
+Files to create:
+- security.html
+- security.css (or add to style.css)
+
+-------------------------------------------------------------------------------
+PHASE 11: FINAL INTEGRATION & POLISHING
+-------------------------------------------------------------------------------
+Tasks:
+□ Add JavaScript file for all interactive features
+□ Optimize all CSS (combine into one file or keep modular)
+□ Add cookie consent banner (appears on first visit)
+□ Add smooth scroll functionality
+□ Add navbar scroll effect
+□ Test all responsive breakpoints
+□ Add hover states and animations
+□ Optimize all images
+□ Add proper meta tags
+□ Verify all links work (internal pages)
+□ Add placeholder images where needed
+
+Files to create/update:
+- main.js (or script.js)
+- Update style.css
+- Update all HTML files
+
+================================================================================
+                         FILE STRUCTURE
+================================================================================
+
+Cowrywise/
+├── index.html          (DONE)
+├── login.html          (DONE)
+├── signup.html         (DONE)
+├── save.html           (PHASE 2)
+├── mutual-funds.html   (PHASE 3)
+├── stocks.html         (PHASE 4)
+├── sprout.html         (PHASE 5)
+├── embed.html          (PHASE 6)
+├── halal.html          (PHASE 7)
+├── about.html          (PHASE 8)
+├── faq.html            (PHASE 9)
+├── security.html       (PHASE 10)
+├── style.css          (DONE - will update)
+├── main.js            (PHASE 11)
+├── calculator.js      (PHASE 1)
+├── faq.js             (PHASE 9)
+├── bootstrap.css      (EXISTING)
+├── bootstrap.bundle.js (EXISTING)
+├── PROJECT_PLAN.txt   (THIS FILE)
+└── media/             (IMAGES - need to add)
+
+================================================================================
+                         HOW TO USE THIS PLAN
+================================================================================
+
+1. User says: "Let's do Phase 1"
+2. I build Phase 1 tasks
+3. User reviews and approves
+4. User says: "Let's do Phase 2"
+5. I build Phase 2 tasks
+6. ... continue until complete
+
+================================================================================
+                         NOTES
+================================================================================
+
+- All pages share the same navbar and footer structure
+- Use Bootstrap for layout grid and components
+- Custom CSS for unique styling per page
+- JavaScript for interactive features (calculator, accordion, etc.)
+- Images should be added to media/ folder
+- Keep code clean and organized
+- Mobile-first responsive design
+
+================================================================================
