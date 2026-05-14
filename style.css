@@ -263,6 +263,17 @@ body{
 .navList:hover, .navList:focus{
     color: black !important;
 }
+.navExtraLinks{
+    margin-left: auto !important;
+}
+.navExtraLinks .nav-item .navList{
+    color: #6C82A3 !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+}
+.navExtraLinks .nav-item .navList:hover{
+    color: black !important;
+}
 .login{
     text-decoration: none;
     color: #056DFF;
