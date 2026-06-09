@@ -42,7 +42,7 @@ body{
     text-decoration: none;
     font-weight: 600;
 }
-.formCon form{
+.formCon .form{
     background-color: white;
     padding:60px 70px !important;
     border-radius: 10px !important;
@@ -100,7 +100,7 @@ body{
     background-color: white !important;
     padding: 0 5px !important;
     font-size: 12px !important;
-    color: #056DFF !important;
+    color: #056DFF ;
     font-weight: 600 !important;
     pointer-events: none !important;
     opacity: 0 !important;
@@ -167,7 +167,7 @@ body{
     background-repeat: no-repeat;
     background-position: bottom right;
 }
-.formCon form h2{
+.formCon .form h2{
     font-size: 64px;
     font-weight: bold;
     margin-bottom: 30px !important;
