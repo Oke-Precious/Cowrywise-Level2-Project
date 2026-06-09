@@ -16,13 +16,13 @@ body{
 }
 .loginSec{
     display: block;
-    margin: 80px auto !important;
+    margin: 50px auto !important;
     width: 65% !important;
 }
 .loginLogo img{
     width: 100%;
     max-width: 180px; 
-    margin-bottom: 100px !important;
+    margin-bottom: 80px !important;
 }
 .jump h3{
     font-size: 48px;
@@ -37,14 +37,14 @@ body{
 .jump p{
     font-size: 12.8px;
 }
-.jump p a{
+.jump a{
     color: #056DFF;
     text-decoration: none;
     font-weight: 600;
 }
 .formCon .form{
     background-color: white;
-    padding:60px 70px !important;
+    padding:50px 70px !important;
     border-radius: 10px !important;
     box-shadow: 0 1px 28px rgba(0, 0, 0, 0.068) !important;
 }
@@ -166,17 +166,24 @@ body{
     background-image: url(./media/sinupbg.svg);
     background-repeat: no-repeat;
     background-position: bottom right;
+    /* height: 100vh !important; */
+    overflow-x: hidden !important;
 }
 .formCon .form h2{
-    font-size: 64px;
+    font-size: 60px;
     font-weight: bold;
+    margin-bottom: 30px !important;
+}
+.formCon .form h4{
+    font-size: 35px;
+    font-weight: 600;
     margin-bottom: 30px !important;
 }
 .startInvest{
     gap: 100px;
 }
 .startInvest .formCon{
-    width: 60%;
+    width: 55%;
 }
 .formFooter p img{
     width: 23px;
