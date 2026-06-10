@@ -53,16 +53,17 @@
                     </div>
                     <div>
                         <div class="emailInputContainer my-4">
-                            <input type="email" id="emailInput" class="w-100 p-3" placeholder="Email Address" required>
-                            <label for="emailInput">Email Address</label>
+                            <input type="email" id="loginEmail" class="w-100 p-3" placeholder="Email Address" required>
+                            <label for="loginEmail" id="loginEmailLabel">Email Address</label>
                         </div>
                         <div class="emailInputContainer mt-4 mb-2">
-                            <input type="password" id="passwordInput" class="w-100 p-3" placeholder="Password" required>
-                            <label for="passwordInput">Password</label>
+                            <input type="password" id="loginPassword" class="w-100 p-3" placeholder="Password" required>
+                            <label for="loginPassword" id="loginPasswordLabel">Password</label>
                         </div>
+                        <div id="loginErrorMessage"></div>
                     </div>
                     <a href="#" class="forgetPass">Forgot password?</a>
-                    <button type="submit" class="w-100 p-2 mt-5">Sign In</button>
+                    <button onclick="signIn()" class="w-100 p-2 mt-5">Sign In</button>
                 </div>
                 <div class="formFooter d-flex justify-content-between mt-4">
                     <p>Trouble signing in? <a href="#">Chat with us</a></p>
