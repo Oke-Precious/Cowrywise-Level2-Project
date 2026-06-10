@@ -16,6 +16,11 @@ const createAccount=()=>{
             signupErrorMessage.style.fontSize = "12px";
             return
         }
+        else if(allUserDetails[index].username == username.value){
+            signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> An account with this username exists. Please choose a different username.</p>`;
+            signupErrorMessage.style.fontSize = "12px";
+            return
+        }
         
     }
     if(emailInput.value=="" || firstName.value == "" || lastName.value == "" || username.value == "" || phoneNumber.value =="" || password.value == "" || confirmPassword.value == ""){
@@ -61,6 +66,8 @@ const createAccount=()=>{
             password: confirmPassword.value.trim(),
             firstName: firstName.value.trim(),
             secondName: lastName.value.trim(),
+            username: username.value.trim(),
+            phoneNumber: phoneNumber.value.trim()
         }
         allUserDetails.push(userDetails)
         localStorage.setItem('userDatabase', JSON.stringify(allUserDetails))
