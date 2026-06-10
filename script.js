@@ -62,7 +62,7 @@ const createAccount=()=>{
     }
     else{
         let userDetails = {
-            email: emailInput.value.trim(),
+            email: emailInput.value.trim().toLowerCase(),
             password: confirmPassword.value.trim(),
             firstName: firstName.value.trim(),
             secondName: lastName.value.trim(),
@@ -93,9 +93,18 @@ const signIn = () =>{
     }
     else{
         for(let index=0; index<allUserDetails.length; index++){
-            if(allUserDetails[index].email == loginEmail.value && allUserDetails[index].password == loginPassword.value){
+            if(allUserDetails[index].email == loginEmail.value.toLowerCase() && allUserDetails[index].password == loginPassword.value){
                 alert(`Welcome back ${allUserDetails[index].firstName} ${allUserDetails[index].secondName}`);
                 break
+            }
+            else{
+                loginErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Invalid credentials</p>`;
+                loginEmailLabel.style.color = "red";
+                loginErrorMessage.style.fontSize = "12px";
+                loginEmail.style.border = "1px solid red";
+                loginPassword.style.border = "1px solid red";
+                errorLabel();
+                return;
             }
         }
     }
