@@ -118,6 +118,7 @@ const createPIN = () => {
         if(userIndex !== -1) {
             allUserDetails[userIndex].pin = createPINValue;
             localStorage.setItem('userDatabase', JSON.stringify(allUserDetails));
+            window.location.href = 'verify-bvn.html';
         }
     }
     
