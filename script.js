@@ -21,6 +21,119 @@ const handleHalalToggle = (checkbox) => {
     }
 }
 
+// ===================== PIN MODAL FUNCTIONS ===============================
+const showPINModal = () => {
+    const modal = document.getElementById('createPINModal');
+    if(modal) modal.classList.add('show');
+}
+
+const closePINModal = () => {
+    const modal = document.getElementById('createPINModal');
+    if(modal) modal.classList.remove('show');
+}
+
+const handlePINInput = (input) => {
+    // Allow only digits
+    input.value = input.value.replace(/[^0-9]/g, '');
+    
+    if(input.value.length === 1) {
+        const nextInput = input.nextElementSibling;
+        if(nextInput && nextInput.classList.contains('pin-input')) {
+            nextInput.focus();
+        }
+    }
+    if(input.value.length > 1) {
+        input.value = input.value.slice(-1);
+    }
+}
+
+const handlePINBackspace = (e, input) => {
+    if(e.key === 'Backspace' && input.value === '') {
+        const prevInput = input.previousElementSibling;
+        if(prevInput && prevInput.classList.contains('pin-input')) {
+            prevInput.focus();
+        }
+    }
+}
+
+const showPINError = (message, inputClass) => {
+    const errorElement = document.getElementById('pinErrorMessage');
+    const inputs = document.querySelectorAll(`.${inputClass}`);
+    
+    if(errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+    
+    inputs.forEach(input => {
+        input.classList.add('error');
+    });
+}
+
+const clearPINError = () => {
+    const errorElement = document.getElementById('pinErrorMessage');
+    const createInputs = document.querySelectorAll('.create-pin-input');
+    const confirmInputs = document.querySelectorAll('.confirm-pin-input');
+    
+    if(errorElement) {
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+    }
+    
+    createInputs.forEach(input => input.classList.remove('error'));
+    confirmInputs.forEach(input => input.classList.remove('error'));
+}
+
+const createPIN = () => {
+    const createPINInputs = document.querySelectorAll('.create-pin-input');
+    const confirmPINInputs = document.querySelectorAll('.confirm-pin-input');
+    
+    let createPINValue = '';
+    let confirmPINValue = '';
+    
+    createPINInputs.forEach(input => {
+        createPINValue += input.value;
+    });
+    
+    confirmPINInputs.forEach(input => {
+        confirmPINValue += input.value;
+    });
+    
+    if(createPINValue.length !== 4 || confirmPINValue.length !== 4) {
+        showPINError('Please enter a 4-digit PIN', 'create-pin-input');
+        return;
+    }
+    
+    if(createPINValue !== confirmPINValue) {
+        showPINError('PINs do not match. Please try again.', 'confirm-pin-input');
+        confirmPINInputs.forEach(input => input.value = '');
+        confirmPINInputs[0].focus();
+        return;
+    }
+    
+    const newUserEmail = localStorage.getItem('newUserEmail');
+    if(newUserEmail) {
+        const allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
+        const userIndex = allUserDetails.findIndex(user => user.email === newUserEmail);
+        if(userIndex !== -1) {
+            allUserDetails[userIndex].pin = createPINValue;
+            localStorage.setItem('userDatabase', JSON.stringify(allUserDetails));
+        }
+    }
+    
+    localStorage.removeItem('newUserEmail');
+    closePINModal();
+}
+
+const initPINModal = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.get('newUser') === 'true') {
+        setTimeout(() => {
+            showPINModal();
+        }, 500);
+    }
+}
+
 const errorLabel = ()=>{
     let floatingLabels = document.querySelectorAll('.emailInputContainer label');
         floatingLabels.forEach(label => {
@@ -90,7 +203,8 @@ const createAccount=()=>{
         }
         allUserDetails.push(userDetails)
         localStorage.setItem('userDatabase', JSON.stringify(allUserDetails))
-        window.location.href = "/login.html";
+        localStorage.setItem('newUserEmail', emailInput.value.trim().toLowerCase())
+        window.location.href = "/login.html?newUser=true";
         console.log(allUserDetails)
     }
 }

@@ -78,11 +78,51 @@
         <img src="./media/cowryicon.png" alt="">
     </button>
 
+    <!-- Create PIN Modal -->
+    <div id="createPINModal" class="pin-modal-overlay">
+        <div class="pin-modal">
+            <div class="pin-modal-content">
+                <svg class="pin-icon" width="60" height="60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1C6.48 1 2 5.48 2 11v9c0 .55.45 1 1 1h1v3c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-3h6v3c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-3h1c.55 0 1-.45 1-1v-9c0-5.52-4.48-10-10-10zm0 2c4.41 0 8 3.59 8 8H4c0-4.41 3.59-8 8-8z" fill="#1e5fa8" stroke="#1e5fa8" stroke-width="2"/>
+                </svg>
+                <h3>Create PIN</h3>
+                <p>Your PIN adds an extra layer of security to your Cowrywise account</p>
+                
+                <div class="pin-section mt-4">
+                    <label>Create your PIN</label>
+                    <div class="pin-inputs-group">
+                        <input type="password" class="pin-input create-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                        <input type="password" class="pin-input create-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                        <input type="password" class="pin-input create-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                        <input type="password" class="pin-input create-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                    </div>
+                </div>
+                
+                <div class="pin-section mt-4">
+                    <label>Confirm your PIN</label>
+                    <div class="pin-inputs-group">
+                        <input type="password" class="pin-input confirm-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                        <input type="password" class="pin-input confirm-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                        <input type="password" class="pin-input confirm-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                        <input type="password" class="pin-input confirm-pin-input" inputmode="numeric" oninput="handlePINInput(this); clearPINError()" onkeydown="handlePINBackspace(event, this)" required>
+                    </div>
+                </div>
+                
+                <div id="pinErrorMessage" class="pin-error-message"></div>
+                
+                <button class="pin-create-btn mt-4" onclick="createPIN()">Create PIN</button>
+            </div>
+        </div>
+    </div>
+
 
 
 
 
     <script src="/script.js"></script>
+    <script>
+        initPINModal();
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>
