@@ -17,7 +17,9 @@ body{
 .loginSec{
     display: block;
     margin: 50px auto !important;
-    width: 65% !important;
+    max-width:80pc;
+    /* padding: 30px; */
+    width: 100% !important;
 }
 .loginLogo img{
     width: 100%;
@@ -180,10 +182,10 @@ body{
     margin-bottom: 30px !important;
 }
 .startInvest{
-    gap: 100px;
+    gap: 60px;
 }
 .startInvest .formCon{
-    width: 55%;
+    width: 60%;
 }
 .formFooter p img{
     width: 23px;
@@ -196,6 +198,100 @@ body{
     font-size: 16px;
     color: #6C82A3;
 }
+/* ================HALAL MODAL================= */
+.halal-modal-overlay {
+    display: none !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    z-index: 1000 !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.halal-modal-overlay.show {
+    display: flex !important;
+}
+
+.halal-modal {
+    background-color: white !important;
+    border-radius: 12px !important;
+    padding: 40px !important;
+    max-width: 400px !important;
+    width: 90% !important;
+    position: relative !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+    text-align: center !important;
+}
+
+.halal-modal-close {
+    position: absolute !important;
+    top: 15px !important;
+    right: 15px !important;
+    background: none !important;
+    border: none !important;
+    font-size: 28px !important;
+    cursor: pointer !important;
+    color: #999 !important;
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.halal-modal-close:hover {
+    color: #333 !important;
+}
+
+.halal-modal-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 20px !important;
+}
+
+.halal-icon {
+    width: 60px !important;
+    height: 60px !important;
+    margin-bottom: 10px !important;
+}
+
+.halal-modal h3 {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #0A2E65 !important;
+    margin: 0 !important;
+}
+
+.halal-modal p {
+    font-size: 14px !important;
+    color: #7A8FAA !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+}
+
+.halal-got-it-btn {
+    background-color: #056DFF !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 40px !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    margin-top: 10px !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.halal-got-it-btn:hover {
+    background-color: #044AC4 !important;
+}
+
 .seemore{
     border: none;
     border-radius: 20px;

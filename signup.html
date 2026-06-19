@@ -101,6 +101,16 @@
                         <div id="signupErrorMessage"></div>
                         
                     </div>
+                    <div class="d-flex align-items-center mt-4 mb-3" style="gap: 20px;">
+                        <label for="halalToggle" style="font-size: 14px; margin: 0; cursor: pointer;">Make my account Halal</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="halalToggle" onchange="handleHalalToggle(this)" style="cursor: pointer; width: 50px; height: 28px;">
+                        </div>
+                    </div>
+                    <div class="jump w-100 my-lg-4">
+                        <p>By tapping on Create Account, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+                    </div>
+                    
                     <button type="submit" class="w-100 p-2 mt-3" onclick="createAccount()">Create Account</button>
                 </div>
                 <div class="formFooter d-flex justify-content-between mt-4">
@@ -113,13 +123,29 @@
             </div>
 
             <div class="dontwait">
-                <h5>Don’t wait to start</h5>
-                <p class="my-3">See how much you could have earned in <br> the past few years</p>
-                <button class="seemore">⭐ See what you missed &gt</button>
+                <h5>Invest with over 1 million  customers like you</h5>
+                <p class="my-3">Wow, great app. It's the most reliable, trusthworth, saving and investment platform</p>
+                <h6 class="fs-5 fw-semibold">Precious Oke</h6>
             </div>
         </div>
 
     </section>
+
+    <!-- Halal Account Modal -->
+    <div id="halalModal" class="halal-modal-overlay">
+        <div class="halal-modal">
+            <button class="halal-modal-close" onclick="closeHalalModal()">&times;</button>
+            <div class="halal-modal-content">
+                <svg class="halal-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" fill="none" stroke="#10B981" stroke-width="2"/>
+                    <path d="M8 12l2 2 6-6" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3>Halal Account</h3>
+                <p>Halal accounts are great for muslims who want only Shariah-compliant investments and no interest on their savings.</p>
+                <button class="halal-got-it-btn" onclick="closeHalalModal()">Got It</button>
+            </div>
+        </div>
+    </div>
 
     <button class="rightLogo rightLogo-signup ">
         <img src="./media/cowryicon.png" alt="">

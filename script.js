@@ -3,6 +3,24 @@
 // ===================== SIGN UP ===============================
 let allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
 // console.log(allUserDetails);
+
+// ===================== HALAL MODAL FUNCTIONS ===============================
+const showHalalModal = () => {
+    const modal = document.getElementById('halalModal');
+    modal.classList.add('show');
+}
+
+const closeHalalModal = () => {
+    const modal = document.getElementById('halalModal');
+    modal.classList.remove('show');
+}
+
+const handleHalalToggle = (checkbox) => {
+    if(checkbox.checked) {
+        showHalalModal();
+    }
+}
+
 const errorLabel = ()=>{
     let floatingLabels = document.querySelectorAll('.emailInputContainer label');
         floatingLabels.forEach(label => {
@@ -67,11 +85,12 @@ const createAccount=()=>{
             firstName: firstName.value.trim(),
             secondName: lastName.value.trim(),
             username: username.value.trim(),
-            phoneNumber: phoneNumber.value.trim()
+            phoneNumber: phoneNumber.value.trim(),
+            isHalal: document.getElementById('halalToggle')?.checked || false
         }
         allUserDetails.push(userDetails)
         localStorage.setItem('userDatabase', JSON.stringify(allUserDetails))
-        window.location.href = "/login.html"
+        window.location.href = "/login.html";
         console.log(allUserDetails)
     }
 }
