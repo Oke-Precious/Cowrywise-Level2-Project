@@ -526,28 +526,298 @@ body::after {
     animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Responsive Overrides for Step 2 */
-@media (max-width: 992px) {
-    .fund-input-section {
-        align-items: center !important;
-        text-align: center !important;
-    }
-    
-    .amount-input-wrapper {
-        justify-content: center;
-    }
-    
-    .limit-warning-msg {
-        justify-content: center;
-    }
-    
-    .back-link-btn {
-        max-width: 100%;
-    }
-    
-    .stacked-graphic-wrapper {
-        max-width: 320px;
-        margin-top: 20px !important;
-    }
+/* ==========================================
+   PAYMENT MODAL & SUCCESS CARD STYLING
+   ========================================== */
+
+/* Fullscreen modal overlay */
+.payment-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(10, 46, 101, 0.45);
+    backdrop-filter: blur(5px);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px !important;
 }
+
+/* Modal window styling */
+.payment-modal {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(10, 46, 101, 0.25) !important;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    animation: fadeInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Header inside modal */
+.payment-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 24px 12px 24px !important;
+}
+
+.payment-modal-header h2 {
+    font-size: 20px;
+    font-weight: 750;
+    color: var(--color-text-dark);
+    margin: 0 !important;
+}
+
+.close-modal-btn {
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 4px !important;
+}
+
+.close-modal-btn:hover {
+    color: var(--color-text-dark);
+}
+
+.payment-modal-subtitle {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    padding: 0 24px 20px 24px !important;
+    margin: 0 !important;
+    border-bottom: 1px solid #ECEFF4;
+}
+
+/* Modal Body elements */
+.payment-modal-body {
+    padding: 24px !important;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.payment-section-title {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-dark);
+    margin-bottom: 12px !important;
+}
+
+.payment-section-title.mt-4 {
+    margin-top: 24px !important;
+}
+
+/* Bank Box Accordions */
+.bank-accordion-item {
+    border: 1px solid #E4E8EE;
+    border-radius: 12px !important;
+    margin-bottom: 12px !important;
+    overflow: hidden;
+    background-color: #ffffff;
+    transition: border-color 0.2s ease;
+}
+
+.bank-accordion-item:hover {
+    border-color: #CBD3E0;
+}
+
+.bank-accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px !important;
+    cursor: pointer;
+    user-select: none;
+}
+
+.bank-brand-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bank-logo-placeholder {
+    width: 32px;
+    height: 32px;
+    background-color: #E6F0FF;
+    color: var(--color-primary);
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 750;
+    font-size: 15px;
+}
+
+.bank-logo-placeholder.pt-titan {
+    background-color: #E2FAF5;
+    color: #00A680;
+}
+
+.bank-logo-placeholder.gray-bg {
+    background-color: #F1F4F9;
+    color: var(--color-text-muted);
+}
+
+.bank-name-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-dark);
+}
+
+.accordion-arrow {
+    font-size: 10px;
+    color: var(--color-text-muted);
+    transition: transform 0.2s ease;
+}
+
+/* Accordion details container */
+.bank-accordion-details {
+    background-color: #F8FAFD;
+    border-top: 1px solid #ECEFF4;
+    padding: 0 16px !important;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0 !important;
+    border-bottom: 1px solid #ECEFF4;
+}
+
+.detail-row.border-none {
+    border-bottom: none;
+}
+
+.detail-label-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.detail-value {
+    font-size: 15px;
+    color: var(--color-text-dark);
+    font-weight: 650;
+}
+
+.detail-value.font-primary {
+    color: var(--color-primary);
+    font-size: 18px;
+    font-weight: 750;
+}
+
+.detail-value.font-bold {
+    font-weight: 750;
+    letter-spacing: 0.5px;
+}
+
+/* Copy button */
+.copy-btn {
+    background-color: #F1F4F9;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-primary);
+    transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+    background-color: #E6F0FF;
+    transform: scale(1.05);
+}
+
+/* Muted state for other options */
+.muted-item {
+    background-color: #FAFCFE;
+    border-style: dashed;
+    border-color: #D3Dbe6;
+}
+
+.muted-item .bank-accordion-header {
+    cursor: default;
+}
+
+/* Footer of modal with complete transfer text and button */
+.payment-modal-footer {
+    background-color: #F8FAFD;
+    border-top: 1px solid #ECEFF4;
+    padding: 20px 24px 24px 24px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.timer-countdown {
+    display: flex;
+    align-items: center;
+    font-size: 13.5px;
+    color: var(--color-text-muted);
+}
+
+.timer-countdown strong {
+    color: var(--color-text-dark);
+    margin-left: 4px !important;
+}
+
+/* Success Card overlay popup */
+.success-popup-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    border-radius: 20px !important;
+    box-shadow: 0 24px 60px rgba(10, 46, 101, 0.3) !important;
+    padding: 36px 36px 30px 36px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.success-dots-accent {
+    display: flex;
+    gap: 6px;
+    color: var(--color-primary);
+    font-size: 12px;
+    letter-spacing: -2px;
+}
+
+.success-message-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.success-message-text p {
+    font-size: clamp(15px, 2.5vw, 17px);
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+    margin: 0 !important;
+}
+
 

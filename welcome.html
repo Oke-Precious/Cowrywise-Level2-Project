@@ -96,6 +96,115 @@
         </section>
     </main>
 
+    <!-- Payment/Transfer Modal Overlay -->
+    <div id="transferModal" class="payment-modal-overlay d-none" style="display: none;">
+        <div class="payment-modal">
+            <div class="payment-modal-header">
+                <h2>Make a transfer</h2>
+                <button class="close-modal-btn" onclick="closeTransferModal()">×</button>
+            </div>
+            <p class="payment-modal-subtitle">Transfer to any account below to complete your payment. Do not save for future use.</p>
+            
+            <div class="payment-modal-body">
+                <span class="payment-section-title">Recommended</span>
+                
+                <!-- Recommended Bank Box -->
+                <div class="bank-accordion-item">
+                    <div class="bank-accordion-header" onclick="toggleAccordion('recommendedBankDetails')">
+                        <div class="bank-brand-info">
+                            <span class="bank-logo-placeholder">S</span>
+                            <span class="bank-name-text">Special Bank</span>
+                        </div>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div id="recommendedBankDetails" class="bank-accordion-details">
+                        <div class="detail-row">
+                            <div class="detail-label-col">
+                                <span class="detail-label">Amount</span>
+                                <span class="detail-value font-primary" id="modalTransferAmount">₦ 1,015</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyText('modalTransferAmount', this)">
+                                <svg class="copy-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            </button>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label-col">
+                                <span class="detail-label">Account number</span>
+                                <span class="detail-value font-bold" id="modalAccountNumber">1657744435</span>
+                            </div>
+                            <button class="copy-btn" onclick="copyText('modalAccountNumber', this)">
+                                <svg class="copy-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+                            </button>
+                        </div>
+                        <div class="detail-row border-none">
+                            <div class="detail-label-col">
+                                <span class="detail-label">Account name</span>
+                                <span class="detail-value" id="modalAccountName">Cowrywise/Adeola Olaoluwa Siyanbola</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="payment-section-title mt-4">More options</span>
+
+                <!-- Paystack-Titan Bank Box -->
+                <div class="bank-accordion-item">
+                    <div class="bank-accordion-header" onclick="toggleAccordion('paystackTitanDetails')">
+                        <div class="bank-brand-info">
+                            <span class="bank-logo-placeholder pt-titan">P</span>
+                            <span class="bank-name-text">Paystack-Titan Bank</span>
+                        </div>
+                        <span class="accordion-arrow">▼</span>
+                    </div>
+                    <div id="paystackTitanDetails" class="bank-accordion-details d-none" style="display: none;">
+                        <div class="detail-row border-none">
+                            <div class="detail-label-col">
+                                <span class="detail-label">Status</span>
+                                <span class="detail-value text-muted" style="font-size: 13px;">Integration coming soon. Pay via Recommended bank above.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coming Soon Box -->
+                <div class="bank-accordion-item muted-item">
+                    <div class="bank-accordion-header">
+                        <div class="bank-brand-info">
+                            <span class="bank-logo-placeholder gray-bg">…</span>
+                            <span class="bank-name-text text-muted">Other banks coming soon...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-modal-footer">
+                <div class="timer-countdown">
+                    <svg viewBox="0 0 24 24" width="16" height="16" style="margin-right: 4px;"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/></svg>
+                    Complete transfer in <strong id="transferTimer">59:43</strong>
+                </div>
+                <button class="continue-btn active" style="width: 100%; border-radius: 8px;" onclick="handleIHavePaid()">I have paid</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Popup Modal Overlay -->
+    <div id="successPopupModal" class="payment-modal-overlay d-none" style="display: none; align-items: center; justify-content: center; background-color: rgba(10,46,101,0.5);">
+        <div class="success-popup-card">
+            <div class="success-dots-accent">
+                <span>●</span><span>●</span><span>●</span>
+            </div>
+            
+            <div class="success-message-text">
+                <p>Emergencies are never things we plan for, we simply hope to avoid them...</p>
+                <p>Don't get caught off guard — be the superhero of your story with our smarter solution...</p>
+            </div>
+
+            <button class="continue-btn active" style="width: auto; padding: 12px 36px !important; display: flex; align-items: center; gap: 8px; font-weight: 700;" onclick="navigateToDashboard()">
+                Show me how <span>&gt;</span>
+            </button>
+        </div>
+    </div>
+
     <footer class="sec-footer">
         Licensed by the SEC
     </footer>

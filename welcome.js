@@ -163,7 +163,10 @@
             }
         }
 
-        // Submits the wallet funding request and continues to index.html
+        // Timer variable for countdown
+        let timerInterval = null;
+
+        // Submits the wallet funding request and opens the payment method modal
         function handleFundWallet() {
             const amountInput = document.getElementById('fundAmount');
             if (!amountInput) return;
@@ -171,30 +174,155 @@
             const cleanAmount = parseInt(amountInput.value.replace(/[^0-9]/g, ''), 10);
             if (isNaN(cleanAmount) || cleanAmount < 1000) return;
 
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            const fundWalletBtn = document.getElementById('fundWalletBtn');
+            const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+            
+            // Format amounts (adding 15 Naira processing fee as per mockups)
+            const totalPayAmount = cleanAmount + 15;
+            const amountWithFeeFormatted = `₦ ${totalPayAmount.toLocaleString()}`;
 
-            if (currentUser && currentUser.uid && typeof db !== "undefined" && db) {
-                fundWalletBtn.disabled = true;
-                fundWalletBtn.textContent = "Processing...";
+            // Generate a random 10-digit account number
+            const randomAccountNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
+            // Set the full account name: Cowrywise/[firstName secondName]
+            let fullname = "User";
+            if (currentUser.firstName && currentUser.secondName) {
+                fullname = `${currentUser.firstName} ${currentUser.secondName}`;
+            } else if (currentUser.secondName) {
+                fullname = currentUser.secondName;
+            } else if (currentUser.firstName) {
+                fullname = currentUser.firstName;
+            }
+            const fullAccountName = `Cowrywise/${fullname}`;
+
+            // Populate the modal fields
+            document.getElementById('modalTransferAmount').textContent = amountWithFeeFormatted;
+            document.getElementById('modalAccountNumber').textContent = randomAccountNumber;
+            document.getElementById('modalAccountName').textContent = fullAccountName;
+
+            // Save values locally to confirm transaction details later
+            currentUser.pendingFundingAmount = cleanAmount;
+            currentUser.tempAccountNumber = randomAccountNumber;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            // Display Transfer modal overlay
+            const modal = document.getElementById('transferModal');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.remove('d-none');
+                startTransferTimer(59, 59);
+            }
+        }
+
+        // Close the transfer overlay
+        function closeTransferModal() {
+            const modal = document.getElementById('transferModal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.add('d-none');
+            }
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        // Accordion panel toggle function
+        function toggleAccordion(detailsId) {
+            const detailsElement = document.getElementById(detailsId);
+            if (!detailsElement) return;
+
+            // Toggle target details
+            if (detailsElement.classList.contains('d-none')) {
+                detailsElement.classList.remove('d-none');
+                detailsElement.style.display = 'block';
+            } else {
+                detailsElement.classList.add('d-none');
+                detailsElement.style.display = 'none';
+            }
+        }
+
+        // Clipboard copy utility
+        function copyText(elementId, buttonElement) {
+            const textToCopy = document.getElementById(elementId).textContent.replace('₦', '').trim();
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHTML = buttonElement.innerHTML;
+                buttonElement.innerHTML = `<span style="font-size: 10px; font-weight: bold; color: #00A680;">Copied!</span>`;
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHTML;
+                }, 2000);
+            }).catch(err => {
+                console.error("Failed to copy text: ", err);
+            });
+        }
+
+        // 60-minutes countdown timer logic
+        function startTransferTimer(minutes, seconds) {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            const timerDisplay = document.getElementById('transferTimer');
+            let totalSeconds = (minutes * 60) + seconds;
+
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    if (timerDisplay) timerDisplay.textContent = "00:00";
+                    return;
+                }
+                
+                totalSeconds--;
+                const min = Math.floor(totalSeconds / 60);
+                const sec = totalSeconds % 60;
+                
+                const formattedMin = min < 10 ? '0' + min : min;
+                const formattedSec = sec < 10 ? '0' + sec : sec;
+                
+                if (timerDisplay) {
+                    timerDisplay.textContent = `${formattedMin}:${formattedSec}`;
+                }
+            }, 1000);
+        }
+
+        // Handles clicking the 'I have paid' button
+        function handleIHavePaid() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const cleanAmount = currentUser.pendingFundingAmount || 1000;
+
+            closeTransferModal();
+
+            // Save details to Firebase database
+            if (currentUser.uid && typeof db !== "undefined" && db) {
                 db.collection("users").doc(currentUser.uid).update({
                     initialFundingAmount: cleanAmount,
-                    walletFunded: true
+                    walletFunded: true,
+                    virtualAccountNumber: currentUser.tempAccountNumber || ""
                 })
                 .then(() => {
                     currentUser.initialFundingAmount = cleanAmount;
                     currentUser.walletFunded = true;
+                    currentUser.virtualAccountNumber = currentUser.tempAccountNumber;
+                    delete currentUser.pendingFundingAmount;
+                    delete currentUser.tempAccountNumber;
                     localStorage.setItem('currentUser', JSON.stringify(currentUser));
-                    
-                    alert(`Successfully funded ₦${cleanAmount.toLocaleString()} to your wallet!`);
-                    window.location.href = "index.html";
+
+                    // Show success feedback cards popup modal
+                    showSuccessModal();
                 })
                 .catch((err) => {
-                    console.error("Error storing funding details:", err);
-                    window.location.href = "index.html";
+                    console.error("Database update error on confirmation:", err);
+                    showSuccessModal();
                 });
             } else {
-                window.location.href = "index.html";
+                showSuccessModal();
             }
+        }
+
+        // Opens the success response popup
+        function showSuccessModal() {
+            const successModal = document.getElementById('successPopupModal');
+            if (successModal) {
+                successModal.style.display = 'flex';
+                successModal.classList.remove('d-none');
+            }
+        }
+
+        // Action for 'Show me how' button to navigate to main index dashboard
+        function navigateToDashboard() {
+            window.location.href = "index.html";
         }
