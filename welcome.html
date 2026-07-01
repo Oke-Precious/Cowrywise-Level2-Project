@@ -157,11 +157,9 @@
                         <span class="accordion-arrow">▼</span>
                     </div>
                     <div id="paystackTitanDetails" class="bank-accordion-details d-none" style="display: none;">
-                        <div class="detail-row border-none">
-                            <div class="detail-label-col">
-                                <span class="detail-label">Status</span>
-                                <span class="detail-value text-muted" style="font-size: 13px;">Integration coming soon. Pay via Recommended bank above.</span>
-                            </div>
+                        <div class="detail-row border-none" style="flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px 0 !important;">
+                            <span class="detail-value" style="font-size: 14px; font-weight: 500;">Fund your wallet instantly using your debit card or bank transfer via Paystack.</span>
+                            <button class="continue-btn active" style="width: 100%; border-radius: 8px; margin-top: 0 !important; font-size: 14px;" onclick="payWithPaystack()">Pay with Paystack</button>
                         </div>
                     </div>
                 </div>
@@ -214,6 +212,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="./firebase-config.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
 
     <script src="./welcome.js"></script>
 </body>
