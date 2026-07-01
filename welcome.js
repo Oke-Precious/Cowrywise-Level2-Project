@@ -327,6 +327,54 @@ function navigateToDashboard() {
     window.location.href = "index.html";
 }
 
+// Custom Toast notification UI utility
+function showToast(message, type = "success") {
+    // Check if toast container exists, if not create it
+    let toastContainer = document.getElementById('toast-notification-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-notification-container';
+        toastContainer.style.position = 'fixed';
+        toastContainer.style.top = '24px';
+        toastContainer.style.right = '24px';
+        toastContainer.style.zIndex = '999999';
+        toastContainer.style.display = 'flex';
+        toastContainer.style.flexDirection = 'column';
+        toastContainer.style.gap = '10px';
+        document.body.appendChild(toastContainer);
+    }
+
+    const toast = document.createElement('div');
+    toast.style.background = type === "success" ? "#00A680" : "#FF3B30";
+    toast.style.color = "#ffffff";
+    toast.style.padding = "12px 24px";
+    toast.style.borderRadius = "8px";
+    toast.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.15)";
+    toast.style.fontSize = "14px";
+    toast.style.fontWeight = "600";
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(-20px)";
+    toast.style.transition = "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)";
+    toast.textContent = message;
+
+    toastContainer.appendChild(toast);
+
+    // Trigger animation
+    setTimeout(() => {
+        toast.style.opacity = "1";
+        toast.style.transform = "translateY(0)";
+    }, 50);
+
+    // Dismiss animation and deletion after 3.5 seconds
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-20px)";
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 3500);
+}
+
 function payWithPaystack() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
     const amountInput = document.getElementById('fundAmount');
@@ -341,12 +389,17 @@ function payWithPaystack() {
         amount: totalAmount * 100, 
         currency: 'NGN',
         callback: function (response) {
-            // This runs on successful payment validation!
-            alert('Payment successful! Reference: ' + response.reference);
+            // Use custom toast instead of default alert popup
+            showToast('Payment successful!');
+            
+            // Auto close payment modal overlay
+            closeTransferModal();
+
+            // Triggers database update and success message dialog
             handleIHavePaid(); 
         },
         onClose: function () {
-            alert('Transaction cancelled.');
+            showToast('Transaction cancelled.', 'error');
         }
     });
 
