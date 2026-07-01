@@ -23,8 +23,8 @@
         </a>
     </header>
 
-    <!-- Main Content Container -->
-    <main class="welcome-container">
+    <!-- Main Content Container (Step 1: Choose Savings/Investments) -->
+    <main class="welcome-container" id="step1Container">
         <!-- Left Side: Greeting -->
         <section class="left-section">
             <p class="greeting-text">Welcome, <span id="username">Adeola</span>!</p>
@@ -58,6 +58,40 @@
                 <p class="social-proof">
                     <span class="heart-icon">💙</span> Over 2 million people build wealth on Cowrywise.
                 </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Main Content Container (Step 2: Fund Wallet Screen) -->
+    <main class="welcome-container d-none" id="step2Container" style="display: none;">
+        <!-- Left Side: Fund details input -->
+        <section class="left-section fund-input-section">
+            <h1 class="main-question">Start saving by<br>funding your wallet</h1>
+            <p class="fund-subtitle">How much would you like to start with?</p>
+            
+            <div class="amount-input-wrapper">
+                <span class="currency-symbol">₦</span>
+                <input type="text" id="fundAmount" value="1,000" oninput="formatAndValidateAmount(this)" autocomplete="off">
+            </div>
+
+            <div id="processingFeeContainer" class="processing-fee-tag">
+                + ₦ 15.00 processing fee
+            </div>
+            
+            <div id="fundLimitWarning" class="limit-warning-msg d-none" style="display: none;">
+                <span class="warning-dot">●</span> A minimum of ₦ 1,000 is required
+            </div>
+
+            <div class="fund-action-container">
+                <button class="continue-btn active" id="fundWalletBtn" onclick="handleFundWallet()">Fund wallet</button>
+                <button class="back-link-btn" onclick="goBackToStep1()">Back</button>
+            </div>
+        </section>
+
+        <!-- Right Side: Savings Cards Graphic -->
+        <section class="right-section graphics-section">
+            <div class="stacked-graphic-wrapper">
+                <img src="./media/wallet_savings_cards.png" alt="Cowrywise Savings Cards" class="stacked-cards-img">
             </div>
         </section>
     </main>

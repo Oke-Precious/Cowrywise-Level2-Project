@@ -389,3 +389,165 @@ body::after {
         transform: translateY(0);
     }
 }
+
+/* Helper Class */
+.d-none {
+    display: none !important;
+}
+
+/* ==========================================
+   STEP 2: FUND WALLET SPECIFIC STYLING
+   ========================================== */
+
+.fund-input-section {
+    align-items: flex-start !important;
+    text-align: left !important;
+}
+
+.fund-subtitle {
+    font-size: clamp(14px, 2.2vw, 17px);
+    color: var(--color-text-muted);
+    font-weight: 500;
+    margin-top: 15px !important;
+    margin-bottom: 25px !important;
+}
+
+/* Amount Input styling */
+.amount-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px !important;
+}
+
+.currency-symbol {
+    font-size: clamp(38px, 6vw, 54px);
+    font-weight: 700;
+    color: var(--color-text-dark);
+    line-height: 1;
+}
+
+#fundAmount {
+    font-size: clamp(38px, 6vw, 54px);
+    font-weight: 700;
+    color: var(--color-text-dark);
+    border: none;
+    background: transparent;
+    outline: none;
+    line-height: 1;
+    width: 250px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Processing Fee tag */
+.processing-fee-tag {
+    display: inline-block;
+    background-color: #F1F4F9;
+    color: var(--color-text-muted);
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 6px 16px !important;
+    border-radius: 30px !important;
+    margin-bottom: 30px !important;
+    transition: opacity 0.3s ease;
+}
+
+/* Limit warning message */
+.limit-warning-msg {
+    color: #FF2B2B;
+    font-size: 13.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 30px !important;
+    animation: fadeInUp 0.2s ease-out;
+}
+
+.warning-dot {
+    font-size: 10px;
+}
+
+/* Step 2 Action buttons */
+.fund-action-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.fund-action-container .continue-btn {
+    margin-top: 0 !important;
+}
+
+.fund-action-container .continue-btn:disabled {
+    background-color: #92BFFF !important;
+    cursor: not-allowed;
+}
+
+.back-link-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-primary);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px !important;
+    width: 100%;
+    max-width: 320px;
+    transition: color 0.2s ease;
+}
+
+.back-link-btn:hover {
+    color: var(--color-primary-hover);
+}
+
+/* Stacked graphics panel styling */
+.graphics-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stacked-graphic-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    justify-content: center;
+}
+
+.stacked-cards-img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(10, 46, 101, 0.08));
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Responsive Overrides for Step 2 */
+@media (max-width: 992px) {
+    .fund-input-section {
+        align-items: center !important;
+        text-align: center !important;
+    }
+    
+    .amount-input-wrapper {
+        justify-content: center;
+    }
+    
+    .limit-warning-msg {
+        justify-content: center;
+    }
+    
+    .back-link-btn {
+        max-width: 100%;
+    }
+    
+    .stacked-graphic-wrapper {
+        max-width: 320px;
+        margin-top: 20px !important;
+    }
+}
+

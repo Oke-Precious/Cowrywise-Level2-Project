@@ -83,12 +83,118 @@
             }
 
             function proceedToNext() {
-                if (selectedOption === 'savings') {
-                    alert("Redirecting to Savings setup...");
-                    window.location.href = "index.html"; 
-                } else if (selectedOption === 'investments') {
-                    alert("Redirecting to Investments setup...");
-                    window.location.href = "index.html"; 
+                // Smoothly switch from step 1 layout to step 2 fund wallet layout
+                const step1 = document.getElementById('step1Container');
+                const step2 = document.getElementById('step2Container');
+                
+                if (step1 && step2) {
+                    step1.style.display = 'none';
+                    step1.classList.add('d-none');
+                    
+                    step2.style.display = 'flex';
+                    step2.classList.remove('d-none');
+                    
+                    // Reset input focus and values
+                    const fundAmountInput = document.getElementById('fundAmount');
+                    if (fundAmountInput) {
+                        fundAmountInput.focus();
+                        formatAndValidateAmount(fundAmountInput);
+                    }
                 }
+            }
+        }
+
+        // Return back to Step 1 selector screen
+        function goBackToStep1() {
+            const step1 = document.getElementById('step1Container');
+            const step2 = document.getElementById('step2Container');
+            
+            if (step1 && step2) {
+                step2.style.display = 'none';
+                step2.classList.add('d-none');
+                
+                step1.style.display = 'flex';
+                step1.classList.remove('d-none');
+            }
+        }
+
+        // Real-time currency format & validation logic
+        function formatAndValidateAmount(input) {
+            // Remove non-numeric characters
+            let rawValue = input.value.replace(/[^0-9]/g, '');
+            
+            // Format with thousands separator
+            let numericVal = parseInt(rawValue, 10);
+            if (isNaN(numericVal)) {
+                numericVal = 0;
+            }
+            
+            input.value = numericVal.toLocaleString('en-US');
+            
+            // Validate limit constraint (Minimum ₦1,000)
+            const warning = document.getElementById('fundLimitWarning');
+            const processingFee = document.getElementById('processingFeeContainer');
+            const fundBtn = document.getElementById('fundWalletBtn');
+            
+            if (numericVal < 1000) {
+                if (warning) {
+                    warning.style.display = 'flex';
+                    warning.classList.remove('d-none');
+                }
+                if (processingFee) {
+                    processingFee.style.display = 'none';
+                    processingFee.classList.add('d-none');
+                }
+                if (fundBtn) {
+                    fundBtn.disabled = true;
+                }
+            } else {
+                if (warning) {
+                    warning.style.display = 'none';
+                    warning.classList.add('d-none');
+                }
+                if (processingFee) {
+                    processingFee.style.display = 'inline-block';
+                    processingFee.classList.remove('d-none');
+                }
+                if (fundBtn) {
+                    fundBtn.disabled = false;
+                }
+            }
+        }
+
+        // Submits the wallet funding request and continues to index.html
+        function handleFundWallet() {
+            const amountInput = document.getElementById('fundAmount');
+            if (!amountInput) return;
+
+            const cleanAmount = parseInt(amountInput.value.replace(/[^0-9]/g, ''), 10);
+            if (isNaN(cleanAmount) || cleanAmount < 1000) return;
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const fundWalletBtn = document.getElementById('fundWalletBtn');
+
+            if (currentUser && currentUser.uid && typeof db !== "undefined" && db) {
+                fundWalletBtn.disabled = true;
+                fundWalletBtn.textContent = "Processing...";
+
+                db.collection("users").doc(currentUser.uid).update({
+                    initialFundingAmount: cleanAmount,
+                    walletFunded: true
+                })
+                .then(() => {
+                    currentUser.initialFundingAmount = cleanAmount;
+                    currentUser.walletFunded = true;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    alert(`Successfully funded ₦${cleanAmount.toLocaleString()} to your wallet!`);
+                    window.location.href = "index.html";
+                })
+                .catch((err) => {
+                    console.error("Error storing funding details:", err);
+                    window.location.href = "index.html";
+                });
+            } else {
+                window.location.href = "index.html";
             }
         }
