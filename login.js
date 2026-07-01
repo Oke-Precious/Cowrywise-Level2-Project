@@ -269,7 +269,7 @@ const signInWithGoogle = (event) => {
             console.error("Google Sign In Error:", error);
             const loginErrorMessage = document.getElementById('loginErrorMessage');
             if (loginErrorMessage) {
-                loginErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Google sign-in failed: ${error.message}</p>`;
+                loginErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Google sign-in failed</p>`;
                 loginErrorMessage.style.fontSize = "12px";
             }
         });

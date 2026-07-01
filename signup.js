@@ -116,7 +116,13 @@ const createAccount=()=>{
         .catch((error) => {
             if (error.message === "username-taken") return;
             console.error("Signup error:", error);
-            signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> ${error.message}</p>`;
+            let userMsg = error.message;
+            if (error.code === "auth/email-already-in-use") {
+                userMsg = "email already exist";
+                emailInput.style.border = "1px solid red";
+                emailLabel.style.color = "red";
+            }
+            signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> ${userMsg}</p>`;
             signupErrorMessage.style.fontSize = "12px";
         });
 }
