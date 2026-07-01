@@ -1,0 +1,293 @@
+/* ==========================================
+   COWRYWISE ONBOARDING WELCOME STYLING
+   ========================================== */
+
+* {
+    box-sizing: border-box !important;
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", sans-serif !important;
+}
+
+body {
+    background: radial-gradient(circle at top, #EBF5FC 0%, #FFFFFF 100%) !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 24px !important;
+    overflow-x: hidden;
+}
+
+.logo-header {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 20px !important;
+}
+
+.logo-header img {
+    height: 32px;
+}
+
+/* Onboarding Layout Container */
+.welcome-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    width: 100%;
+    margin: auto !important;
+    gap: 80px;
+}
+
+/* Left Column: Greeting & Header */
+.left-section {
+    flex: 1;
+    text-align: left;
+}
+
+.greeting-text {
+    font-size: 22px;
+    color: #6C82A3;
+    font-weight: 500;
+    margin-bottom: 12px !important;
+}
+
+.main-question {
+    font-size: 54px;
+    font-weight: 700;
+    color: #0A2E65;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin: 0 !important;
+}
+
+/* Right Column: Cards, Buttons, Bottom Text */
+.right-section {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Option Cards Row */
+.cards-row {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 48px !important;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Dynamic Option Card Base */
+.option-card {
+    border-radius: 28px !important;
+    padding: 30px 24px 24px 24px !important;
+    width: 220px;
+    height: 220px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 3px solid transparent !important;
+    position: relative;
+    box-shadow: 0 4px 16px rgba(10, 46, 101, 0.03);
+    user-select: none;
+}
+
+.option-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(10, 46, 101, 0.08);
+}
+
+.option-card.selected {
+    border-color: #056DFF !important;
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 32px rgba(5, 109, 255, 0.15);
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 !important;
+    line-height: 1;
+}
+
+/* Card Specific Themes */
+.savings-card {
+    background-color: #D2F1FC !important;
+}
+
+.savings-card .card-title {
+    color: #007696;
+}
+
+.investments-card {
+    background-color: #F5EEFC !important;
+}
+
+.investments-card .card-title {
+    color: #5C2D91;
+}
+
+/* Illustrations inside cards */
+.card-illustration {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-top: 10px !important;
+    position: relative;
+}
+
+.card-illustration img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.option-card:hover .card-illustration img {
+    transform: scale(1.05);
+}
+
+/* Actions: Button & Social Proof */
+.action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.continue-btn {
+    background-color: #B5D2FC;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none !important;
+    padding: 16px 48px !important;
+    border-radius: 8px !important;
+    cursor: not-allowed;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 24px !important;
+    min-width: 190px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    box-shadow: none;
+}
+
+.continue-btn.active {
+    background-color: #056DFF;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(5, 109, 255, 0.3);
+}
+
+.continue-btn.active:hover {
+    background-color: #044AC4;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(5, 109, 255, 0.4);
+}
+
+.continue-btn.active:active {
+    transform: translateY(0);
+}
+
+.social-proof {
+    font-size: 13px;
+    color: #7A8FAA;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 !important;
+}
+
+.social-proof span.heart-icon {
+    color: #056DFF;
+    font-size: 14px;
+}
+
+/* SEC Footer text */
+.sec-footer {
+    font-size: 11px;
+    color: #A2B9D6;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 60px !important;
+    text-align: center;
+    width: 100%;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================== */
+
+@media (max-width: 992px) {
+    body {
+        padding: 30px 20px !important;
+    }
+    
+    .welcome-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 50px;
+    }
+    
+    .left-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .greeting-text {
+        font-size: 20px;
+    }
+    
+    .main-question {
+        font-size: 42px;
+    }
+    
+    .cards-row {
+        margin-bottom: 40px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .main-question {
+        font-size: 34px;
+    }
+    
+    .cards-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .option-card {
+        width: 100%;
+        max-width: 280px;
+        height: 180px;
+        flex-direction: row;
+        align-items: center;
+        padding: 24px !important;
+    }
+    
+    .card-illustration {
+        width: 100px;
+        height: 100px;
+        margin-top: 0 !important;
+    }
+    
+    .sec-footer {
+        margin-top: 40px !important;
+    }
+}
