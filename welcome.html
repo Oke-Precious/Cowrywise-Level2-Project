@@ -11,6 +11,11 @@
     <title>Welcome | Cowrywise</title>
 </head>
 <body>
+    <!-- Full-screen Page Transition Loader Overlay -->
+    <div id="pageTransitionLoader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #ffffff; z-index: 99999; display: flex; align-items: center; justify-content: center;">
+        <img src="./media/cowrywiseloader.gif" alt="Loading..." style="width: clamp(100px, 15vw, 200px); height: auto;">
+    </div>
+
     <!-- Top Brand Logo -->
     <header class="logo-header">
         <a href="index.html">
@@ -34,7 +39,7 @@
                 <div class="option-card savings-card" id="savingsCard" onclick="selectOption('savings')">
                     <h3 class="card-title">Savings</h3>
                     <div class="card-illustration">
-                        <img src="./media/welcome-savings.svg" alt="Savings vault illustration" id="savingsImg">
+                        <img src="./media/welcomesaving.png" alt="Savings vault illustration" id="savingsImg">
                     </div>
                 </div>
 
@@ -42,7 +47,7 @@
                 <div class="option-card investments-card" id="investmentsCard" onclick="selectOption('investments')">
                     <h3 class="card-title">Investments</h3>
                     <div class="card-illustration">
-                        <img src="./media/welcome-investments.svg" alt="Investments basket illustration" id="investmentsImg">
+                        <img src="./media/welcomeinvestment.png" alt="Investments basket illustration" id="investmentsImg">
                     </div>
                 </div>
             </div>
@@ -57,58 +62,16 @@
         </section>
     </main>
 
-    <!-- SEC Badge Footer -->
     <footer class="sec-footer">
         Licensed by the SEC
     </footer>
 
-    <!-- Interactive Onboarding Logic -->
-    <script>
-        let selectedOption = null;
+    <!-- Firebase CDNs (Compat version) required for saving onboarding choices to Firestore -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="./firebase-config.js"></script>
 
-        // Fetch registered user name dynamically
-        window.addEventListener('DOMContentLoaded', () => {
-            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-            if (currentUser && currentUser.firstName) {
-                document.getElementById('username').textContent = currentUser.firstName;
-            }
-        });
-
-        // Toggle selected option card and activate Continue button
-        function selectOption(option) {
-            selectedOption = option;
-            
-            const savingsCard = document.getElementById('savingsCard');
-            const investmentsCard = document.getElementById('investmentsCard');
-            const continueBtn = document.getElementById('continueBtn');
-
-            if (option === 'savings') {
-                savingsCard.classList.add('selected');
-                investmentsCard.classList.remove('selected');
-            } else if (option === 'investments') {
-                investmentsCard.classList.add('selected');
-                savingsCard.classList.remove('selected');
-            }
-
-            // Enable and style button
-            continueBtn.disabled = false;
-            continueBtn.classList.add('active');
-        }
-
-        // Navigate forward
-        function handleContinue() {
-            if (!selectedOption) return;
-            
-            if (selectedOption === 'savings') {
-                // Navigate to savings dashboard or page
-                alert("Redirecting to Savings setup...");
-                window.location.href = "index.html"; 
-            } else if (selectedOption === 'investments') {
-                // Navigate to investments page or dashboard
-                alert("Redirecting to Investments setup...");
-                window.location.href = "index.html"; 
-            }
-        }
-    </script>
+    <script src="./welcome.js"></script>
 </body>
 </html>

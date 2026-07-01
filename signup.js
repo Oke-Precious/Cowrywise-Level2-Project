@@ -121,6 +121,14 @@ const createAccount=()=>{
                 userMsg = "email already exist";
                 emailInput.style.border = "1px solid red";
                 emailLabel.style.color = "red";
+            } else if (error.code === "auth/weak-password") {
+                userMsg = "Password should be at least 8 characters long";
+                password.style.border = "1px solid red";
+                confirmPassword.style.border = "1px solid red";
+            } else if (error.code === "auth/password-does-not-meet-requirements" || (error.message && error.message.includes("password-does-not-meet-requirements")) || (error.message && error.message.includes("requirements"))) {
+                userMsg = "Password must contain an uppercase letter, a number, and a special character.";
+                password.style.border = "1px solid red";
+                confirmPassword.style.border = "1px solid red";
             }
             signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> ${userMsg}</p>`;
             signupErrorMessage.style.fontSize = "12px";

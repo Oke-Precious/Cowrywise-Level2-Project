@@ -57,20 +57,26 @@ const addBVN = () => {
             .then((querySnapshot) => {
                 if (!querySnapshot.empty) {
                     const doc = querySnapshot.docs[0];
-                    return doc.ref.update({
+                    const updatedData = {
                         bvn: bvnValue,
                         dob: dobValue
+                    };
+                    return doc.ref.update(updatedData).then(() => {
+                        return doc.ref.get();
                     });
                 } else {
                     throw new Error("User session not found in database.");
                 }
             })
-            .then(() => {
+            .then((updatedDoc) => {
+                const userData = updatedDoc.data();
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
                 bvnErrorMessage.innerHTML = `<p class="text-success mt-2" style="font-weight: 500;">✅ BVN Verification Successful!</p>`;
                 bvnErrorMessage.style.fontSize = "13px";
                 localStorage.removeItem('newUserEmail');
                 setTimeout(() => {
-                    window.location.href = "login.html";
+                    window.location.href = "welcome.html";
                 }, 1500);
             })
             .catch((error) => {
@@ -82,7 +88,7 @@ const addBVN = () => {
         bvnErrorMessage.innerHTML = `<p class="text-success mt-2" style="font-weight: 500;">✅ BVN Verification Successful!</p>`;
         bvnErrorMessage.style.fontSize = "13px";
         setTimeout(() => {
-            window.location.href = "login.html";
+            window.location.href = "welcome.html";
         }, 1500);
     }
 }
