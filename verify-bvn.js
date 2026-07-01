@@ -1,4 +1,4 @@
-let allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
+// userDatabase in localStorage is replaced by Firestore db
 
 // ===================== BVN VERIFICATION ===============================
 const addBVN = () => {
@@ -43,31 +43,46 @@ const addBVN = () => {
         return;
     }
     
-    // Find user in localStorage database using newUserEmail
+    // Find user in Firestore database using newUserEmail
     const newUserEmail = localStorage.getItem('newUserEmail');
+    
+    // Check if firebase is configured
+    if (typeof isFirebaseConfigured !== "function" || !isFirebaseConfigured()) {
+        showFirebaseSetupWarning();
+        return;
+    }
+
     if (newUserEmail) {
-        const allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
-        const userIndex = allUserDetails.findIndex(user => user.email === newUserEmail);
-        if (userIndex !== -1) {
-            allUserDetails[userIndex].bvn = bvnValue;
-            allUserDetails[userIndex].dob = dobValue;
-            localStorage.setItem('userDatabase', JSON.stringify(allUserDetails));
-            bvnErrorMessage.innerHTML = `<p class="text-success mt-2" style="font-weight: 500;">✅ BVN Verification Successful!</p>`;
-            bvnErrorMessage.style.fontSize = "13px";
-            localStorage.removeItem('newUserEmail');
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 1500);
-            
-        } else {
-            bvnErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> User session not found. Please sign up again.</p>`;
-            bvnErrorMessage.style.fontSize = "12px";
-        }
+        db.collection("users").where("email", "==", newUserEmail).get()
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    const doc = querySnapshot.docs[0];
+                    return doc.ref.update({
+                        bvn: bvnValue,
+                        dob: dobValue
+                    });
+                } else {
+                    throw new Error("User session not found in database.");
+                }
+            })
+            .then(() => {
+                bvnErrorMessage.innerHTML = `<p class="text-success mt-2" style="font-weight: 500;">✅ BVN Verification Successful!</p>`;
+                bvnErrorMessage.style.fontSize = "13px";
+                localStorage.removeItem('newUserEmail');
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
+            })
+            .catch((error) => {
+                console.error("BVN Error:", error);
+                bvnErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> ${error.message}</p>`;
+                bvnErrorMessage.style.fontSize = "12px";
+            });
     } else {
-            bvnErrorMessage.innerHTML = `<p class="text-success mt-2" style="font-weight: 500;">✅ BVN Verification Successful!</p>`;
-            bvnErrorMessage.style.fontSize = "13px";
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 1500);
+        bvnErrorMessage.innerHTML = `<p class="text-success mt-2" style="font-weight: 500;">✅ BVN Verification Successful!</p>`;
+        bvnErrorMessage.style.fontSize = "13px";
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1500);
     }
 }

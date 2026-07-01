@@ -1,4 +1,4 @@
-let allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
+// userDatabase in localStorage is replaced by Firestore db
 
 // ===================== PIN MODAL FUNCTIONS ===============================
 const showPINModal = () => {
@@ -92,17 +92,26 @@ const createPIN = () => {
     
     const newUserEmail = localStorage.getItem('newUserEmail');
     if(newUserEmail) {
-        const allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
-        const userIndex = allUserDetails.findIndex(user => user.email === newUserEmail);
-        if(userIndex !== -1) {
-            allUserDetails[userIndex].pin = createPINValue;
-            localStorage.setItem('userDatabase', JSON.stringify(allUserDetails));
-            window.location.href = 'verify-bvn.html';
-            return;
-        }
+        // Query Firestore for user by email and update PIN
+        db.collection("users").where("email", "==", newUserEmail).get()
+            .then((querySnapshot) => {
+                if (!querySnapshot.empty) {
+                    const doc = querySnapshot.docs[0];
+                    return doc.ref.update({ pin: createPINValue });
+                } else {
+                    throw new Error("User record not found");
+                }
+            })
+            .then(() => {
+                window.location.href = 'verify-bvn.html';
+            })
+            .catch((err) => {
+                console.error("Error setting PIN:", err);
+                showPINError(err.message || 'Error saving PIN to server', 'create-pin-input');
+            });
+        return;
     }
     
-    localStorage.removeItem('newUserEmail');
     closePINModal();
 }
 
@@ -130,31 +139,59 @@ const signIn = () =>{
         loginEmail.style.border = "1px solid red";
         loginPassword.style.border = "1px solid red";
         loginErrorMessage.style.fontSize = "12px";
+        return;
     }
-    else if(!loginEmail.value.includes("@") || !loginEmail.value.includes(".")){
+    if(!loginEmail.value.includes("@") || !loginEmail.value.includes(".")){
         loginErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Enter a valid email address</p>`;
         loginEmailLabel.style.color = "red";
         loginErrorMessage.style.fontSize = "12px";
         loginEmail.style.border = "1px solid red";
+        return;
     }
-    else{
-        for(let index=0; index<allUserDetails.length; index++){
-            if(allUserDetails[index].email == loginEmail.value.toLowerCase() && allUserDetails[index].password == loginPassword.value){
-                localStorage.setItem('currentUser', JSON.stringify(allUserDetails[index]));
-                window.location.href = "welcome.html";
-                break;
-            }
-            else{
-                loginErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Invalid credentials</p>`;
-                loginEmailLabel.style.color = "red";
-                loginErrorMessage.style.fontSize = "12px";
-                loginEmail.style.border = "1px solid red";
-                loginPassword.style.border = "1px solid red";
-                errorLabel();
-                return;
-            }
-        }
+
+    // Check if firebase is configured
+    if (typeof isFirebaseConfigured !== "function" || !isFirebaseConfigured()) {
+        showFirebaseSetupWarning();
+        return;
     }
+
+    const email = loginEmail.value.toLowerCase();
+    const pwd = loginPassword.value;
+
+    auth.signInWithEmailAndPassword(email, pwd)
+        .then((result) => {
+            const uid = result.user.uid;
+            return db.collection("users").doc(uid).get();
+        })
+        .then((doc) => {
+            if (doc.exists) {
+                const userData = doc.data();
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                
+                // Direct user based on missing setup fields
+                if (!userData.pin) {
+                    localStorage.setItem('newUserEmail', userData.email);
+                    window.location.href = "login.html?newUser=true";
+                } else if (!userData.bvn) {
+                    localStorage.setItem('newUserEmail', userData.email);
+                    window.location.href = "verify-bvn.html";
+                } else {
+                    localStorage.removeItem('newUserEmail');
+                    window.location.href = "welcome.html";
+                }
+            } else {
+                throw new Error("User profile not found");
+            }
+        })
+        .catch((error) => {
+            console.error("Login Error:", error);
+            loginErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Invalid email or password</p>`;
+            loginEmailLabel.style.color = "red";
+            loginErrorMessage.style.fontSize = "12px";
+            loginEmail.style.border = "1px solid red";
+            loginPassword.style.border = "1px solid red";
+            errorLabel();
+        });
 }
 
 // ===================== GOOGLE SIGN IN =======================================
@@ -171,38 +208,46 @@ const signInWithGoogle = (event) => {
         .then((result) => {
             const user = result.user;
             const email = user.email.toLowerCase();
+            const uid = user.uid;
 
-            // Access latest database
-            let currentDatabase = JSON.parse(localStorage.getItem('userDatabase')) || [];
-            let existingUser = currentDatabase.find(u => u.email === email);
+            // Fetch user profile from Firestore
+            return db.collection("users").doc(uid).get()
+                .then((doc) => {
+                    if (!doc.exists) {
+                        // Create profile for new Google user
+                        const displayName = user.displayName || "";
+                        const nameParts = displayName.split(" ");
+                        const firstNameVal = nameParts[0] || "User";
+                        const lastNameVal = nameParts.slice(1).join(" ") || "Google";
+                        const usernameVal = email.split("@")[0] + Math.floor(Math.random() * 1000);
 
-            if (!existingUser) {
-                // If user doesn't exist yet, sign them up seamlessly
-                const displayName = user.displayName || "";
-                const nameParts = displayName.split(" ");
-                const firstNameVal = nameParts[0] || "User";
-                const lastNameVal = nameParts.slice(1).join(" ") || "Google";
-                const usernameVal = email.split("@")[0] + Math.floor(Math.random() * 1000);
+                        const userDetails = {
+                            uid: uid,
+                            email: email,
+                            firstName: firstNameVal,
+                            secondName: lastNameVal,
+                            username: usernameVal,
+                            phoneNumber: user.phoneNumber || "",
+                            isHalal: false,
+                            authProvider: "google"
+                        };
 
-                existingUser = {
-                    email: email,
-                    password: "", // Google accounts do not have local passwords
-                    firstName: firstNameVal,
-                    secondName: lastNameVal,
-                    username: usernameVal,
-                    phoneNumber: user.phoneNumber || "",
-                    isHalal: false,
-                    authProvider: "google"
-                };
-                currentDatabase.push(existingUser);
-                localStorage.setItem('userDatabase', JSON.stringify(currentDatabase));
-            }
-
+                        return db.collection("users").doc(uid).set(userDetails)
+                            .then(() => userDetails);
+                    } else {
+                        // User exists, return their profile data
+                        return doc.data();
+                    }
+                });
+        })
+        .then((userData) => {
+            if (!userData) return;
+            
             // Save user email temporarily for onboarding sequence
-            localStorage.setItem('newUserEmail', email);
+            localStorage.setItem('newUserEmail', userData.email);
 
             // Direct user based on missing setup fields
-            if (!existingUser.pin) {
+            if (!userData.pin) {
                 // PIN setup is required, redirect to login page with newUser parameter
                 if (window.location.search.includes('newUser=true')) {
                     // We are already on the page with the parameter, show modal directly
@@ -210,12 +255,12 @@ const signInWithGoogle = (event) => {
                 } else {
                     window.location.href = "login.html?newUser=true";
                 }
-            } else if (!existingUser.bvn) {
+            } else if (!userData.bvn) {
                 // BVN verification is required
                 window.location.href = "verify-bvn.html";
             } else {
                 // Already fully registered: log in directly
-                localStorage.setItem('currentUser', JSON.stringify(existingUser));
+                localStorage.setItem('currentUser', JSON.stringify(userData));
                 localStorage.removeItem('newUserEmail');
                 window.location.href = "welcome.html";
             }

@@ -1,4 +1,4 @@
-let allUserDetails = JSON.parse(localStorage.getItem('userDatabase')) || [];
+// userDatabase in localStorage is replaced by Firestore db
 
 // ===================== HALAL MODAL FUNCTIONS ===============================
 const showHalalModal = () => {
@@ -26,18 +26,6 @@ const errorLabel = ()=>{
 }
 
 const createAccount=()=>{
-    for(let index=0; index<allUserDetails.length; index++){
-        if(allUserDetails[index].email == emailInput.value){
-            signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> An account with this email exists. Please login to your account.</p>`;
-            signupErrorMessage.style.fontSize = "12px";
-            return;
-        }
-        else if(allUserDetails[index].username == username.value){
-            signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> An account with this username exists. Please choose a different username.</p>`;
-            signupErrorMessage.style.fontSize = "12px";
-            return;
-        }
-    }
     if(emailInput.value=="" || firstName.value == "" || lastName.value == "" || username.value == "" || phoneNumber.value =="" || password.value == "" || confirmPassword.value == ""){
         errorLabel();
         emailInput.style.border = "1px solid red";
@@ -55,41 +43,82 @@ const createAccount=()=>{
         confirmPassword.style.color = "red";
         signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Enter a valid credentials</p>`;
         signupErrorMessage.style.fontSize = "12px";
+        return;
     }
-    else if(confirmPassword.value.length < 8){
+    if(confirmPassword.value.length < 8){
         signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Password must be at least 8 characters</p>`;
         password.style.border = "1px solid red";
         confirmPassword.style.border = "1px solid red";
         signupErrorMessage.style.fontSize = "12px";
+        return;
     }
-    else if(!emailInput.value.includes("@") || !emailInput.value.includes(".")){
+    if(!emailInput.value.includes("@") || !emailInput.value.includes(".")){
         signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Enter a valid email address</p>`;
         signupErrorMessage.style.fontSize = "12px";
         emailInput.style.border = "1px solid red";
         emailLabel.style.color = "red";
+        return;
     }
-    else if(password.value !== confirmPassword.value){
+    if(password.value !== confirmPassword.value){
         signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> Passwords do not match</p>`;
         password.style.border = "1px solid red";
         confirmPassword.style.border = "1px solid red";
         signupErrorMessage.style.fontSize = "12px";
+        return;
     }
-    else{
-        let userDetails = {
-            email: emailInput.value.trim().toLowerCase(),
-            password: confirmPassword.value.trim(),
-            firstName: firstName.value.trim(),
-            secondName: lastName.value.trim(),
-            username: username.value.trim(),
-            phoneNumber: phoneNumber.value.trim(),
-            isHalal: document.getElementById('halalToggle')?.checked || false
-        }
-        allUserDetails.push(userDetails);
-        localStorage.setItem('userDatabase', JSON.stringify(allUserDetails));
-        localStorage.setItem('newUserEmail', emailInput.value.trim().toLowerCase());
-        window.location.href = "login.html?newUser=true";
-        console.log(allUserDetails);
+
+    // Check if firebase is configured
+    if (typeof isFirebaseConfigured !== "function" || !isFirebaseConfigured()) {
+        showFirebaseSetupWarning();
+        return;
     }
+
+    const email = emailInput.value.trim().toLowerCase();
+    const usernameVal = username.value.trim();
+
+    // Verify username uniqueness in Firestore first
+    db.collection("users").where("username", "==", usernameVal).get()
+        .then((querySnapshot) => {
+            if (!querySnapshot.empty) {
+                signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> An account with this username exists. Please choose a different username.</p>`;
+                signupErrorMessage.style.fontSize = "12px";
+                username.style.border = "1px solid red";
+                throw new Error("username-taken");
+            }
+            
+            // Create user in Firebase Auth
+            return auth.createUserWithEmailAndPassword(email, password.value.trim());
+        })
+        .then((userCredential) => {
+            if (!userCredential) return;
+            
+            const uid = userCredential.user.uid;
+            const userDetails = {
+                uid: uid,
+                email: email,
+                firstName: firstName.value.trim(),
+                secondName: lastName.value.trim(),
+                username: usernameVal,
+                phoneNumber: phoneNumber.value.trim(),
+                isHalal: document.getElementById('halalToggle')?.checked || false,
+                authProvider: "email"
+            };
+
+            // Store details in Firestore doc users/{uid}
+            return db.collection("users").doc(uid).set(userDetails);
+        })
+        .then((result) => {
+            if (result === undefined) {
+                localStorage.setItem('newUserEmail', email);
+                window.location.href = "login.html?newUser=true";
+            }
+        })
+        .catch((error) => {
+            if (error.message === "username-taken") return;
+            console.error("Signup error:", error);
+            signupErrorMessage.innerHTML = `<p class="text-danger mt-2" style="font-weight: 500;"><b>&#x26A0;</b> ${error.message}</p>`;
+            signupErrorMessage.style.fontSize = "12px";
+        });
 }
 
 // ===================== GOOGLE SIGN UP =======================================
@@ -106,48 +135,54 @@ const signUpWithGoogle = (event) => {
         .then((result) => {
             const user = result.user;
             const email = user.email.toLowerCase();
+            const uid = user.uid;
 
-            // Extract names from display name
-            const displayName = user.displayName || "";
-            const nameParts = displayName.split(" ");
-            const firstNameVal = nameParts[0] || "User";
-            const lastNameVal = nameParts.slice(1).join(" ") || "Google";
+            // Fetch user profile from Firestore
+            return db.collection("users").doc(uid).get()
+                .then((doc) => {
+                    if (!doc.exists) {
+                        // Create profile for new Google user
+                        const displayName = user.displayName || "";
+                        const nameParts = displayName.split(" ");
+                        const firstNameVal = nameParts[0] || "User";
+                        const lastNameVal = nameParts.slice(1).join(" ") || "Google";
+                        const usernameVal = email.split("@")[0] + Math.floor(Math.random() * 1000);
+
+                        const userDetails = {
+                            uid: uid,
+                            email: email,
+                            firstName: firstNameVal,
+                            secondName: lastNameVal,
+                            username: usernameVal,
+                            phoneNumber: user.phoneNumber || "",
+                            isHalal: false,
+                            authProvider: "google"
+                        };
+
+                        return db.collection("users").doc(uid).set(userDetails)
+                            .then(() => userDetails);
+                    } else {
+                        // User exists, return their profile data
+                        return doc.data();
+                    }
+                });
+        })
+        .then((userData) => {
+            if (!userData) return;
             
-            // Clean username using prefix of email
-            const usernameVal = email.split("@")[0] + Math.floor(Math.random() * 1000);
-
-            // Access latest database
-            let currentDatabase = JSON.parse(localStorage.getItem('userDatabase')) || [];
-            let existingUser = currentDatabase.find(u => u.email === email);
-
-            if (!existingUser) {
-                existingUser = {
-                    email: email,
-                    password: "", // Google accounts do not have local passwords
-                    firstName: firstNameVal,
-                    secondName: lastNameVal,
-                    username: usernameVal,
-                    phoneNumber: user.phoneNumber || "",
-                    isHalal: false,
-                    authProvider: "google"
-                };
-                currentDatabase.push(existingUser);
-                localStorage.setItem('userDatabase', JSON.stringify(currentDatabase));
-            }
-
             // Save user email temporarily for onboarding sequence
-            localStorage.setItem('newUserEmail', email);
+            localStorage.setItem('newUserEmail', userData.email);
 
             // Direct user based on missing setup fields
-            if (!existingUser.pin) {
+            if (!userData.pin) {
                 // PIN setup is required
                 window.location.href = "login.html?newUser=true";
-            } else if (!existingUser.bvn) {
+            } else if (!userData.bvn) {
                 // BVN verification is required
                 window.location.href = "verify-bvn.html";
             } else {
                 // Already fully registered: log in directly
-                localStorage.setItem('currentUser', JSON.stringify(existingUser));
+                localStorage.setItem('currentUser', JSON.stringify(userData));
                 localStorage.removeItem('newUserEmail');
                 window.location.href = "welcome.html";
             }

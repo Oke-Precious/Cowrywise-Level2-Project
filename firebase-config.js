@@ -57,11 +57,13 @@ function showFirebaseSetupWarning() {
 // Initialize Firebase only if we have configured values to prevent library crash
 let auth = null;
 let googleProvider = null;
+let db = null;
 
 if (isFirebaseConfigured()) {
     try {
         firebase.initializeApp(firebaseConfig);
         auth = firebase.auth();
+        db = firebase.firestore();
         googleProvider = new firebase.auth.GoogleAuthProvider();
         
         // Optional: force select account prompt each time
