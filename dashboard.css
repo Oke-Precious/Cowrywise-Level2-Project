@@ -1,0 +1,754 @@
+/* ==========================================
+   COWRYWISE DASHBOARD STYLE SHEET
+   ========================================== */
+
+:root {
+    --color-primary: #056DFF;
+    --color-primary-hover: #044AC4;
+    --color-bg-light: #F4F7FA;
+    --color-text-dark: #0a2e65;
+    --color-text-muted: #6C82A3;
+    --color-border: #E8EEF5;
+    --font-family: "Montserrat", sans-serif;
+}
+
+* {
+    box-sizing: border-box !important;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family) !important;
+}
+
+body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.d-none {
+    display: none !important;
+}
+
+/* ==========================================
+   DASHBOARD HEADER STYLING
+   ========================================== */
+.dashboard-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px !important;
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.mobile-menu-btn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    display: none; /* Hidden on desktop */
+}
+
+.brand-logo img {
+    height: 24px;
+    width: auto;
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+}
+
+.page-title-badge {
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Seed Badge */
+.seed-badge {
+    background-color: #FDF1F3;
+    color: #C03E52;
+    font-weight: 700;
+    font-size: 12.5px;
+    padding: 6px 16px !important;
+    border-radius: 20px !important;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.seed-dot {
+    font-size: 8px;
+}
+
+.icon-nav-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: var(--color-text-dark);
+    cursor: pointer;
+    position: relative;
+}
+
+.notification-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-primary);
+    border-radius: 50% !important;
+}
+
+.user-avatar-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.user-avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50% !important;
+    object-fit: cover;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: var(--color-text-muted);
+}
+
+/* Dropdown Menu */
+.user-dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-radius: 8px !important;
+    overflow: hidden;
+    width: 120px;
+}
+
+.user-dropdown-menu button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 12px !important;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FF3B30;
+    cursor: pointer;
+}
+
+.user-dropdown-menu button:hover {
+    background-color: #FFF5F5;
+}
+
+/* ==========================================
+   DASHBOARD WRAPPER & SIDEBAR
+   ========================================== */
+.dashboard-wrapper {
+    display: flex;
+    margin-top: 70px !important;
+    min-height: calc(100vh - 70px);
+}
+
+/* Sidebar styling */
+.sidebar-nav {
+    width: 260px;
+    background-color: var(--color-bg-light);
+    border-right: 1px solid var(--color-border);
+    padding: 30px 24px !important;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 70px;
+    bottom: 0;
+    left: 0;
+    z-index: 900;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-user-greeting {
+    margin-bottom: 25px !important;
+}
+
+.greeting-prefix {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.greeting-name {
+    font-size: 18px;
+    font-weight: 750;
+    color: var(--color-text-dark);
+    display: block;
+    margin-top: 4px !important;
+}
+
+.sidebar-menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14.5px;
+    padding: 12px 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.25s ease;
+}
+
+.nav-link i {
+    width: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.nav-link:hover {
+    color: var(--color-text-dark);
+    background-color: rgba(5, 109, 255, 0.04);
+}
+
+.nav-link.active {
+    color: var(--color-primary);
+    background-color: #EBF3FF;
+}
+
+/* Sidebar Footer Links */
+.sidebar-footer-links {
+    border-top: 1px solid var(--color-border);
+    padding-top: 20px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-label {
+    font-size: 11px;
+    font-weight: 750;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px !important;
+}
+
+.footer-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: var(--color-text-dark);
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: opacity 0.2s ease;
+}
+
+.footer-link:hover {
+    opacity: 0.8;
+}
+
+.link-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.link-info i {
+    color: var(--color-primary);
+    font-size: 14px;
+}
+
+.arrow-icon {
+    font-size: 10px;
+    color: var(--color-text-muted);
+}
+
+/* ==========================================
+   MAIN DASHBOARD CONTENT PANEL
+   ========================================== */
+.dashboard-content-panel {
+    margin-left: 260px !important; /* Matches sidebar width */
+    flex-grow: 1;
+    padding: 40px !important;
+    background-color: #ffffff;
+    border-radius: 24px 0 0 0 !important;
+    box-shadow: inset 1px 1px 0 var(--color-border);
+    min-height: calc(100vh - 70px);
+}
+
+/* Tab Panels */
+.tab-panel {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+/* Sub-tabs header toggle pills */
+.sub-tabs-container {
+    display: inline-flex;
+    background-color: #F0F4F8;
+    padding: 4px !important;
+    border-radius: 30px !important;
+    margin-bottom: 30px !important;
+}
+
+.sub-tab-btn {
+    border: none;
+    background: transparent;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    padding: 8px 24px !important;
+    border-radius: 30px !important;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.sub-tab-btn.active {
+    background-color: #ffffff;
+    color: var(--color-text-dark);
+    box-shadow: 0 4px 10px rgba(10, 46, 101, 0.05);
+}
+
+/* Home Grid Layout styling */
+.home-grid-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+}
+
+/* ==========================================
+   LEFT COLUMN: BALANCES & RISK ASSESSMENTS
+   ========================================== */
+.grid-left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Premium blue balance card */
+.naira-balance-card {
+    background: linear-gradient(135deg, #056dff 0%, #0052cc 100%);
+    border-radius: 20px !important;
+    padding: 30px !important;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 20px 40px rgba(5, 109, 255, 0.15) !important;
+}
+
+.card-top-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 2;
+}
+
+.balance-title-selector {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.font-size-10 {
+    font-size: 10px;
+}
+
+.font-size-8 {
+    font-size: 8px;
+}
+
+.card-icon-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.card-icon-btn:hover {
+    color: #ffffff;
+}
+
+.energy-indicator {
+    margin-left: auto !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 4px 12px !important;
+    border-radius: 20px !important;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Big Balance value display */
+.balance-value-wrapper {
+    margin-top: 15px !important;
+    margin-bottom: 25px !important;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+}
+
+.currency-symbol-card {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    margin-right: 6px !important;
+}
+
+.balance-big-amount {
+    font-size: clamp(38px, 6vw, 52px);
+    font-weight: 750;
+    letter-spacing: -0.5px;
+    line-height: 1;
+}
+
+.balance-decimals {
+    font-size: clamp(20px, 3.5vw, 26px);
+    font-weight: 700;
+    opacity: 0.85;
+}
+
+/* SVG Line Chart Graphic overlay */
+.growth-chart-overlay {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.growth-line-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.card-bottom-row {
+    z-index: 2;
+}
+
+.return-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+}
+
+/* Risk appetite assessment card styling */
+.risk-appetite-card {
+    border: 1px solid var(--color-border);
+    border-radius: 20px !important;
+    padding: 30px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.risk-appetite-card:hover {
+    box-shadow: 0 10px 30px rgba(10, 46, 101, 0.04);
+    transform: translateY(-2px);
+}
+
+.card-info-col h3 {
+    font-size: 16px;
+    font-weight: 750;
+    color: var(--color-text-dark);
+    margin-bottom: 8px !important;
+}
+
+.card-info-col a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card-icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50% !important;
+    background-color: #F1F4F9;
+    color: #A0AEBF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+/* ==========================================
+   RIGHT COLUMN: ADD CASH & CAROUSEL SLIDERS
+   ========================================== */
+.grid-right-col {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Add Cash panel */
+.add-cash-container h3 {
+    font-size: 16px;
+    font-weight: 750;
+    color: var(--color-text-dark);
+    margin-bottom: 16px !important;
+}
+
+.quick-add-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.add-pill-btn {
+    background-color: #F1F4F9;
+    border: none;
+    color: var(--color-text-dark);
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 10px 20px !important;
+    border-radius: 20px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-pill-btn:hover {
+    background-color: #E2E8F0;
+    transform: scale(1.03);
+}
+
+.add-pill-btn.icon-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    color: var(--color-primary);
+}
+
+/* Promo Image Carousel */
+.promo-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 16px !important;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(10, 46, 101, 0.04) !important;
+    aspect-ratio: 2.4 / 1;
+    background-color: #ffffff;
+}
+
+.carousel-slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50% !important;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: var(--color-text-dark);
+    font-size: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.carousel-nav-btn:hover {
+    background-color: #ffffff;
+}
+
+.carousel-nav-btn.prev {
+    left: 12px;
+}
+
+.carousel-nav-btn.next {
+    right: 12px;
+}
+
+/* Empty State / Fallback Panels */
+.portfolio-empty-view, .fallback-empty-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px !important;
+    color: var(--color-text-muted);
+}
+
+.empty-icon {
+    font-size: 48px;
+    color: #CBD3E0;
+    margin-bottom: 20px !important;
+}
+
+.portfolio-empty-view h3, .fallback-empty-view h3 {
+    color: var(--color-text-dark);
+    font-weight: 750;
+    font-size: 18px;
+    margin-bottom: 8px !important;
+}
+
+.portfolio-empty-view p, .fallback-empty-view p {
+    font-size: 14px;
+    max-width: 400px;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN SYSTEM (BREAKPOINTS)
+   ========================================== */
+@media (max-width: 992px) {
+    .mobile-menu-btn {
+        display: block; /* Show hamburger button */
+    }
+    
+    .sidebar-nav {
+        transform: translateX(-100%);
+        box-shadow: 10px 0 30px rgba(10, 46, 101, 0.1);
+    }
+    
+    .sidebar-nav.show {
+        transform: translateX(0);
+    }
+    
+    .dashboard-content-panel {
+        margin-left: 0 !important;
+        padding: 24px !important;
+        border-radius: 0 !important;
+    }
+    
+    .home-grid-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-center {
+        display: none; /* Hide Overview title badge on narrow screens */
+    }
+    
+    .dashboard-header {
+        padding: 0 16px !important;
+    }
+    
+    .dashboard-content-panel {
+        padding: 20px 16px !important;
+    }
+    
+    .quick-add-options {
+        justify-content: space-between;
+    }
+    
+    .add-pill-btn {
+        flex-grow: 1;
+        text-align: center;
+        padding: 10px 12px !important;
+    }
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

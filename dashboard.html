@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="./media/cowryicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <title>Dashboard | Cowrywise</title>
+</head>
+<body>
+    <!-- Top Header Navigation -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <!-- Mobile Menu Toggle Hamburger/Bars Icon -->
+            <button class="mobile-menu-btn" onclick="toggleSidebarMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.html" class="brand-logo">
+                <img src="./media/cowrylogo.svg" alt="Cowrywise Logo">
+            </a>
+        </div>
+        <div class="header-center">
+            <span class="page-title-badge">Account Overview</span>
+        </div>
+        <div class="header-right">
+            <!-- Seed Badge -->
+            <div class="seed-badge">
+                <span class="seed-dot">●</span>
+                <span class="seed-text">Seed</span>
+            </div>
+            <!-- Notification Icon -->
+            <button class="icon-nav-btn notification-btn">
+                <i class="fa-regular fa-bell"></i>
+                <span class="notification-indicator"></span>
+            </button>
+            <!-- User Profile Avatar and Dropdown Arrow -->
+            <div class="user-avatar-group" onclick="toggleUserDropdown()">
+                <img src="./media/girl-face-model.png" alt="Profile" class="user-avatar-img">
+                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                <div id="userDropdown" class="user-dropdown-menu d-none">
+                    <button onclick="handleLogOut()">Log Out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside id="dashboardSidebar" class="sidebar-nav">
+            <div class="sidebar-user-greeting">
+                <span class="greeting-prefix">Howdy</span>
+                <span id="greetingUsername" class="greeting-name">User</span>
+            </div>
+
+            <nav class="sidebar-menu-links">
+                <a href="#" class="nav-link active" onclick="switchMainTab('home', this)">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('save', this)">
+                    <i class="fa-solid fa-piggy-bank"></i> Save
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('invest', this)">
+                    <i class="fa-solid fa-cubes"></i> Invest
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('nest', this)">
+                    <i class="fa-solid fa-tree"></i> Nest
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('payment', this)">
+                    <i class="fa-solid fa-wallet"></i> Payment
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('stash', this)">
+                    <i class="fa-solid fa-box-archive"></i> Stash
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('learn', this)">
+                    <i class="fa-solid fa-graduation-cap"></i> Learn
+                </a>
+                <a href="#" class="nav-link" onclick="switchMainTab('referral', this)">
+                    <i class="fa-solid fa-users"></i> Referral
+                </a>
+            </nav>
+
+            <!-- Bottom Section links -->
+            <div class="sidebar-footer-links">
+                <span class="footer-label">Also on Cowrywise</span>
+                <a href="#" class="footer-link">
+                    <div class="link-info">
+                        <i class="fa-solid fa-briefcase"></i> Sprout for Business
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square arrow-icon"></i>
+                </a>
+                <a href="#" class="footer-link">
+                    <div class="link-info">
+                        <i class="fa-solid fa-child"></i> Finance for Kids
+                    </div>
+                    <i class="fa-solid fa-arrow-up-right-from-square arrow-icon"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard View Panel -->
+        <main class="dashboard-content-panel">
+            
+            <!-- Home Panel View Container -->
+            <div id="homePanel" class="tab-panel active">
+                
+                <!-- Home/Portfolio Sub-tabs header -->
+                <div class="sub-tabs-container">
+                    <button class="sub-tab-btn active" onclick="switchSubTab('home-sub', this)">Home</button>
+                    <button class="sub-tab-btn" onclick="switchSubTab('portfolio-sub', this)">Portfolio</button>
+                </div>
+
+                <!-- Home Subtab View Content -->
+                <div id="homeSubTabContent" class="sub-tab-panel active">
+                    <div class="home-grid-layout">
+                        
+                        <!-- Left Side Area: Balance card & Assessment -->
+                        <div class="grid-left-col">
+                            
+                            <!-- Premium blue balance card with dynamic growth chart -->
+                            <div class="naira-balance-card">
+                                <div class="card-top-row">
+                                    <div class="balance-title-selector" onclick="toggleBalanceSelector()">
+                                        Naira Balance <i class="fa-solid fa-chevron-down font-size-10"></i>
+                                    </div>
+                                    <!-- Visibility toggle eye icon -->
+                                    <button class="card-icon-btn" onclick="toggleBalanceVisibility(this)">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    
+                                    <!-- Energy/lightning indicator -->
+                                    <div class="energy-indicator">
+                                        <i class="fa-solid fa-bolt"></i> 0
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Balance numbers -->
+                                <div class="balance-value-wrapper">
+                                    <span class="currency-symbol-card">₦</span>
+                                    <span id="mainBalanceValue" class="balance-big-amount">1,036</span>
+                                    <span id="decimalBalanceValue" class="balance-decimals">.03</span>
+                                    
+                                    <!-- Stars display when hidden -->
+                                    <span id="hiddenBalanceStars" class="balance-big-amount d-none" style="display: none;">****</span>
+                                </div>
+
+                                <!-- Dynamic SVG Line Chart overlay for daily growth -->
+                                <div class="growth-chart-overlay">
+                                    <svg viewBox="0 0 400 100" class="growth-line-svg" preserveAspectRatio="none">
+                                        <!-- Gradient under curve -->
+                                        <defs>
+                                            <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="0%" stop-color="rgba(255, 255, 255, 0.25)"></stop>
+                                                <stop offset="100%" stop-color="rgba(255, 255, 255, 0.0)"></stop>
+                                            </linearGradient>
+                                        </defs>
+                                        <path id="chartFillPath" d="M 0 100 Q 100 85, 200 80 T 400 68 L 400 100 L 0 100 Z" fill="url(#chartGradient)"></path>
+                                        <path id="chartLinePath" d="M 0 100 Q 100 85, 200 80 T 400 68" fill="none" stroke="#68A5FF" stroke-width="2.5" stroke-linecap="round"></path>
+                                    </svg>
+                                </div>
+
+                                <!-- Bottom Return Pill -->
+                                <div class="card-bottom-row">
+                                    <div class="return-pill">
+                                        ✦ <span id="returnPillText">₦0.47 return in Jul</span> <i class="fa-solid fa-chevron-up font-size-8"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Risk Appetite card -->
+                            <div class="risk-appetite-card">
+                                <div class="card-info-col">
+                                    <h3>Know your risk appetite</h3>
+                                    <a href="#" onclick="showToast('Risk assessment coming soon...'); return false;">Take assessment <i class="fa-solid fa-chevron-right font-size-10"></i></a>
+                                </div>
+                                <div class="card-icon-circle">
+                                    <i class="fa-solid fa-fire"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Side Area: Quick Cash & Carousel Ads -->
+                        <div class="grid-right-col">
+                            
+                            <!-- Add Cash panel -->
+                            <div class="add-cash-container">
+                                <h3>Add cash</h3>
+                                <div class="quick-add-options">
+                                    <button class="add-pill-btn" onclick="quickAddAmount(20000)">₦ 20K</button>
+                                    <button class="add-pill-btn" onclick="quickAddAmount(50000)">₦ 50K</button>
+                                    <button class="add-pill-btn" onclick="quickAddAmount(100000)">₦ 100K</button>
+                                    <button class="add-pill-btn" onclick="quickAddAmount(15000, '$')">$ 100</button>
+                                    <button class="add-pill-btn" onclick="quickAddAmount(30000, '$')">$ 200</button>
+                                    <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Image Promo Carousel slider -->
+                            <div class="promo-carousel-wrapper">
+                                <div id="carouselSlider" class="carousel-slider-track">
+                                    <div class="carousel-slide active">
+                                        <img src="./media/Cowrywise_caro1.png" alt="Promo Slide 1">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./media/Cowrywise_caro2.png" alt="Promo Slide 2">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./media/Cowrywise_caro3.png" alt="Promo Slide 3">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="./media/Cowrywise_caro4.png" alt="Promo Slide 4">
+                                    </div>
+                                </div>
+                                <!-- Left/Right slide controllers -->
+                                <button class="carousel-nav-btn prev" onclick="slideCarousel(-1)">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button class="carousel-nav-btn next" onclick="slideCarousel(1)">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Portfolio Subtab View Content -->
+                <div id="portfolioSubTabContent" class="sub-tab-panel d-none" style="display: none;">
+                    <div class="portfolio-empty-view">
+                        <i class="fa-solid fa-folder-open empty-icon"></i>
+                        <h3>Your Portfolio is empty</h3>
+                        <p>Get started by saving or investing in the options listed on the sidebar menu.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Generic placeholder panels for other links -->
+            <div id="fallbackPanel" class="tab-panel d-none" style="display: none;">
+                <div class="fallback-empty-view">
+                    <i class="fa-solid fa-spinner fa-spin empty-icon"></i>
+                    <h3 id="fallbackTitle">Feature details loading</h3>
+                    <p>We are currently setting up this segment. Check back shortly!</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Firebase Script CDNs (Compat version) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="./firebase-config.js"></script>
+
+    <!-- Dashboard Logic Script -->
+    <script src="./dashboard.js"></script>
+</body>
+</html>

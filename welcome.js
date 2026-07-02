@@ -324,7 +324,7 @@ function showSuccessModal() {
 
 // Action for 'Show me how' button to navigate to main index dashboard
 function navigateToDashboard() {
-    window.location.href = "index.html";
+    window.location.href = "dashboard.html";
 }
 
 // Custom Toast notification UI utility
