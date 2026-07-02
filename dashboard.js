@@ -18,6 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
             baseBalance = parseFloat(localSession.initialFundingAmount);
         }
     }
+    
+    // Hide hiddenBalanceStars element initially since balance is visible on load
+    const starsEl = document.getElementById('hiddenBalanceStars');
+    if (starsEl) starsEl.style.display = 'none';
 
     // 2. Setup Firebase listeners
     if (typeof isFirebaseConfigured === "function" && isFirebaseConfigured() && auth) {
@@ -168,8 +172,28 @@ function updateBalanceDisplay(totalAmount) {
     } else {
         mainEl.style.display = 'none';
         decimalEl.style.display = 'none';
-        starsEl.style.display = 'inline';
-        starsEl.textContent = '****';
+        starsEl.style.display = 'inline-flex';
+        // Render 4 premium eyes with inline styles for a premium 3D / shadow effect
+        starsEl.innerHTML = `
+            <i class="fa-solid fa-eye" style="margin: 0 4px !important; text-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: clamp(24px, 4vw, 32px);"></i>
+            <i class="fa-solid fa-eye" style="margin: 0 4px !important; text-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: clamp(24px, 4vw, 32px);"></i>
+            <i class="fa-solid fa-eye" style="margin: 0 4px !important; text-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: clamp(24px, 4vw, 32px);"></i>
+            <i class="fa-solid fa-eye" style="margin: 0 4px !important; text-shadow: 0 4px 8px rgba(0,0,0,0.3); font-size: clamp(24px, 4vw, 32px);"></i>
+        `;
+    }
+
+    // Update Portfolio tab figures
+    const portfolioTodayAmount = document.getElementById('portfolioTodayAmount');
+    const portfolioEarningsAmount = document.getElementById('portfolioEarningsAmount');
+    
+    if (portfolioTodayAmount) {
+        // Today value e.g., "₦ 1K" if 1000
+        const roundedK = (totalAmount / 1000).toFixed(0);
+        portfolioTodayAmount.textContent = `₦ ${roundedK}K`;
+    }
+    if (portfolioEarningsAmount) {
+        // July return e.g. "₦0.48"
+        portfolioEarningsAmount.textContent = `₦${rawInterestEarned.toFixed(2)}`;
     }
 }
 

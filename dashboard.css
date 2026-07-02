@@ -599,6 +599,268 @@ body {
     background-color: #ffffff;
 }
 
+/* ==========================================
+   PORTFOLIO VIEW SPECIFIC STYLING
+   ========================================== */
+
+.portfolio-header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px !important;
+}
+
+.request-letter-link {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+}
+
+.request-letter-link:hover {
+    color: var(--color-primary-hover);
+}
+
+.portfolio-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.portfolio-card-item {
+    border: 1px solid var(--color-border);
+    border-radius: 20px !important;
+    padding: 30px !important;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 400px;
+    /* width: 100%; */
+    transition: all 0.3s ease;
+}
+
+.portfolio-card-item:hover {
+    box-shadow: 0 10px 30px rgba(10, 46, 101, 0.03);
+    transform: translateY(-2px);
+}
+
+.portfolio-card-item.breakdown-card {
+    grid-column: span 2;
+    min-height: 240px;
+}
+
+.p-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px !important;
+}
+
+.p-card-title {
+    font-size: 16px;
+    font-weight: 750;
+    color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Color bar icons */
+.accent-bar {
+    width: 6px;
+    height: 18px;
+    border-radius: 4px !important;
+    display: inline-block;
+}
+
+.accent-bar.green {
+    background-color: #00D180;
+}
+
+.accent-bar.half-green {
+    background-color: #3CD070;
+}
+
+.accent-bar.circle-green {
+    background-color: #32C850;
+}
+
+.p-arrow {
+    font-size: 12px;
+    color: var(--color-text-muted);
+}
+
+.p-main-headline {
+    font-size: clamp(17px, 2.5vw, 22px);
+    font-weight: 750;
+    color: var(--color-text-dark);
+    line-height: 1.4;
+    margin-bottom: 20px !important;
+}
+
+.p-card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.p-sub-label {
+    font-size: 13.5px;
+    color: var(--color-text-muted);
+    font-weight: 600;
+}
+
+.p-today-value {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 750;
+    color: var(--color-text-dark);
+    margin-top: 4px !important;
+    margin-bottom: 20px !important;
+}
+
+/* Portfolio growth line SVG */
+.portfolio-chart-container {
+    width: 100%;
+    margin-top: auto !important;
+}
+
+.portfolio-chart-svg {
+    width: 100%;
+    height: 80px;
+    overflow: visible;
+}
+
+.chart-timeline-labels {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 750;
+    color: #CBD5E1;
+    margin-top: 10px !important;
+}
+
+/* Earnings percentage layout */
+.earnings-percentage-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 24px !important;
+}
+
+.earnings-big-pct {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 750;
+    color: var(--color-text-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Horizontal bar comparison chart */
+.earnings-bar-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: auto !important;
+}
+
+.comparison-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.comparison-bar {
+    height: 70px;
+    border-radius: 8px !important;
+}
+
+.comparison-bar.bg-light-green {
+    background-color: #E2F9EE;
+}
+
+.comparison-bar.bg-solid-green {
+    background-color: #00D180;
+}
+
+.bar-month-label {
+    font-size: 13.5px;
+    font-weight: 750;
+    color: var(--color-text-muted);
+    width: 32px;
+}
+
+/* Breakdown horizontal bar */
+.breakdown-progressbar {
+    width: 100%;
+    height: 8px;
+    background-color: #F1F5F9;
+    border-radius: 4px !important;
+    overflow: hidden;
+    margin-bottom: 20px !important;
+}
+
+.progressbar-fill {
+    height: 100%;
+    background-color: #00D180;
+    border-radius: 4px !important;
+}
+
+.breakdown-metrics-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.metric-item {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metric-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50% !important;
+    background-color: #00D180;
+    display: inline-block;
+}
+
+/* Card footer styling */
+.p-card-footer {
+    border-top: 1px solid var(--color-border);
+    padding-top: 16px !important;
+    margin-top: 20px !important;
+}
+
+.p-footer-note {
+    font-size: 13.5px;
+    color: var(--color-text-muted);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Tab responsive behaviors */
+@media (max-width: 768px) {
+    .portfolio-grid-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .portfolio-card-item.breakdown-card {
+        grid-column: span 1;
+    }
+}
+
+
 .carousel-slider-track {
     display: flex;
     width: 100%;

@@ -145,7 +145,7 @@
                                     <span id="decimalBalanceValue" class="balance-decimals">.03</span>
                                     
                                     <!-- Stars display when hidden -->
-                                    <span id="hiddenBalanceStars" class="balance-big-amount d-none" style="display: none;">****</span>
+                                    <span id="hiddenBalanceStars" class="balance-big-amount">****</span>
                                 </div>
 
                                 <!-- Dynamic SVG Line Chart overlay for daily growth -->
@@ -230,10 +230,104 @@
 
                 <!-- Portfolio Subtab View Content -->
                 <div id="portfolioSubTabContent" class="sub-tab-panel d-none" style="display: none;">
-                    <div class="portfolio-empty-view">
-                        <i class="fa-solid fa-folder-open empty-icon"></i>
-                        <h3>Your Portfolio is empty</h3>
-                        <p>Get started by saving or investing in the options listed on the sidebar menu.</p>
+                    <!-- Request investment letter link header row -->
+                    <div class="portfolio-header-actions">
+                        <a href="#" class="request-letter-link" onclick="showToast('Investment letter request sent!'); return false;">
+                            <i class="fa-regular fa-envelope"></i> Request investment letter
+                        </a>
+                    </div>
+
+                    <!-- Portfolio Cards Grid -->
+                    <div class="portfolio-grid-layout">
+                        <!-- Card 1: Growth -->
+                        <div class="portfolio-card-item growth-card">
+                            <div class="p-card-header">
+                                <span class="p-card-title"><span class="accent-bar green"></span> Growth</span>
+                                <i class="fa-solid fa-chevron-right p-arrow"></i>
+                            </div>
+                            <h2 class="p-main-headline">Your portfolio balance is up by 3.6% year to date.</h2>
+                            <div class="p-card-body">
+                                <span class="p-sub-label">Today</span>
+                                <div class="p-today-value" id="portfolioTodayAmount">₦ 1K</div>
+                                
+                                <!-- Portfolio growth line chart -->
+                                <div class="portfolio-chart-container">
+                                    <svg viewBox="0 0 300 80" class="portfolio-chart-svg" preserveAspectRatio="none">
+                                        <line x1="0" y1="60" x2="100" y2="60" stroke="#056DFF" stroke-width="2.5" />
+                                        <line x1="100" y1="60" x2="100" y2="20" stroke="#056DFF" stroke-width="2.5" />
+                                        <line x1="100" y1="20" x2="180" y2="19" stroke="#056DFF" stroke-width="2.5" />
+                                        <circle cx="180" cy="19" r="4.5" fill="#056DFF" />
+                                    </svg>
+                                    <div class="chart-timeline-labels">
+                                        <span>JAN</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>●</span>
+                                        <span>DEC</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-card-footer">
+                                <p class="p-footer-note">Great job! Your portfolio is on the right track.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Earnings -->
+                        <div class="portfolio-card-item earnings-card">
+                            <div class="p-card-header">
+                                <span class="p-card-title"><span class="accent-bar half-green"></span> Earnings</span>
+                                <i class="fa-solid fa-chevron-right p-arrow"></i>
+                            </div>
+                            <h2 class="p-main-headline">You've earned <span id="portfolioEarningsAmount">₦0.48</span> on your total investments in July.</h2>
+                            <div class="p-card-body">
+                                <div class="earnings-percentage-col">
+                                    <span class="earnings-big-pct">47.45% <i class="fa-solid fa-arrow-down" style="font-size: 13px;"></i></span>
+                                    <span class="p-sub-label">from this time last month</span>
+                                </div>
+
+                                <!-- Horizontal comparative bar charts -->
+                                <div class="earnings-bar-comparison">
+                                    <div class="comparison-bar-row">
+                                        <div class="comparison-bar bg-light-green" style="width: 100%;"></div>
+                                        <span class="bar-month-label">Jun</span>
+                                    </div>
+                                    <div class="comparison-bar-row">
+                                        <div class="comparison-bar bg-solid-green" style="width: 60%;"></div>
+                                        <span class="bar-month-label">Jul</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-card-footer">
+                                <p class="p-footer-note">Earnings slowed a bit this month, but it's still positive.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Breakdown -->
+                        <div class="portfolio-card-item breakdown-card">
+                            <div class="p-card-header">
+                                <span class="p-card-title"><span class="accent-bar circle-green"></span> Breakdown</span>
+                                <i class="fa-solid fa-chevron-right p-arrow"></i>
+                            </div>
+                            <div class="p-card-body" style="padding-top: 10px !important;">
+                                <!-- Progressive bar -->
+                                <div class="breakdown-progressbar">
+                                    <div class="progressbar-fill" style="width: 100%;"></div>
+                                </div>
+                                <div class="breakdown-metrics-list">
+                                    <div class="metric-item">
+                                        <span class="metric-dot"></span> Investments: <strong style="color: var(--color-text-dark);">100.00%</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-card-footer" style="margin-top: 40px !important;">
+                                <p class="p-footer-note">Consider saving regularly to build a strong financial foundation.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
