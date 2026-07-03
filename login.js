@@ -175,6 +175,9 @@ const signIn = () =>{
                 } else if (!userData.bvn) {
                     localStorage.setItem('newUserEmail', userData.email);
                     window.location.href = "verify-bvn.html";
+                } else if (userData.onboardingComplete) {
+                    localStorage.removeItem('newUserEmail');
+                    window.location.href = "dashboard.html";
                 } else {
                     localStorage.removeItem('newUserEmail');
                     window.location.href = "welcome.html";
@@ -258,8 +261,13 @@ const signInWithGoogle = (event) => {
             } else if (!userData.bvn) {
                 // BVN verification is required
                 window.location.href = "verify-bvn.html";
+            } else if (userData.onboardingComplete) {
+                // Already fully registered and onboarded: direct to dashboard
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                localStorage.removeItem('newUserEmail');
+                window.location.href = "dashboard.html";
             } else {
-                // Already fully registered: log in directly
+                // Registered, but needs onboarding/funding: route to welcome
                 localStorage.setItem('currentUser', JSON.stringify(userData));
                 localStorage.removeItem('newUserEmail');
                 window.location.href = "welcome.html";

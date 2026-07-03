@@ -345,6 +345,103 @@
         </main>
     </div>
 
+    <!-- Custom Plus Top-up Modal Overlay -->
+    <div id="topupModalOverlay" class="topup-modal-overlay d-none" style="display: none;">
+        <div class="topup-modal-content">
+            <!-- Close button -->
+            <button class="topup-modal-close" onclick="closeTopupModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Sub-Tabs selector header -->
+            <div class="topup-tabs-header">
+                <button id="topupTabSavings" class="topup-tab-btn active" onclick="switchTopupModalTab('savings')">Savings</button>
+                <button id="topupTabNaira" class="topup-tab-btn" onclick="switchTopupModalTab('naira')">Naira Investments</button>
+                <button id="topupTabDollar" class="topup-tab-btn" onclick="switchTopupModalTab('dollar')">Dollar Investments</button>
+            </div>
+
+            <!-- TAB 1: SAVINGS -->
+            <div id="topupPanelSavings" class="topup-panel active">
+                <p class="topup-sub-heading">Choose a plan to top-up</p>
+                <div class="topup-options-list">
+                    <div class="topup-option-item" onclick="selectTopupOption('Savings - Regular Savings')">
+                        <div class="option-icon-container">
+                            <img src="./media/regularsavings.svg" alt="Regular Savings" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="option-details-col">
+                            <h4>Regular Savings</h4>
+                            <p>₦ 0</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </div>
+
+                    <div class="topup-option-item" onclick="selectTopupOption('Savings - Emergency Plan')">
+                        <div class="option-icon-container">
+                            <img src="./media/emergencyplan.svg" alt="Emergency Plan" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="option-details-col">
+                            <h4>Emergency Plan</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </div>
+
+                    <div class="topup-option-item" onclick="selectTopupOption('Savings - Money Duo')">
+                        <div class="option-icon-container">
+                            <img src="./media/moneyduo.svg" alt="Money Duo" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="option-details-col">
+                            <h4>Money Duo</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </div>
+
+                    <div class="topup-option-item" onclick="selectTopupOption('Savings - Saving Circle')">
+                        <div class="option-icon-container">
+                            <img src="./media/savingcircledownload.svg" alt="Saving Circle" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="option-details-col">
+                            <h4>Saving Circle</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: NAIRA INVESTMENTS -->
+            <div id="topupPanelNaira" class="topup-panel d-none" style="display: none;">
+                <p class="topup-sub-heading">Choose an investment to top-up</p>
+                <div class="topup-options-list">
+                    <div class="topup-option-item" onclick="selectTopupOption('Naira Mutual Fund')">
+                        <div class="option-icon-container">
+                            <img src="./media/nairamutual.svg" alt="Naira Mutual Fund" style="width: 100%; height: 100%;">
+                        </div>
+                        <div class="option-details-col">
+                            <h4>Naira Mutual Fund</h4>
+                            <p id="topupNairaFundDisplay">₦ 1,036.50</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: DOLLAR INVESTMENTS -->
+            <div id="topupPanelDollar" class="topup-panel d-none" style="display: none;">
+                <div class="topup-options-list" style="margin-top: 20px !important;">
+                    <div class="topup-option-item bg-light-green-item" onclick="selectTopupOption('Dollar Mutual Fund')">
+                        <div class="option-icon-container">
+                            <img src="./media/nairamutual.svg" alt="Dollar Mutual Fund" style="width: 100%; height: 100%; filter: hue-rotate(120deg);">
+                        </div>
+                        <div class="option-details-col">
+                            <h4>Dollar Mutual Fund</h4>
+                        </div>
+                        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Firebase Script CDNs (Compat version) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>

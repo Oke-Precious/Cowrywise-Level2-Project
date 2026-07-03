@@ -433,13 +433,73 @@ function quickAddAmount(amount, currency = '₦') {
 }
 
 function customAddAmount() {
-    const inputVal = prompt("Enter the custom amount to add (Min ₦100):");
-    if (inputVal === null) return;
+    const modal = document.getElementById('topupModalOverlay');
+    if (modal) {
+        // Sync Naira Mutual Fund display value with current calculated balance
+        const nairaDisplay = document.getElementById('topupNairaFundDisplay');
+        const mainEl = document.getElementById('mainBalanceValue');
+        const decimalEl = document.getElementById('decimalBalanceValue');
+        if (nairaDisplay && mainEl && decimalEl) {
+            nairaDisplay.textContent = `₦ ${mainEl.textContent}${decimalEl.textContent}`;
+        }
+        
+        modal.style.display = 'flex';
+        modal.classList.remove('d-none');
+    }
+}
+
+function closeTopupModal() {
+    const modal = document.getElementById('topupModalOverlay');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.add('d-none');
+    }
+}
+
+function switchTopupModalTab(tabKey) {
+    // Toggles tab buttons active class
+    document.getElementById('topupTabSavings').classList.remove('active');
+    document.getElementById('topupTabNaira').classList.remove('active');
+    document.getElementById('topupTabDollar').classList.remove('active');
+
+    // Toggles panels active class
+    document.getElementById('topupPanelSavings').style.display = 'none';
+    document.getElementById('topupPanelSavings').classList.add('d-none');
+    document.getElementById('topupPanelNaira').style.display = 'none';
+    document.getElementById('topupPanelNaira').classList.add('d-none');
+    document.getElementById('topupPanelDollar').style.display = 'none';
+    document.getElementById('topupPanelDollar').classList.add('d-none');
+
+    if (tabKey === 'savings') {
+        document.getElementById('topupTabSavings').classList.add('active');
+        document.getElementById('topupPanelSavings').style.display = 'block';
+        document.getElementById('topupPanelSavings').classList.remove('d-none');
+    } else if (tabKey === 'naira') {
+        document.getElementById('topupTabNaira').classList.add('active');
+        document.getElementById('topupPanelNaira').style.display = 'block';
+        document.getElementById('topupPanelNaira').classList.remove('d-none');
+    } else if (tabKey === 'dollar') {
+        document.getElementById('topupTabDollar').classList.add('active');
+        document.getElementById('topupPanelDollar').style.display = 'block';
+        document.getElementById('topupPanelDollar').classList.remove('d-none');
+    }
+}
+
+function selectTopupOption(optionName) {
+    closeTopupModal();
+    const amountVal = prompt(`Enter top-up amount for [${optionName}] (Min ₦100):`);
+    if (amountVal === null) return;
     
-    const amount = parseInt(inputVal.replace(/[^0-9]/g, ''), 10);
-    if (isNaN(amount) || amount < 100) {
+    const cleanAmt = parseInt(amountVal.replace(/[^0-9]/g, ''), 10);
+    if (isNaN(cleanAmt) || cleanAmt < 100) {
         showToast("Please enter a valid amount of ₦100 or more.", "error");
         return;
     }
-    quickAddAmount(amount);
+    
+    if (optionName.includes('Dollar')) {
+        quickAddAmount(cleanAmt, '$');
+    } else {
+        quickAddAmount(cleanAmt);
+    }
 }
+

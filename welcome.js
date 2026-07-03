@@ -21,9 +21,11 @@ let selectedOption = null;
     });
 })();
 
+let currentUser = null;
+
 // Fetch registered user name dynamically
 window.addEventListener('DOMContentLoaded', () => {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
     if (currentUser && currentUser.secondName) {
         document.getElementById('username').textContent = currentUser.secondName;
     }
@@ -53,8 +55,6 @@ function selectOption(option) {
 // Navigate forward and save user selection in database
 function handleContinue() {
     if (!selectedOption) return;
-
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     if (currentUser && currentUser.uid && typeof db !== "undefined" && db) {
         // Change CTA to loading state
@@ -174,9 +174,6 @@ function handleFundWallet() {
     const cleanAmount = parseInt(amountInput.value.replace(/[^0-9]/g, ''), 10);
     if (isNaN(cleanAmount) || cleanAmount < 1000) return;
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
-
-    // Format amounts (adding 15 Naira processing fee as per mockups)
     const totalPayAmount = cleanAmount + 15;
     const amountWithFeeFormatted = `₦ ${totalPayAmount.toLocaleString()}`;
 
@@ -281,7 +278,6 @@ function startTransferTimer(minutes, seconds) {
 
 // Handles clicking the 'I have paid' button
 function handleIHavePaid() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
     const cleanAmount = currentUser.pendingFundingAmount || 1000;
 
     closeTransferModal();
@@ -324,7 +320,29 @@ function showSuccessModal() {
 
 // Action for 'Show me how' button to navigate to main index dashboard
 function navigateToDashboard() {
-    window.location.href = "dashboard.html";
+    const user = auth ? auth.currentUser : null;
+    if (user && db) {
+        // Mark onboarding complete in Firestore
+        db.collection("users").doc(user.uid).update({
+            onboardingComplete: true
+        })
+        .then(() => {
+            // Update local storage session
+            currentUser.onboardingComplete = true;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            window.location.href = "dashboard.html";
+        })
+        .catch((err) => {
+            console.error("Error setting onboarding complete:", err);
+            currentUser.onboardingComplete = true;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            window.location.href = "dashboard.html";
+        });
+    } else {
+        currentUser.onboardingComplete = true;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        window.location.href = "dashboard.html";
+    }
 }
 
 // Custom Toast notification UI utility
@@ -376,7 +394,6 @@ function showToast(message, type = "success") {
 }
 
 function payWithPaystack() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {};
     const amountInput = document.getElementById('fundAmount');
     if (!amountInput) return;
 
