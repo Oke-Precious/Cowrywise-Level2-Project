@@ -306,34 +306,93 @@ function switchMainTab(tabId, menuLinkBtn) {
     // Remove active sidebar link highlight
     const links = document.querySelectorAll('.sidebar-nav .nav-link');
     links.forEach(l => l.classList.remove('active'));
-    menuLinkBtn.classList.add('active');
+    if (menuLinkBtn) menuLinkBtn.classList.add('active');
 
     // Close mobile menu on select
     const sidebar = document.getElementById('dashboardSidebar');
     if (sidebar) sidebar.classList.remove('show');
 
-    // Toggle Tab Views
-    const homePanel = document.getElementById('homePanel');
-    const fallbackPanel = document.getElementById('fallbackPanel');
-    
+    // All panels to hide
+    const allPanels = ['homePanel', 'savePanel', 'investPanel', 'nestPanel', 'fallbackPanel'];
+    allPanels.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.classList.remove('active'); el.classList.add('d-none'); el.style.display = 'none'; }
+    });
+
+    // Page title badge update
+    const titleBadge = document.querySelector('.page-title-badge');
+    const pageTitles = {
+        home: 'Account Overview', save: 'SAVE', invest: 'INVEST',
+        nest: 'NEST', payment: 'PAYMENT', stash: 'STASH',
+        learn: 'LEARN', referral: 'REFERRAL'
+    };
+    if (titleBadge) titleBadge.textContent = pageTitles[tabId] || tabId.toUpperCase();
+
+    // Show target panel
     if (tabId === 'home') {
-        homePanel.classList.add('active');
-        homePanel.style.display = 'block';
-        
-        fallbackPanel.classList.add('d-none');
-        fallbackPanel.style.display = 'none';
+        const p = document.getElementById('homePanel');
+        if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
+    } else if (tabId === 'save') {
+        const p = document.getElementById('savePanel');
+        if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
+        syncSaveBalanceDisplay();
+    } else if (tabId === 'invest') {
+        const p = document.getElementById('investPanel');
+        if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
+        syncInvestBalanceDisplay();
+    } else if (tabId === 'nest') {
+        const p = document.getElementById('nestPanel');
+        if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
     } else {
-        homePanel.classList.remove('active');
-        homePanel.style.display = 'none';
-        
-        fallbackPanel.classList.remove('d-none');
-        fallbackPanel.style.display = 'block';
-        
-        // Update Title dynamically
+        const p = document.getElementById('fallbackPanel');
+        if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
         const fallbackTitle = document.getElementById('fallbackTitle');
         if (fallbackTitle) {
             fallbackTitle.textContent = `${tabId.charAt(0).toUpperCase() + tabId.slice(1)} Segment`;
         }
+    }
+}
+
+// Sync save balance from the main balance (savings is separate, starts at 0)
+function syncSaveBalanceDisplay() {
+    const saveMain = document.getElementById('saveBalanceMain');
+    const saveDec  = document.getElementById('saveBalanceDecimal');
+    if (saveMain && saveDec) {
+        saveMain.textContent = '0';
+        saveDec.textContent  = '.00';
+    }
+}
+
+// Sync invest balance from calculated main balance
+function syncInvestBalanceDisplay() {
+    const mainEl    = document.getElementById('mainBalanceValue');
+    const decimalEl = document.getElementById('decimalBalanceValue');
+    const investMain = document.getElementById('investBalanceMain');
+    const investDec  = document.getElementById('investBalanceDecimal');
+    const nairaFunds = document.getElementById('nairaFundsDisplayAmt');
+    if (mainEl && investMain) {
+        investMain.textContent = mainEl.textContent;
+    }
+    if (decimalEl && investDec) {
+        investDec.textContent = decimalEl.textContent;
+    }
+    if (mainEl && decimalEl && nairaFunds) {
+        nairaFunds.textContent = `₦ ${mainEl.textContent}${decimalEl.textContent}`;
+    }
+}
+
+// Save page balance visibility toggle
+let isSaveBalanceVisible = true;
+function toggleSaveBalanceVisibility(iconEl) {
+    isSaveBalanceVisible = !isSaveBalanceVisible;
+    const saveMain = document.getElementById('saveBalanceMain');
+    const saveDec  = document.getElementById('saveBalanceDecimal');
+    if (saveMain && saveDec) {
+        saveMain.style.opacity = isSaveBalanceVisible ? '1' : '0';
+        saveDec.style.opacity  = isSaveBalanceVisible ? '1' : '0';
+    }
+    if (iconEl) {
+        iconEl.className = isSaveBalanceVisible ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash';
     }
 }
 

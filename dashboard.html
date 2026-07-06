@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -190,11 +191,11 @@
                             <div class="add-cash-container">
                                 <h3>Add cash</h3>
                                 <div class="quick-add-options">
-                                    <button class="add-pill-btn" onclick="quickAddAmount(20000)">₦ 20K</button>
-                                    <button class="add-pill-btn" onclick="quickAddAmount(50000)">₦ 50K</button>
-                                    <button class="add-pill-btn" onclick="quickAddAmount(100000)">₦ 100K</button>
-                                    <button class="add-pill-btn" onclick="quickAddAmount(15000, '$')">$ 100</button>
-                                    <button class="add-pill-btn" onclick="quickAddAmount(30000, '$')">$ 200</button>
+                                    <button class="add-pill-btn" onclick="customAddAmount()">₦ 20K</button>
+                                    <button class="add-pill-btn" onclick="customAddAmount()">₦ 50K</button>
+                                    <button class="add-pill-btn" onclick="customAddAmount()">₦ 100K</button>
+                                    <button class="add-pill-btn" onclick="customAddAmount()">$ 100</button>
+                                    <button class="add-pill-btn" onclick="customAddAmount()">$ 200</button>
                                     <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
                                 </div>
                             </div>
@@ -333,7 +334,361 @@
 
             </div>
 
-            <!-- Generic placeholder panels for other links -->
+            <!-- ==========================================
+                 SAVE PANEL
+                 ========================================== -->
+            <div id="savePanel" class="tab-panel d-none" style="display: none;">
+
+                <!-- Balance + Add Cash Row -->
+                <div class="page-balance-row">
+                    <div class="page-balance-col">
+                        <div class="page-balance-label">
+                            Savings Balance <i class="fa-regular fa-eye" style="cursor:pointer;" onclick="toggleSaveBalanceVisibility(this)"></i>
+                        </div>
+                        <div class="page-balance-value" id="saveBalanceDisplay">
+                            <span class="page-currency">₦</span>
+                            <span id="saveBalanceMain" class="page-balance-main">0</span>
+                            <span id="saveBalanceDecimal" class="page-balance-decimal">.00</span>
+                        </div>
+                    </div>
+                    <div class="page-addcash-col">
+                        <h3 class="addcash-heading">Add cash</h3>
+                        <div class="addcash-pills">
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦20K payment...')">N 20K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦50K payment...')">N 50K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦100K payment...')">N 100K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦250K payment...')">N 250K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦500K payment...')">N 500K</button>
+                            <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save by myself Section -->
+                <div class="save-section">
+                    <h2 class="save-section-title">Save by myself</h2>
+                    <div class="save-row-outer">
+                        <!-- Plus create card -->
+                        <div class="save-create-card" onclick="showToast('Creating a new savings plan...')">
+                            <div class="save-plus-icon"><i class="fa-solid fa-plus"></i></div>
+                        </div>
+
+                        <!-- Scrollable cards track -->
+                        <div class="save-cards-track" id="saveMyselfTrack">
+                            <!-- General -->
+                            <div class="save-item-card save-card-blue" onclick="showToast('General savings plan')">
+                                <div class="save-card-icon-wrap save-icon-blue">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <ellipse cx="30" cy="36" rx="18" ry="14" fill="#b0c4de" opacity="0.7"/>
+                                        <rect x="14" y="22" width="32" height="20" rx="5" fill="#7fa8cc"/>
+                                        <rect x="20" y="16" width="20" height="14" rx="4" fill="#5b8fb9"/>
+                                        <rect x="26" y="12" width="8" height="8" rx="2" fill="#3a6f9b"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">General</span>
+                                    <span class="save-card-amount">₦ 0.00</span>
+                                </div>
+                            </div>
+                            <!-- Emergency -->
+                            <div class="save-item-card save-card-purple" onclick="showToast('Emergency savings plan')">
+                                <div class="save-card-icon-wrap save-icon-purple">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <ellipse cx="30" cy="48" rx="16" ry="6" fill="#d8b4e2" opacity="0.5"/>
+                                        <path d="M14,34 Q14,16 30,16 Q46,16 46,34 Z" fill="#9b59b6"/>
+                                        <path d="M14,34 Q14,16 30,16 Q46,16 46,34 Z" fill="#c97dd4" opacity="0.6"/>
+                                        <rect x="27" y="34" width="6" height="10" rx="2" fill="#9b59b6"/>
+                                        <ellipse cx="30" cy="44" rx="5" ry="3" fill="#7d3c98"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">Emergency</span>
+                                    <span class="save-card-badge">EMPTY</span>
+                                </div>
+                            </div>
+                            <!-- Home -->
+                            <div class="save-item-card save-card-green" onclick="showToast('Home savings plan')">
+                                <div class="save-card-icon-wrap save-icon-green">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <polygon points="30,10 10,30 18,30 18,50 42,50 42,30 50,30" fill="#5dba7a"/>
+                                        <rect x="24" y="36" width="12" height="14" rx="2" fill="#3a9957"/>
+                                        <rect x="18" y="30" width="24" height="5" rx="1" fill="#4aad6a"/>
+                                        <rect x="20" y="22" width="6" height="6" rx="1" fill="#fff" opacity="0.5"/>
+                                        <rect x="34" y="22" width="6" height="6" rx="1" fill="#fff" opacity="0.5"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">Home</span>
+                                    <span class="save-card-badge">EMPTY</span>
+                                </div>
+                            </div>
+                            <!-- Study -->
+                            <div class="save-item-card save-card-orange" onclick="showToast('Study savings plan')">
+                                <div class="save-card-icon-wrap save-icon-orange">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <rect x="10" y="12" width="8" height="36" rx="2" fill="#e07b3a"/>
+                                        <rect x="20" y="14" width="9" height="34" rx="2" fill="#e8a87c"/>
+                                        <rect x="31" y="12" width="7" height="36" rx="2" fill="#c9763a"/>
+                                        <rect x="40" y="16" width="10" height="30" rx="2" fill="#f0c080"/>
+                                        <line x1="10" y1="48" x2="50" y2="48" stroke="#8b4e1f" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">Study</span>
+                                    <span class="save-card-badge">EMPTY</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right chevron scroll button -->
+                        <button class="save-scroll-chevron" onclick="document.getElementById('saveMyselfTrack').scrollBy({left:300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Save with others Section -->
+                <div class="save-section">
+                    <h2 class="save-section-title">Save with others</h2>
+                    <div class="save-row-outer">
+                        <!-- Plus create card -->
+                        <div class="save-create-card" onclick="showToast('Creating a group savings plan...')">
+                            <div class="save-plus-icon"><i class="fa-solid fa-plus"></i></div>
+                        </div>
+
+                        <!-- Scrollable cards track -->
+                        <div class="save-cards-track" id="saveOthersTrack">
+                            <!-- Money Duo -->
+                            <div class="save-item-card save-card-pink" onclick="showToast('Money Duo savings plan')">
+                                <div class="save-card-icon-wrap save-icon-pink">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <circle cx="22" cy="28" r="13" fill="#e84393" opacity="0.85"/>
+                                        <circle cx="38" cy="28" r="13" fill="#c0392b" opacity="0.85"/>
+                                        <circle cx="22" cy="28" r="8" fill="#ff6fb0"/>
+                                        <circle cx="38" cy="28" r="8" fill="#e74c3c"/>
+                                        <path d="M27,22 Q30,18 33,22" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.6"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">Money Duo</span>
+                                    <span class="save-card-badge">EMPTY</span>
+                                </div>
+                            </div>
+                            <!-- Football -->
+                            <div class="save-item-card save-card-lightgreen" onclick="showToast('Football savings plan')">
+                                <div class="save-card-icon-wrap save-icon-lightgreen">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <circle cx="30" cy="30" r="20" fill="#27ae60"/>
+                                        <circle cx="30" cy="30" r="20" fill="none" stroke="#1a8a48" stroke-width="1.5"/>
+                                        <polygon points="30,14 26,22 34,22" fill="#1a5c30"/>
+                                        <polygon points="30,46 26,38 34,38" fill="#1a5c30"/>
+                                        <polygon points="14,30 22,26 22,34" fill="#1a5c30"/>
+                                        <polygon points="46,30 38,26 38,34" fill="#1a5c30"/>
+                                        <circle cx="30" cy="30" r="5" fill="#fff" opacity="0.15"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">Football</span>
+                                    <span class="save-card-badge">EMPTY</span>
+                                </div>
+                            </div>
+                            <!-- Basketball -->
+                            <div class="save-item-card save-card-indigo" onclick="showToast('Basketball savings plan')">
+                                <div class="save-card-icon-wrap save-icon-indigo">
+                                    <svg viewBox="0 0 60 60" width="44" height="44">
+                                        <circle cx="30" cy="30" r="20" fill="#7c5cbf"/>
+                                        <path d="M12,30 Q20,20 30,30 Q40,40 48,30" fill="none" stroke="#fff" stroke-width="2" opacity="0.45"/>
+                                        <path d="M30,10 Q20,20 30,30 Q40,40 30,50" fill="none" stroke="#fff" stroke-width="2" opacity="0.45"/>
+                                        <circle cx="30" cy="30" r="20" fill="none" stroke="#5e3fa3" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="save-card-info">
+                                    <span class="save-card-name">Basketball</span>
+                                    <span class="save-card-badge">EMPTY</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right chevron scroll button -->
+                        <button class="save-scroll-chevron" onclick="document.getElementById('saveOthersTrack').scrollBy({left:300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- End savePanel -->
+
+            <!-- ==========================================
+                 INVEST PANEL
+                 ========================================== -->
+            <div id="investPanel" class="tab-panel d-none" style="display: none;">
+
+                <!-- Balance + Add Cash Row -->
+                <div class="page-balance-row">
+                    <div class="page-balance-col">
+                        <div class="page-balance-label">
+                            Naira Balance <i class="fa-regular fa-eye" style="cursor:pointer;"></i>
+                        </div>
+                        <div class="page-balance-value">
+                            <span class="page-currency">₦</span>
+                            <span class="page-balance-main" id="investBalanceMain">1,037</span>
+                            <span class="page-balance-decimal" id="investBalanceDecimal">.91</span>
+                        </div>
+                    </div>
+                    <div class="page-addcash-col">
+                        <h3 class="addcash-heading">Add cash</h3>
+                        <div class="addcash-pills">
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦20K payment...')">₦ 20K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦50K payment...')">₦ 50K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦100K payment...')">₦ 100K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating $100 payment...')">$ 100</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating $200 payment...')">$ 200</button>
+                            <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Investments Section -->
+                <div class="invest-section">
+                    <div class="invest-section-header">
+                        <h2 class="invest-section-title">Investments</h2>
+                        <div class="invest-section-line"></div>
+                    </div>
+                    <div class="invest-cards-grid">
+                        <!-- NG Stocks Card -->
+                        <div class="invest-item-card invest-card-green" onclick="showToast('NG Stocks selected')">
+                            <div class="invest-card-icon-wrap invest-icon-green">
+                                <img src="./media/stocks.svg" alt="NG Stocks" style="width:32px;height:32px;object-fit:contain;">
+                            </div>
+                            <div class="invest-card-info">
+                                <span class="invest-card-name">NG Stocks</span>
+                                <span class="invest-card-amount">₦ 0.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Naira Funds Card -->
+                        <div class="invest-item-card invest-card-blue" onclick="showToast('Naira Funds selected')">
+                            <div class="invest-card-icon-wrap invest-icon-blue">
+                                <img src="./media/nairamutual.svg" alt="Naira Funds" style="width:32px;height:32px;object-fit:contain;">
+                            </div>
+                            <div class="invest-card-info">
+                                <span class="invest-card-name">Naira Funds</span>
+                                <span class="invest-card-amount" id="nairaFundsDisplayAmt">₦ 1,037.91</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More to Invest Section -->
+                <div class="invest-more-section">
+                    <h2 class="invest-section-title" style="margin-bottom:18px;">More to invest in</h2>
+                    <div class="invest-more-grid">
+                        <!-- NG Stocks Banner -->
+                        <div class="invest-more-card" onclick="showToast('NG Stocks: Explore Nigerian equities')" style="background: linear-gradient(135deg, #b8e986 0%, #5dba55 100%);">
+                            <div class="invest-more-card-title">NG Stocks</div>
+                            <div class="invest-more-card-art">
+                                <svg viewBox="0 0 120 80" width="100%" height="80">
+                                    <ellipse cx="60" cy="70" rx="50" ry="10" fill="rgba(0,0,0,0.1)"/>
+                                    <rect x="35" y="30" width="10" height="40" rx="5" fill="#3a8a2e"/>
+                                    <rect x="52" y="18" width="10" height="52" rx="5" fill="#4caf50"/>
+                                    <rect x="69" y="10" width="10" height="60" rx="5" fill="#66bb6a"/>
+                                    <circle cx="40" cy="25" r="10" fill="#81c784"/>
+                                    <circle cx="57" cy="13" r="12" fill="#a5d6a7"/>
+                                    <circle cx="74" cy="8" r="10" fill="#c8e6c9"/>
+                                    <path d="M26,65 Q50,20 90,15" stroke="#ff9800" stroke-width="2.5" fill="none" stroke-dasharray="4,2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Naira Mutual Funds Banner -->
+                        <div class="invest-more-card" onclick="showToast('Naira Mutual Funds: Earn stable returns')" style="background: linear-gradient(135deg, #fde8c8 0%, #f5c57a 100%);">
+                            <div class="invest-more-card-title">Naira Mutual Funds</div>
+                            <div class="invest-more-card-art">
+                                <img src="./media/nairamutual.svg" alt="Naira Mutual" style="width:80px;height:70px;object-fit:contain;opacity:0.7;">
+                            </div>
+                        </div>
+
+                        <!-- Dollar Mutual Funds Banner -->
+                        <div class="invest-more-card" onclick="showToast('Dollar Mutual Funds: Save in USD')" style="background: linear-gradient(135deg, #d0d9f5 0%, #a3b0e8 100%);">
+                            <div class="invest-more-card-title">Dollar Mutual Funds</div>
+                            <div class="invest-more-card-art">
+                                <img src="./media/nairamutual.svg" alt="Dollar Mutual" style="width:80px;height:70px;object-fit:contain;opacity:0.6;filter:hue-rotate(200deg);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" class="invest-learn-link" onclick="showToast('Loading investment guide...'); return false;">
+                        <i class="fa-solid fa-circle-info"></i> Learn more about investments
+                    </a>
+                </div>
+
+            </div><!-- End investPanel -->
+
+            <!-- ==========================================
+                 NEST PANEL
+                 ========================================== -->
+            <div id="nestPanel" class="tab-panel d-none" style="display: none;">
+
+                <!-- Back Link -->
+                <a href="#" class="nest-back-link" onclick="switchMainTab('home', document.querySelector('.nav-link')); return false;">
+                    <i class="fa-solid fa-chevron-left"></i> Back
+                </a>
+
+                <!-- Nest Setup Form -->
+                <div class="nest-setup-wrapper">
+                    <div class="nest-form-col">
+                        <h1 class="nest-headline">Set up your child's Nest</h1>
+
+                        <div class="nest-fields">
+                            <div class="nest-field-group">
+                                <label class="nest-field-label">First name</label>
+                                <input type="text" class="nest-field-input" placeholder="Your child's legal first name">
+                            </div>
+
+                            <div class="nest-field-group">
+                                <label class="nest-field-label">Surname</label>
+                                <input type="text" class="nest-field-input" placeholder="Your child's legal Surname">
+                            </div>
+
+                            <div class="nest-field-group">
+                                <label class="nest-field-label">
+                                    <i class="fa-regular fa-calendar" style="margin-right:6px;"></i>Date of Birth
+                                </label>
+                                <input type="date" class="nest-field-input">
+                            </div>
+
+                            <p class="nest-disclaimer">By continuing, you agree that the funds in this Nest will remain locked until your child turns 18.</p>
+
+                            <button class="nest-continue-btn" onclick="showToast('Setting up Nest account...')">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Baby Illustration -->
+                    <div class="nest-illustration-col">
+                        <svg viewBox="0 0 200 180" width="220" height="200" class="nest-baby-svg">
+                            <!-- Body -->
+                            <ellipse cx="100" cy="150" rx="55" ry="28" fill="#f9c4c8"/>
+                            <!-- Head -->
+                            <circle cx="100" cy="110" r="46" fill="#f9c4c8"/>
+                            <!-- Hair curl -->
+                            <path d="M100,65 Q108,55 105,64" stroke="#e8828a" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <!-- Left eye -->
+                            <line x1="87" y1="108" x2="92" y2="110" stroke="#c0606a" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Right eye -->
+                            <line x1="108" y1="108" x2="113" y2="110" stroke="#c0606a" stroke-width="2.5" stroke-linecap="round"/>
+                            <!-- Blush left -->
+                            <ellipse cx="80" cy="118" rx="8" ry="5" fill="#f4a0aa" opacity="0.5"/>
+                            <!-- Blush right -->
+                            <ellipse cx="120" cy="118" rx="8" ry="5" fill="#f4a0aa" opacity="0.5"/>
+                        </svg>
+                    </div>
+                </div>
+
+            </div><!-- End nestPanel -->
+
+            <!-- Generic fallback panel for unbuilt tabs -->
             <div id="fallbackPanel" class="tab-panel d-none" style="display: none;">
                 <div class="fallback-empty-view">
                     <i class="fa-solid fa-spinner fa-spin empty-icon"></i>
@@ -450,5 +805,8 @@
 
     <!-- Dashboard Logic Script -->
     <script src="./dashboard.js"></script>
+
+    <!-- Bootstrap JS Bundle (required for carousel) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

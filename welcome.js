@@ -280,32 +280,83 @@ function startTransferTimer(minutes, seconds) {
 function handleIHavePaid() {
     const cleanAmount = currentUser.pendingFundingAmount || 1000;
 
+    // Close the original transfer account details modal
     closeTransferModal();
 
-    // Save details to Firebase database
-    if (currentUser.uid && typeof db !== "undefined" && db) {
-        db.collection("users").doc(currentUser.uid).update({
-            initialFundingAmount: cleanAmount,
-            walletFunded: true,
-            virtualAccountNumber: currentUser.tempAccountNumber || ""
-        })
-            .then(() => {
-                currentUser.initialFundingAmount = cleanAmount;
-                currentUser.walletFunded = true;
-                currentUser.virtualAccountNumber = currentUser.tempAccountNumber;
-                delete currentUser.pendingFundingAmount;
-                delete currentUser.tempAccountNumber;
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    // Open the confirming payment modal overlay
+    const confirmingModal = document.getElementById('confirmingPaymentModal');
+    if (confirmingModal) {
+        // Sync values inside modal details
+        document.getElementById('confModalAmount').textContent = `₦ ${cleanAmount.toLocaleString('en-US')}.00`;
+        document.getElementById('confModalTotal').textContent = `₦ ${(cleanAmount + 15).toLocaleString('en-US')}.00`;
+        
+        // Match the current countdown timer display value
+        const currentTimerText = document.getElementById('transferTimer').textContent;
+        document.getElementById('confModalTimerDisplay').textContent = currentTimerText;
 
-                // Show success feedback cards popup modal
-                showSuccessModal();
+        confirmingModal.style.display = 'flex';
+        confirmingModal.classList.remove('d-none');
+    }
+
+    // Set a 3000ms delay to simulate verification before proceeding
+    setTimeout(() => {
+        // Close confirming modal
+        closeConfirmingModal();
+
+        // Save details to Firebase database
+        if (currentUser.uid && typeof db !== "undefined" && db) {
+            db.collection("users").doc(currentUser.uid).update({
+                initialFundingAmount: cleanAmount,
+                walletFunded: true,
+                virtualAccountNumber: currentUser.tempAccountNumber || ""
             })
-            .catch((err) => {
-                console.error("Database update error on confirmation:", err);
-                showSuccessModal();
-            });
-    } else {
-        showSuccessModal();
+                .then(() => {
+                    currentUser.initialFundingAmount = cleanAmount;
+                    currentUser.walletFunded = true;
+                    currentUser.virtualAccountNumber = currentUser.tempAccountNumber;
+                    delete currentUser.pendingFundingAmount;
+                    delete currentUser.tempAccountNumber;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+                    // Show intermediate alert success modal
+                    showSuccessAlertModal();
+                })
+                .catch((err) => {
+                    console.error("Database update error on confirmation:", err);
+                    showSuccessAlertModal();
+                });
+        } else {
+            showSuccessAlertModal();
+        }
+    }, 3000);
+}
+
+// Shows the intermediate successful alert popup modal
+function showSuccessAlertModal() {
+    const alertModal = document.getElementById('paymentSuccessAlertModal');
+    if (alertModal) {
+        alertModal.style.display = 'flex';
+        alertModal.classList.remove('d-none');
+    }
+}
+
+// Closes successful alert popup modal and proceeds to final emergency messaging popup
+function closeSuccessAlertModalAndProceed() {
+    const alertModal = document.getElementById('paymentSuccessAlertModal');
+    if (alertModal) {
+        alertModal.style.display = 'none';
+        alertModal.classList.add('d-none');
+    }
+    // Present final emergency popup modal
+    showSuccessModal();
+}
+
+// Closes the confirming payment modal overlay
+function closeConfirmingModal() {
+    const confirmingModal = document.getElementById('confirmingPaymentModal');
+    if (confirmingModal) {
+        confirmingModal.style.display = 'none';
+        confirmingModal.classList.add('d-none');
     }
 }
 

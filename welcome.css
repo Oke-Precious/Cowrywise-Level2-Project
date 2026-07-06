@@ -820,4 +820,25 @@ body::after {
     margin: 0 !important;
 }
 
+/* Confirming Payment Modal Animations */
+@keyframes bounceDot {
+    from {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+    to {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+}
+
+@keyframes loadingBarProgress {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
 
