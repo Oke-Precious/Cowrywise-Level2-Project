@@ -60,6 +60,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 3. Initialize carousel auto-slide loop
     startCarouselAutoPlay();
+
+    // 4. Setup drag-to-scroll for all horizontal tracks
+    const scrollContainers = document.querySelectorAll(
+        '.save-cards-track, .invest-cards-grid, .invest-more-grid'
+    );
+    
+    scrollContainers.forEach(container => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.style.cursor = 'grabbing';
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        });
+        
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+        });
+        
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+            container.style.cursor = 'grab';
+        });
+        
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 1.5; // adjust scrolling speed multiplier
+            container.scrollLeft = scrollLeft - walk;
+        });
+
+        // Set initial grab cursor styling
+        container.style.cursor = 'grab';
+    });
 });
 
 // Update greeting name dynamically
@@ -313,7 +352,7 @@ function switchMainTab(tabId, menuLinkBtn) {
     if (sidebar) sidebar.classList.remove('show');
 
     // All panels to hide
-    const allPanels = ['homePanel', 'savePanel', 'investPanel', 'nestPanel', 'fallbackPanel'];
+    const allPanels = ['homePanel', 'savePanel', 'investPanel', 'nestPanel', 'stashPanel', 'fallbackPanel'];
     allPanels.forEach(id => {
         const el = document.getElementById(id);
         if (el) { el.classList.remove('active'); el.classList.add('d-none'); el.style.display = 'none'; }
@@ -343,6 +382,10 @@ function switchMainTab(tabId, menuLinkBtn) {
     } else if (tabId === 'nest') {
         const p = document.getElementById('nestPanel');
         if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
+    } else if (tabId === 'stash') {
+        const p = document.getElementById('stashPanel');
+        if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
+        syncStashPage();
     } else {
         const p = document.getElementById('fallbackPanel');
         if (p) { p.classList.add('active'); p.classList.remove('d-none'); p.style.display = 'block'; }
@@ -562,3 +605,157 @@ function selectTopupOption(optionName) {
     }
 }
 
+// Nest Form submission & validation handler
+function handleNestSubmit(event) {
+    event.preventDefault();
+    
+    const firstName = document.getElementById('nestFirstName');
+    const surname = document.getElementById('nestSurname');
+    const dob = document.getElementById('nestDOB');
+    
+    const firstNameErr = document.getElementById('nestFirstNameError');
+    const surnameErr = document.getElementById('nestSurnameError');
+    const dobErr = document.getElementById('nestDOBError');
+    
+    let isValid = true;
+    
+    // Validate First Name
+    if (!firstName.value.trim()) {
+        firstNameErr.classList.remove('d-none');
+        firstName.classList.add('input-error');
+        isValid = false;
+    } else {
+        firstNameErr.classList.add('d-none');
+        firstName.classList.remove('input-error');
+    }
+    
+    // Validate Surname
+    if (!surname.value.trim()) {
+        surnameErr.classList.remove('d-none');
+        surname.classList.add('input-error');
+        isValid = false;
+    } else {
+        surnameErr.classList.add('d-none');
+        surname.classList.remove('input-error');
+    }
+    
+    // Validate Date of Birth
+    if (!dob.value) {
+        dobErr.classList.remove('d-none');
+        dob.classList.add('input-error');
+        isValid = false;
+    } else {
+        dobErr.classList.add('d-none');
+        dob.classList.remove('input-error');
+    }
+    
+    if (isValid) {
+        showToast(`Nest account for ${firstName.value.trim()} has been successfully created!`);
+        firstName.value = '';
+        surname.value = '';
+        dob.value = '';
+    }
+}
+
+/* ======================================================
+   STASH PAGE HELPERS
+   ====================================================== */
+
+/**
+ * Populate the stash bank card with the virtual account number
+ * and full name generated during the user's registration payment.
+ */
+function syncStashPage() {
+    const acctEl   = document.getElementById('stashAcctNumber');
+    const nameEl   = document.getElementById('stashAcctName');
+    if (!acctEl || !nameEl) return;
+
+    try {
+        const raw = localStorage.getItem('currentUser');
+        if (!raw) throw new Error('No user in storage');
+        const user = JSON.parse(raw);
+
+        // Account number — saved as virtualAccountNumber after payment confirmed
+        const acctNum = user.virtualAccountNumber || user.tempAccountNumber || '';
+
+        // Build full name identical to how welcome.js builds it
+        let fullname = '';
+        if (user.firstName && user.secondName) {
+            fullname = `${user.firstName} ${user.secondName}`;
+        } else if (user.firstName) {
+            fullname = user.firstName;
+        } else if (user.secondName) {
+            fullname = user.secondName;
+        } else if (user.displayName) {
+            fullname = user.displayName;
+        } else {
+            fullname = user.email || 'Account Holder';
+        }
+
+        if (acctNum) {
+            acctEl.textContent = acctNum;
+            nameEl.textContent = `Cowrywise/${fullname}`;
+        } else {
+            // User hasn't completed initial funding yet
+            acctEl.textContent = 'Not yet generated';
+            acctEl.style.fontSize = '14px';
+            nameEl.textContent = 'Complete your first deposit to get an account number';
+        }
+    } catch (e) {
+        acctEl.textContent = 'Unavailable';
+        nameEl.textContent = 'Please log in again';
+    }
+}
+
+/** Toggle stash balance between visible and hidden */
+function toggleStashBalance(eyeIcon) {
+    const display = document.getElementById('stashBalanceDisplay');
+    if (!display) return;
+    const main = display.querySelector('.stash-balance-main');
+    const dec  = display.querySelector('.stash-balance-decimal');
+    if (!main) return;
+
+    const isHidden = main.dataset.hidden === 'true';
+    if (isHidden) {
+        main.textContent = main.dataset.realValue || '0';
+        dec.style.visibility = 'visible';
+        main.dataset.hidden = 'false';
+        eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
+    } else {
+        main.dataset.realValue = main.textContent;
+        main.textContent = '****';
+        dec.style.visibility = 'hidden';
+        main.dataset.hidden = 'true';
+        eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
+    }
+}
+
+/** Copy the stash virtual account number from the DOM to clipboard */
+function copyStashAccount() {
+    const acctEl = document.getElementById('stashAcctNumber');
+    const acctNum = acctEl ? acctEl.textContent.trim() : '';
+
+    if (!acctNum || acctNum === '—' || acctNum === 'Not yet generated' || acctNum === 'Unavailable') {
+        showToast('No account number to copy yet.');
+        return;
+    }
+    navigator.clipboard.writeText(acctNum).then(() => {
+        showToast('Account number copied!');
+    }).catch(() => {
+        showToast('Copy failed. Account number: ' + acctNum);
+    });
+}
+
+/** Filter stash transaction list */
+function filterStashTx(type) {
+    const items = document.querySelectorAll('#stashTxList .stash-tx-item');
+    items.forEach(item => {
+        if (type === 'all') {
+            item.style.display = 'flex';
+        } else if (type === 'credit') {
+            item.style.display = item.classList.contains('stash-tx-credit') ? 'flex' : 'none';
+        } else if (type === 'debit') {
+            item.style.display = item.classList.contains('stash-tx-debit') ? 'flex' : 'none';
+        }
+    });
+}

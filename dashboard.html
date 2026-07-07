@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="./media/cowryicon.png">
-    
+
     <link rel="stylesheet" href="dashboard.css">
     <title>Dashboard | Cowrywise</title>
 </head>
+
 <body>
     <!-- Top Header Navigation -->
     <header class="dashboard-header">
@@ -105,10 +109,10 @@
 
         <!-- Main Dashboard View Panel -->
         <main class="dashboard-content-panel">
-            
+
             <!-- Home Panel View Container -->
             <div id="homePanel" class="tab-panel active">
-                
+
                 <!-- Home/Portfolio Sub-tabs header -->
                 <div class="sub-tabs-container">
                     <button class="sub-tab-btn active" onclick="switchSubTab('home-sub', this)">Home</button>
@@ -118,10 +122,10 @@
                 <!-- Home Subtab View Content -->
                 <div id="homeSubTabContent" class="sub-tab-panel active">
                     <div class="home-grid-layout">
-                        
+
                         <!-- Left Side Area: Balance card & Assessment -->
                         <div class="grid-left-col">
-                            
+
                             <!-- Premium blue balance card with dynamic growth chart -->
                             <div class="naira-balance-card">
                                 <div class="card-top-row">
@@ -132,7 +136,7 @@
                                     <button class="card-icon-btn" onclick="toggleBalanceVisibility(this)">
                                         <i class="fa-regular fa-eye"></i>
                                     </button>
-                                    
+
                                     <!-- Energy/lightning indicator -->
                                     <div class="energy-indicator">
                                         <i class="fa-solid fa-bolt"></i> 0
@@ -144,7 +148,7 @@
                                     <span class="currency-symbol-card">₦</span>
                                     <span id="mainBalanceValue" class="balance-big-amount">1,036</span>
                                     <span id="decimalBalanceValue" class="balance-decimals">.03</span>
-                                    
+
                                     <!-- Stars display when hidden -->
                                     <span id="hiddenBalanceStars" class="balance-big-amount">****</span>
                                 </div>
@@ -159,15 +163,19 @@
                                                 <stop offset="100%" stop-color="rgba(255, 255, 255, 0.0)"></stop>
                                             </linearGradient>
                                         </defs>
-                                        <path id="chartFillPath" d="M 0 100 Q 100 85, 200 80 T 400 68 L 400 100 L 0 100 Z" fill="url(#chartGradient)"></path>
-                                        <path id="chartLinePath" d="M 0 100 Q 100 85, 200 80 T 400 68" fill="none" stroke="#68A5FF" stroke-width="2.5" stroke-linecap="round"></path>
+                                        <path id="chartFillPath"
+                                            d="M 0 100 Q 100 85, 200 80 T 400 68 L 400 100 L 0 100 Z"
+                                            fill="url(#chartGradient)"></path>
+                                        <path id="chartLinePath" d="M 0 100 Q 100 85, 200 80 T 400 68" fill="none"
+                                            stroke="#68A5FF" stroke-width="2.5" stroke-linecap="round"></path>
                                     </svg>
                                 </div>
 
                                 <!-- Bottom Return Pill -->
                                 <div class="card-bottom-row">
                                     <div class="return-pill">
-                                        ✦ <span id="returnPillText">₦0.47 return in Jul</span> <i class="fa-solid fa-chevron-up font-size-8"></i>
+                                        ✦ <span id="returnPillText">₦0.47 return in Jul</span> <i
+                                            class="fa-solid fa-chevron-up font-size-8"></i>
                                     </div>
                                 </div>
                             </div>
@@ -176,7 +184,9 @@
                             <div class="risk-appetite-card">
                                 <div class="card-info-col">
                                     <h3>Know your risk appetite</h3>
-                                    <a href="#" onclick="showToast('Risk assessment coming soon...'); return false;">Take assessment <i class="fa-solid fa-chevron-right font-size-10"></i></a>
+                                    <a href="#"
+                                        onclick="showToast('Risk assessment coming soon...'); return false;">Take
+                                        assessment <i class="fa-solid fa-chevron-right font-size-10"></i></a>
                                 </div>
                                 <div class="card-icon-circle">
                                     <img src="./media/flame.svg" alt="">
@@ -186,7 +196,7 @@
 
                         <!-- Right Side Area: Quick Cash & Carousel Ads -->
                         <div class="grid-right-col">
-                            
+
                             <!-- Add Cash panel -->
                             <div class="add-cash-container">
                                 <h3>Add cash</h3>
@@ -196,7 +206,8 @@
                                     <button class="add-pill-btn" onclick="customAddAmount()">₦ 100K</button>
                                     <button class="add-pill-btn" onclick="customAddAmount()">$ 100</button>
                                     <button class="add-pill-btn" onclick="customAddAmount()">$ 200</button>
-                                    <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
+                                    <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i
+                                            class="fa-solid fa-plus"></i></button>
                                 </div>
                             </div>
 
@@ -233,7 +244,8 @@
                 <div id="portfolioSubTabContent" class="sub-tab-panel d-none" style="display: none;">
                     <!-- Request investment letter link header row -->
                     <div class="portfolio-header-actions">
-                        <a href="#" class="request-letter-link" onclick="showToast('Investment letter request sent!'); return false;">
+                        <a href="#" class="request-letter-link"
+                            onclick="showToast('Investment letter request sent!'); return false;">
                             <i class="fa-regular fa-envelope"></i> Request investment letter
                         </a>
                     </div>
@@ -250,7 +262,7 @@
                             <div class="p-card-body">
                                 <span class="p-sub-label">Today</span>
                                 <div class="p-today-value" id="portfolioTodayAmount">₦ 1K</div>
-                                
+
                                 <!-- Portfolio growth line chart -->
                                 <div class="portfolio-chart-container">
                                     <svg viewBox="0 0 300 80" class="portfolio-chart-svg" preserveAspectRatio="none">
@@ -284,10 +296,12 @@
                                 <span class="p-card-title"><span class="accent-bar half-green"></span> Earnings</span>
                                 <i class="fa-solid fa-chevron-right p-arrow"></i>
                             </div>
-                            <h2 class="p-main-headline">You've earned <span id="portfolioEarningsAmount">₦0.48</span> on your total investments in July.</h2>
+                            <h2 class="p-main-headline">You've earned <span id="portfolioEarningsAmount">₦0.48</span> on
+                                your total investments in July.</h2>
                             <div class="p-card-body">
                                 <div class="earnings-percentage-col">
-                                    <span class="earnings-big-pct">47.45% <i class="fa-solid fa-arrow-down" style="font-size: 13px;"></i></span>
+                                    <span class="earnings-big-pct">47.45% <i class="fa-solid fa-arrow-down"
+                                            style="font-size: 13px;"></i></span>
                                     <span class="p-sub-label">from this time last month</span>
                                 </div>
 
@@ -311,7 +325,8 @@
                         <!-- Card 3: Breakdown -->
                         <div class="portfolio-card-item breakdown-card">
                             <div class="p-card-header">
-                                <span class="p-card-title"><span class="accent-bar circle-green"></span> Breakdown</span>
+                                <span class="p-card-title"><span class="accent-bar circle-green"></span>
+                                    Breakdown</span>
                                 <i class="fa-solid fa-chevron-right p-arrow"></i>
                             </div>
                             <div class="p-card-body" style="padding-top: 10px !important;">
@@ -321,12 +336,14 @@
                                 </div>
                                 <div class="breakdown-metrics-list">
                                     <div class="metric-item">
-                                        <span class="metric-dot"></span> Investments: <strong style="color: var(--color-text-dark);">100.00%</strong>
+                                        <span class="metric-dot"></span> Investments: <strong
+                                            style="color: var(--color-text-dark);">100.00%</strong>
                                     </div>
                                 </div>
                             </div>
                             <div class="p-card-footer" style="margin-top: 40px !important;">
-                                <p class="p-footer-note">Consider saving regularly to build a strong financial foundation.</p>
+                                <p class="p-footer-note">Consider saving regularly to build a strong financial
+                                    foundation.</p>
                             </div>
                         </div>
                     </div>
@@ -343,7 +360,8 @@
                 <div class="page-balance-row">
                     <div class="page-balance-col">
                         <div class="page-balance-label">
-                            Savings Balance <i class="fa-regular fa-eye" style="cursor:pointer;" onclick="toggleSaveBalanceVisibility(this)"></i>
+                            Savings Balance <i class="fa-regular fa-eye" style="cursor:pointer;"
+                                onclick="toggleSaveBalanceVisibility(this)"></i>
                         </div>
                         <div class="page-balance-value" id="saveBalanceDisplay">
                             <span class="page-currency">₦</span>
@@ -354,35 +372,49 @@
                     <div class="page-addcash-col">
                         <h3 class="addcash-heading">Add cash</h3>
                         <div class="addcash-pills">
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦20K payment...')">N 20K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦50K payment...')">N 50K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦100K payment...')">N 100K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦250K payment...')">N 250K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦500K payment...')">N 500K</button>
-                            <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦20K payment...')">N
+                                20K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦50K payment...')">N
+                                50K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦100K payment...')">N
+                                100K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦250K payment...')">N
+                                250K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦500K payment...')">N
+                                500K</button>
+                            <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i
+                                    class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
+
+
 
                 <!-- Save by myself Section -->
                 <div class="save-section">
                     <h2 class="save-section-title">Save by myself</h2>
                     <div class="save-row-outer">
+                        <!-- Left chevron scroll button -->
+                        <button class="save-scroll-chevron"
+                            onclick="document.getElementById('saveMyselfTrack').scrollBy({left:-300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+
                         <!-- Plus create card -->
                         <div class="save-create-card" onclick="showToast('Creating a new savings plan...')">
                             <div class="save-plus-icon"><i class="fa-solid fa-plus"></i></div>
                         </div>
 
-                        <!-- Scrollable cards track -->
                         <div class="save-cards-track" id="saveMyselfTrack">
+                            <!-- Scrollable cards track -->
                             <!-- General -->
                             <div class="save-item-card save-card-blue" onclick="showToast('General savings plan')">
                                 <div class="save-card-icon-wrap save-icon-blue">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <ellipse cx="30" cy="36" rx="18" ry="14" fill="#b0c4de" opacity="0.7"/>
-                                        <rect x="14" y="22" width="32" height="20" rx="5" fill="#7fa8cc"/>
-                                        <rect x="20" y="16" width="20" height="14" rx="4" fill="#5b8fb9"/>
-                                        <rect x="26" y="12" width="8" height="8" rx="2" fill="#3a6f9b"/>
+                                        <ellipse cx="30" cy="36" rx="18" ry="14" fill="#b0c4de" opacity="0.7" />
+                                        <rect x="14" y="22" width="32" height="20" rx="5" fill="#7fa8cc" />
+                                        <rect x="20" y="16" width="20" height="14" rx="4" fill="#5b8fb9" />
+                                        <rect x="26" y="12" width="8" height="8" rx="2" fill="#3a6f9b" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -394,11 +426,11 @@
                             <div class="save-item-card save-card-purple" onclick="showToast('Emergency savings plan')">
                                 <div class="save-card-icon-wrap save-icon-purple">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <ellipse cx="30" cy="48" rx="16" ry="6" fill="#d8b4e2" opacity="0.5"/>
-                                        <path d="M14,34 Q14,16 30,16 Q46,16 46,34 Z" fill="#9b59b6"/>
-                                        <path d="M14,34 Q14,16 30,16 Q46,16 46,34 Z" fill="#c97dd4" opacity="0.6"/>
-                                        <rect x="27" y="34" width="6" height="10" rx="2" fill="#9b59b6"/>
-                                        <ellipse cx="30" cy="44" rx="5" ry="3" fill="#7d3c98"/>
+                                        <ellipse cx="30" cy="48" rx="16" ry="6" fill="#d8b4e2" opacity="0.5" />
+                                        <path d="M14,34 Q14,16 30,16 Q46,16 46,34 Z" fill="#9b59b6" />
+                                        <path d="M14,34 Q14,16 30,16 Q46,16 46,34 Z" fill="#c97dd4" opacity="0.6" />
+                                        <rect x="27" y="34" width="6" height="10" rx="2" fill="#9b59b6" />
+                                        <ellipse cx="30" cy="44" rx="5" ry="3" fill="#7d3c98" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -410,11 +442,11 @@
                             <div class="save-item-card save-card-green" onclick="showToast('Home savings plan')">
                                 <div class="save-card-icon-wrap save-icon-green">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <polygon points="30,10 10,30 18,30 18,50 42,50 42,30 50,30" fill="#5dba7a"/>
-                                        <rect x="24" y="36" width="12" height="14" rx="2" fill="#3a9957"/>
-                                        <rect x="18" y="30" width="24" height="5" rx="1" fill="#4aad6a"/>
-                                        <rect x="20" y="22" width="6" height="6" rx="1" fill="#fff" opacity="0.5"/>
-                                        <rect x="34" y="22" width="6" height="6" rx="1" fill="#fff" opacity="0.5"/>
+                                        <polygon points="30,10 10,30 18,30 18,50 42,50 42,30 50,30" fill="#5dba7a" />
+                                        <rect x="24" y="36" width="12" height="14" rx="2" fill="#3a9957" />
+                                        <rect x="18" y="30" width="24" height="5" rx="1" fill="#4aad6a" />
+                                        <rect x="20" y="22" width="6" height="6" rx="1" fill="#fff" opacity="0.5" />
+                                        <rect x="34" y="22" width="6" height="6" rx="1" fill="#fff" opacity="0.5" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -426,11 +458,11 @@
                             <div class="save-item-card save-card-orange" onclick="showToast('Study savings plan')">
                                 <div class="save-card-icon-wrap save-icon-orange">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <rect x="10" y="12" width="8" height="36" rx="2" fill="#e07b3a"/>
-                                        <rect x="20" y="14" width="9" height="34" rx="2" fill="#e8a87c"/>
-                                        <rect x="31" y="12" width="7" height="36" rx="2" fill="#c9763a"/>
-                                        <rect x="40" y="16" width="10" height="30" rx="2" fill="#f0c080"/>
-                                        <line x1="10" y1="48" x2="50" y2="48" stroke="#8b4e1f" stroke-width="2"/>
+                                        <rect x="10" y="12" width="8" height="36" rx="2" fill="#e07b3a" />
+                                        <rect x="20" y="14" width="9" height="34" rx="2" fill="#e8a87c" />
+                                        <rect x="31" y="12" width="7" height="36" rx="2" fill="#c9763a" />
+                                        <rect x="40" y="16" width="10" height="30" rx="2" fill="#f0c080" />
+                                        <line x1="10" y1="48" x2="50" y2="48" stroke="#8b4e1f" stroke-width="2" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -441,16 +473,22 @@
                         </div>
 
                         <!-- Right chevron scroll button -->
-                        <button class="save-scroll-chevron" onclick="document.getElementById('saveMyselfTrack').scrollBy({left:300,behavior:'smooth'})">
+                        <button class="save-scroll-chevron right-scroll-chevron"
+                            onclick="document.getElementById('saveMyselfTrack').scrollBy({left:300,behavior:'smooth'})">
                             <i class="fa-solid fa-chevron-right"></i>
                         </button>
                     </div>
                 </div>
-
                 <!-- Save with others Section -->
                 <div class="save-section">
                     <h2 class="save-section-title">Save with others</h2>
                     <div class="save-row-outer">
+                        <!-- Left chevron scroll button -->
+                        <button class="save-scroll-chevron"
+                            onclick="document.getElementById('saveOthersTrack').scrollBy({left:-300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+
                         <!-- Plus create card -->
                         <div class="save-create-card" onclick="showToast('Creating a group savings plan...')">
                             <div class="save-plus-icon"><i class="fa-solid fa-plus"></i></div>
@@ -462,11 +500,12 @@
                             <div class="save-item-card save-card-pink" onclick="showToast('Money Duo savings plan')">
                                 <div class="save-card-icon-wrap save-icon-pink">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <circle cx="22" cy="28" r="13" fill="#e84393" opacity="0.85"/>
-                                        <circle cx="38" cy="28" r="13" fill="#c0392b" opacity="0.85"/>
-                                        <circle cx="22" cy="28" r="8" fill="#ff6fb0"/>
-                                        <circle cx="38" cy="28" r="8" fill="#e74c3c"/>
-                                        <path d="M27,22 Q30,18 33,22" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.6"/>
+                                        <circle cx="22" cy="28" r="13" fill="#e84393" opacity="0.85" />
+                                        <circle cx="38" cy="28" r="13" fill="#c0392b" opacity="0.85" />
+                                        <circle cx="22" cy="28" r="8" fill="#ff6fb0" />
+                                        <circle cx="38" cy="28" r="8" fill="#e74c3c" />
+                                        <path d="M27,22 Q30,18 33,22" fill="none" stroke="#fff" stroke-width="1.5"
+                                            opacity="0.6" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -475,16 +514,18 @@
                                 </div>
                             </div>
                             <!-- Football -->
-                            <div class="save-item-card save-card-lightgreen" onclick="showToast('Football savings plan')">
+                            <div class="save-item-card save-card-lightgreen"
+                                onclick="showToast('Football savings plan')">
                                 <div class="save-card-icon-wrap save-icon-lightgreen">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <circle cx="30" cy="30" r="20" fill="#27ae60"/>
-                                        <circle cx="30" cy="30" r="20" fill="none" stroke="#1a8a48" stroke-width="1.5"/>
-                                        <polygon points="30,14 26,22 34,22" fill="#1a5c30"/>
-                                        <polygon points="30,46 26,38 34,38" fill="#1a5c30"/>
-                                        <polygon points="14,30 22,26 22,34" fill="#1a5c30"/>
-                                        <polygon points="46,30 38,26 38,34" fill="#1a5c30"/>
-                                        <circle cx="30" cy="30" r="5" fill="#fff" opacity="0.15"/>
+                                        <circle cx="30" cy="30" r="20" fill="#27ae60" />
+                                        <circle cx="30" cy="30" r="20" fill="none" stroke="#1a8a48"
+                                            stroke-width="1.5" />
+                                        <polygon points="30,14 26,22 34,22" fill="#1a5c30" />
+                                        <polygon points="30,46 26,38 34,38" fill="#1a5c30" />
+                                        <polygon points="14,30 22,26 22,34" fill="#1a5c30" />
+                                        <polygon points="46,30 38,26 38,34" fill="#1a5c30" />
+                                        <circle cx="30" cy="30" r="5" fill="#fff" opacity="0.15" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -496,10 +537,12 @@
                             <div class="save-item-card save-card-indigo" onclick="showToast('Basketball savings plan')">
                                 <div class="save-card-icon-wrap save-icon-indigo">
                                     <svg viewBox="0 0 60 60" width="44" height="44">
-                                        <circle cx="30" cy="30" r="20" fill="#7c5cbf"/>
-                                        <path d="M12,30 Q20,20 30,30 Q40,40 48,30" fill="none" stroke="#fff" stroke-width="2" opacity="0.45"/>
-                                        <path d="M30,10 Q20,20 30,30 Q40,40 30,50" fill="none" stroke="#fff" stroke-width="2" opacity="0.45"/>
-                                        <circle cx="30" cy="30" r="20" fill="none" stroke="#5e3fa3" stroke-width="2"/>
+                                        <circle cx="30" cy="30" r="20" fill="#7c5cbf" />
+                                        <path d="M12,30 Q20,20 30,30 Q40,40 48,30" fill="none" stroke="#fff"
+                                            stroke-width="2" opacity="0.45" />
+                                        <path d="M30,10 Q20,20 30,30 Q40,40 30,50" fill="none" stroke="#fff"
+                                            stroke-width="2" opacity="0.45" />
+                                        <circle cx="30" cy="30" r="20" fill="none" stroke="#5e3fa3" stroke-width="2" />
                                     </svg>
                                 </div>
                                 <div class="save-card-info">
@@ -510,12 +553,12 @@
                         </div>
 
                         <!-- Right chevron scroll button -->
-                        <button class="save-scroll-chevron" onclick="document.getElementById('saveOthersTrack').scrollBy({left:300,behavior:'smooth'})">
+                        <button class="save-scroll-chevron right-scroll-chevron"
+                            onclick="document.getElementById('saveOthersTrack').scrollBy({left:300,behavior:'smooth'})">
                             <i class="fa-solid fa-chevron-right"></i>
                         </button>
                     </div>
                 </div>
-
             </div><!-- End savePanel -->
 
             <!-- ==========================================
@@ -538,12 +581,18 @@
                     <div class="page-addcash-col">
                         <h3 class="addcash-heading">Add cash</h3>
                         <div class="addcash-pills">
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦20K payment...')">₦ 20K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦50K payment...')">₦ 50K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating ₦100K payment...')">₦ 100K</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating $100 payment...')">$ 100</button>
-                            <button class="add-pill-btn" onclick="showToast('Initiating $200 payment...')">$ 200</button>
-                            <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i class="fa-solid fa-plus"></i></button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦20K payment...')">₦
+                                20K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦50K payment...')">₦
+                                50K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating ₦100K payment...')">₦
+                                100K</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating $100 payment...')">$
+                                100</button>
+                            <button class="add-pill-btn" onclick="showToast('Initiating $200 payment...')">$
+                                200</button>
+                            <button class="add-pill-btn icon-btn" onclick="customAddAmount()"><i
+                                    class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
@@ -554,70 +603,95 @@
                         <h2 class="invest-section-title">Investments</h2>
                         <div class="invest-section-line"></div>
                     </div>
-                    <div class="invest-cards-grid">
-                        <!-- NG Stocks Card -->
-                        <div class="invest-item-card invest-card-green" onclick="showToast('NG Stocks selected')">
-                            <div class="invest-card-icon-wrap invest-icon-green">
-                                <img src="./media/stocks.svg" alt="NG Stocks" style="width:32px;height:32px;object-fit:contain;">
+                    <div class="invest-row-outer">
+                        <!-- Left chevron scroll button -->
+                        <button class="save-scroll-chevron"
+                            onclick="document.getElementById('investCardsTrack').scrollBy({left:-300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+
+                        <div class="invest-cards-grid" id="investCardsTrack">
+                            <!-- NG Stocks Card -->
+                            <div class="invest-item-card invest-card-green" onclick="showToast('NG Stocks selected')">
+                                <div class="invest-card-icon-wrap invest-icon-green">
+                                    <img src="./media/ngstocksicon.svg" alt="NG Stocks"
+                                        style="width:32px;height:32px;object-fit:contain;">
+                                </div>
+                                <div class="invest-card-info">
+                                    <span class="invest-card-name">NG Stocks</span>
+                                    <span class="invest-card-amount">₦ 0.00</span>
+                                </div>
                             </div>
-                            <div class="invest-card-info">
-                                <span class="invest-card-name">NG Stocks</span>
-                                <span class="invest-card-amount">₦ 0.00</span>
+
+                            <!-- Naira Funds Card -->
+                            <div class="invest-item-card invest-card-blue" onclick="showToast('Naira Funds selected')">
+                                <div class="invest-card-icon-wrap invest-icon-blue">
+                                    <img src="./media/nairamutual.svg" alt="Naira Funds"
+                                        style="width:32px;height:32px;object-fit:contain;">
+                                </div>
+                                <div class="invest-card-info">
+                                    <span class="invest-card-name">Naira Funds</span>
+                                    <span class="invest-card-amount" id="nairaFundsDisplayAmt">₦ 1,037.91</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Naira Funds Card -->
-                        <div class="invest-item-card invest-card-blue" onclick="showToast('Naira Funds selected')">
-                            <div class="invest-card-icon-wrap invest-icon-blue">
-                                <img src="./media/nairamutual.svg" alt="Naira Funds" style="width:32px;height:32px;object-fit:contain;">
-                            </div>
-                            <div class="invest-card-info">
-                                <span class="invest-card-name">Naira Funds</span>
-                                <span class="invest-card-amount" id="nairaFundsDisplayAmt">₦ 1,037.91</span>
-                            </div>
-                        </div>
+                        <!-- Right chevron scroll button -->
+                        <button class="save-scroll-chevron right-scroll-chevron"
+                            onclick="document.getElementById('investCardsTrack').scrollBy({left:300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
 
                 <!-- More to Invest Section -->
                 <div class="invest-more-section">
                     <h2 class="invest-section-title" style="margin-bottom:18px;">More to invest in</h2>
-                    <div class="invest-more-grid">
-                        <!-- NG Stocks Banner -->
-                        <div class="invest-more-card" onclick="showToast('NG Stocks: Explore Nigerian equities')" style="background: linear-gradient(135deg, #b8e986 0%, #5dba55 100%);">
-                            <div class="invest-more-card-title">NG Stocks</div>
-                            <div class="invest-more-card-art">
-                                <svg viewBox="0 0 120 80" width="100%" height="80">
-                                    <ellipse cx="60" cy="70" rx="50" ry="10" fill="rgba(0,0,0,0.1)"/>
-                                    <rect x="35" y="30" width="10" height="40" rx="5" fill="#3a8a2e"/>
-                                    <rect x="52" y="18" width="10" height="52" rx="5" fill="#4caf50"/>
-                                    <rect x="69" y="10" width="10" height="60" rx="5" fill="#66bb6a"/>
-                                    <circle cx="40" cy="25" r="10" fill="#81c784"/>
-                                    <circle cx="57" cy="13" r="12" fill="#a5d6a7"/>
-                                    <circle cx="74" cy="8" r="10" fill="#c8e6c9"/>
-                                    <path d="M26,65 Q50,20 90,15" stroke="#ff9800" stroke-width="2.5" fill="none" stroke-dasharray="4,2"/>
-                                </svg>
+                    <div class="invest-row-outer">
+                        <!-- Left chevron scroll button -->
+                        <button class="save-scroll-chevron"
+                            onclick="document.getElementById('investMoreTrack').scrollBy({left:-300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+
+                        <div class="invest-more-grid" id="investMoreTrack">
+                            <!-- NG Stocks Banner -->
+                            <div class="invest-more-card" onclick="showToast('NG Stocks: Explore Nigerian equities')"
+                                style="background: linear-gradient(135deg, #b8e986 0%, #5dba55 100%);">
+                                <div class="invest-more-card-title">NG Stocks</div>
+                                <div class="invest-more-card-art">
+                                    <img src="./media/ngstocks.webp" alt="ng stocks">
+                                </div>
+                            </div>
+
+                            <!-- Naira Mutual Funds Banner -->
+                            <div class="invest-more-card" onclick="showToast('Naira Mutual Funds: Earn stable returns')"
+                                style="background: linear-gradient(135deg, #fde8c8 0%, #f5c57a 100%);">
+                                <div class="invest-more-card-title">Naira Mutual Funds</div>
+                                <div class="invest-more-card-art">
+                                    <img src="./media/naira mutual funds.webp" alt="Naira Mutual">
+                                </div>
+                            </div>
+
+                            <!-- Dollar Mutual Funds Banner -->
+                            <div class="invest-more-card" onclick="showToast('Dollar Mutual Funds: Save in USD')"
+                                style="background: linear-gradient(135deg, #d0d9f5 0%, #a3b0e8 100%);">
+                                <div class="invest-more-card-title">Dollar Mutual Funds</div>
+                                <div class="invest-more-card-art">
+                                    <img src="./media/dollar mutual funds.webp" alt="Dollar Mutual">
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Naira Mutual Funds Banner -->
-                        <div class="invest-more-card" onclick="showToast('Naira Mutual Funds: Earn stable returns')" style="background: linear-gradient(135deg, #fde8c8 0%, #f5c57a 100%);">
-                            <div class="invest-more-card-title">Naira Mutual Funds</div>
-                            <div class="invest-more-card-art">
-                                <img src="./media/nairamutual.svg" alt="Naira Mutual" style="width:80px;height:70px;object-fit:contain;opacity:0.7;">
-                            </div>
-                        </div>
-
-                        <!-- Dollar Mutual Funds Banner -->
-                        <div class="invest-more-card" onclick="showToast('Dollar Mutual Funds: Save in USD')" style="background: linear-gradient(135deg, #d0d9f5 0%, #a3b0e8 100%);">
-                            <div class="invest-more-card-title">Dollar Mutual Funds</div>
-                            <div class="invest-more-card-art">
-                                <img src="./media/nairamutual.svg" alt="Dollar Mutual" style="width:80px;height:70px;object-fit:contain;opacity:0.6;filter:hue-rotate(200deg);">
-                            </div>
-                        </div>
+                        <!-- Right chevron scroll button -->
+                        <button class="save-scroll-chevron right-scroll-chevron"
+                            onclick="document.getElementById('investMoreTrack').scrollBy({left:300,behavior:'smooth'})">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
                     </div>
 
-                    <a href="#" class="invest-learn-link" onclick="showToast('Loading investment guide...'); return false;">
+                    <a href="#" class="invest-learn-link"
+                        onclick="showToast('Loading investment guide...'); return false;">
                         <i class="fa-solid fa-circle-info"></i> Learn more about investments
                     </a>
                 </div>
@@ -630,59 +704,89 @@
             <div id="nestPanel" class="tab-panel d-none" style="display: none;">
 
                 <!-- Back Link -->
-                <a href="#" class="nest-back-link" onclick="switchMainTab('home', document.querySelector('.nav-link')); return false;">
+                <a href="#" class="nest-back-link"
+                    onclick="switchMainTab('home', document.querySelector('.nav-link')); return false;">
                     <i class="fa-solid fa-chevron-left"></i> Back
                 </a>
 
-                <!-- Nest Setup Form -->
-                <div class="nest-setup-wrapper">
-                    <div class="nest-form-col">
-                        <h1 class="nest-headline">Set up your child's Nest</h1>
-
-                        <div class="nest-fields">
-                            <div class="nest-field-group">
-                                <label class="nest-field-label">First name</label>
-                                <input type="text" class="nest-field-input" placeholder="Your child's legal first name">
-                            </div>
-
-                            <div class="nest-field-group">
-                                <label class="nest-field-label">Surname</label>
-                                <input type="text" class="nest-field-input" placeholder="Your child's legal Surname">
-                            </div>
-
-                            <div class="nest-field-group">
-                                <label class="nest-field-label">
-                                    <i class="fa-regular fa-calendar" style="margin-right:6px;"></i>Date of Birth
-                                </label>
-                                <input type="date" class="nest-field-input">
-                            </div>
-
-                            <p class="nest-disclaimer">By continuing, you agree that the funds in this Nest will remain locked until your child turns 18.</p>
-
-                            <button class="nest-continue-btn" onclick="showToast('Setting up Nest account...')">
-                                Continue
-                            </button>
+                <div class="container-fluid px-0">
+                    <div class="row align-items-start nest-setup-wrapper">
+                        <!-- Left Column: Title -->
+                        <div class="col-lg-5 col-md-12">
+                            <h1 class="nest-headline">Set up your child's Nest</h1>
                         </div>
-                    </div>
 
-                    <!-- Right: Baby Illustration -->
-                    <div class="nest-illustration-col">
-                        <svg viewBox="0 0 200 180" width="220" height="200" class="nest-baby-svg">
-                            <!-- Body -->
-                            <ellipse cx="100" cy="150" rx="55" ry="28" fill="#f9c4c8"/>
-                            <!-- Head -->
-                            <circle cx="100" cy="110" r="46" fill="#f9c4c8"/>
-                            <!-- Hair curl -->
-                            <path d="M100,65 Q108,55 105,64" stroke="#e8828a" stroke-width="3" fill="none" stroke-linecap="round"/>
-                            <!-- Left eye -->
-                            <line x1="87" y1="108" x2="92" y2="110" stroke="#c0606a" stroke-width="2.5" stroke-linecap="round"/>
-                            <!-- Right eye -->
-                            <line x1="108" y1="108" x2="113" y2="110" stroke="#c0606a" stroke-width="2.5" stroke-linecap="round"/>
-                            <!-- Blush left -->
-                            <ellipse cx="80" cy="118" rx="8" ry="5" fill="#f4a0aa" opacity="0.5"/>
-                            <!-- Blush right -->
-                            <ellipse cx="120" cy="118" rx="8" ry="5" fill="#f4a0aa" opacity="0.5"/>
-                        </svg>
+                        <!-- Right Column: Illustration & Form -->
+                        <div class="col-lg-7 col-md-12">
+                            <div class="nest-form-container mx-lg-0 mx-auto" style="max-width: 480px;">
+                                <!-- Baby Illustration -->
+                                <div class="nest-illustration-wrap text-center mb-5">
+                                    <svg viewBox="0 0 200 150" width="180" height="135" class="nest-baby-svg">
+                                        <!-- Hair curl -->
+                                        <path d="M100,38 Q90,15 105,15 T100,38" fill="none" stroke="#e8828a" stroke-width="3.5" stroke-linecap="round" />
+                                        
+                                        <!-- Ears -->
+                                        <circle cx="48" cy="85" r="14" fill="#fcddec" />
+                                        <circle cx="152" cy="85" r="14" fill="#fcddec" />
+                                        
+                                        <!-- Face/Head -->
+                                        <circle cx="100" cy="85" r="52" fill="#fcddec" />
+                                        
+                                        <!-- Closed Eyes (Happy Arcs) -->
+                                        <path d="M78,82 Q86,76 94,82" fill="none" stroke="#b08da3" stroke-width="3.5" stroke-linecap="round" />
+                                        <path d="M106,82 Q114,76 122,82" fill="none" stroke="#b08da3" stroke-width="3.5" stroke-linecap="round" />
+                                        
+                                        <!-- Cheeks / Blush -->
+                                        <ellipse cx="68" cy="94" rx="8" ry="4" fill="#fa98c4" opacity="0.6" />
+                                        <ellipse cx="132" cy="94" rx="8" ry="4" fill="#fa98c4" opacity="0.6" />
+                                    </svg>
+                                </div>
+
+                                <!-- Form Fields -->
+                                <form id="nestSetupForm" onsubmit="handleNestSubmit(event)" novalidate>
+                                    <!-- First Name -->
+                                    <div class="nest-field-group mb-4">
+                                        <label for="nestFirstName" class="nest-field-label">First name</label>
+                                        <input type="text" id="nestFirstName" class="nest-field-input" placeholder="Your child's legal first name" required autocomplete="off">
+                                        <div class="nest-error-msg d-none" id="nestFirstNameError">
+                                            <i class="fa-solid fa-circle-exclamation me-1"></i> Please enter your child's first name
+                                        </div>
+                                    </div>
+
+                                    <!-- Surname -->
+                                    <div class="nest-field-group mb-4">
+                                        <label for="nestSurname" class="nest-field-label">Surname</label>
+                                        <input type="text" id="nestSurname" class="nest-field-input" placeholder="Your child's legal Surname" required autocomplete="off">
+                                        <div class="nest-error-msg d-none" id="nestSurnameError">
+                                            <i class="fa-solid fa-circle-exclamation me-1"></i> Please enter your child's Surname
+                                        </div>
+                                    </div>
+
+                                    <!-- Date of Birth -->
+                                    <div class="nest-field-group mb-4">
+                                        <label for="nestDOB" class="nest-field-label">
+                                            <i class="fa-regular fa-calendar me-2"></i>Date of Birth
+                                        </label>
+                                        <input type="date" id="nestDOB" class="nest-field-input" required>
+                                        <div class="nest-error-msg d-none" id="nestDOBError">
+                                            <i class="fa-solid fa-circle-exclamation me-1"></i> Please select your child's date of birth
+                                        </div>
+                                    </div>
+
+                                    <!-- Disclaimer -->
+                                    <p class="nest-disclaimer mb-4">
+                                        By continuing, you agree that the funds in this Nest will remain locked until your child turns 18.
+                                    </p>
+
+                                    <!-- Action Button Row -->
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="nest-continue-btn px-5 py-3">
+                                            Continue
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -697,6 +801,256 @@
                 </div>
             </div>
 
+            <!-- ==========================================
+                 STASH PANEL
+                 ========================================== -->
+            <div id="stashPanel" class="tab-panel d-none" style="display: none;">
+                <div class="row g-0 stash-layout-row">
+                    <!-- ===== LEFT COLUMN ===== -->
+                    <div class="col-lg-6 stash-left-col">
+                        <!-- Request Statement link -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <a href="#" class="stash-statement-link d-lg-none"
+                                onclick="showToast('Generating Stash statement...'); return false;">
+                                <i class="fa-regular fa-file-lines me-1"></i> Request Stash statement
+                                <i class="fa-solid fa-chevron-right ms-1" style="font-size:10px;"></i>
+                            </a>
+                        </div>
+
+                        <!-- Balance Header -->
+                        <div class="stash-balance-wrap mb-4">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span class="stash-balance-label">
+                                    Idle Balance
+                                    <i class="fa-regular fa-eye ms-1" style="cursor:pointer;"
+                                        onclick="toggleStashBalance(this)"></i>
+                                </span>
+                                <div class="dropdown stash-more-menu d-none d-lg-none">
+                                    <button class="stash-menu-btn" data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="showToast('Viewing statement...'); return false;">View
+                                                Statement</a></li>
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="showToast('Sharing account details...'); return false;">Share
+                                                Details</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Mobile three-dot menu -->
+                                <div class="dropdown d-lg-none">
+                                    <button class="stash-menu-btn" data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="showToast('Viewing statement...'); return false;">View
+                                                Statement</a></li>
+                                        <li><a class="dropdown-item" href="#"
+                                                onclick="showToast('Sharing account details...'); return false;">Share
+                                                Details</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="stash-balance-value" id="stashBalanceDisplay">
+                                <span class="stash-currency">₦</span>
+                                <span class="stash-balance-main">0</span>
+                                <span class="stash-balance-decimal">.00</span>
+                            </div>
+                        </div>
+
+                        <!-- Fund via Bank Transfer -->
+                        <h2 class="stash-section-title mt-4 mb-3">Fund via bank transfer</h2>
+                        <div class="stash-bank-card mb-2 p-2">
+                            <!-- Bank Header -->
+                            <div class="stash-bank-header p-lg-2">
+                                <div class="stash-bank-icon">
+                                    <i class="fa-solid fa-circle-xmark" style="font-size:22px; color:#555;"></i>
+                                </div>
+                                <span class="stash-bank-name">Nombank MFB</span>
+                            </div>
+                            <!-- Account Details -->
+                            <div class="stash-bank-details p-2">
+                                <div>
+                                    <div class="stash-account-number" id="stashAcctNumber">—</div>
+                                    <div class="stash-account-name" id="stashAcctName">Loading...</div>
+                                </div>
+                                <button class="stash-copy-btn"
+                                    onclick="copyStashAccount(); return false;"
+                                    title="Copy account number">
+                                    <i class="fa-regular fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="stash-fee-note mb-5">Incurs a 1.5% fee capped at ₦250</p>
+
+                        <!-- What would you like to do? -->
+                        <h2 class="stash-section-title mb-3">What would you like to do?</h2>
+                        <div class="row gap-2 stash-action-grid">
+                            <!-- Fund Stash -->
+                            <div class="col-5">
+                                <div class="stash-action-card" onclick="showToast('Opening Fund Stash...')">
+                                    <div class="stash-action-icon stash-icon-purple">
+                                        <svg viewBox="0 0 48 36" width="42" height="32">
+                                            <rect x="2" y="6" width="44" height="26" rx="4" fill="#a855f7"
+                                                opacity="0.15" />
+                                            <rect x="2" y="6" width="44" height="26" rx="4" fill="none"
+                                                stroke="#a855f7" stroke-width="2" />
+                                            <rect x="8" y="14" width="18" height="3" rx="1.5" fill="#a855f7" />
+                                            <rect x="8" y="20" width="10" height="3" rx="1.5" fill="#a855f7"
+                                                opacity="0.5" />
+                                            <circle cx="38" cy="20" r="6" fill="#a855f7" />
+                                            <line x1="38" y1="17" x2="38" y2="23" stroke="#fff" stroke-width="2"
+                                                stroke-linecap="round" />
+                                            <line x1="35" y1="20" x2="41" y2="20" stroke="#fff" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </div>
+                                    <span class="stash-action-label">Fund Stash</span>
+                                </div>
+                            </div>
+                            <!-- Save my money -->
+                            <div class="col-5">
+                                <div class="stash-action-card" onclick="showToast('Opening Save my money...')">
+                                    <div class="stash-action-icon stash-icon-teal">
+                                        <svg viewBox="0 0 44 44" width="38" height="38">
+                                            <circle cx="22" cy="22" r="18" fill="#0891b2" opacity="0.12" />
+                                            <circle cx="22" cy="22" r="18" fill="none" stroke="#0891b2"
+                                                stroke-width="2" />
+                                            <circle cx="22" cy="22" r="10" fill="none" stroke="#0891b2"
+                                                stroke-width="2" stroke-dasharray="4 3" />
+                                            <circle cx="22" cy="22" r="4" fill="#0891b2" />
+                                            <line x1="22" y1="4" x2="22" y2="10" stroke="#0891b2" stroke-width="2"
+                                                stroke-linecap="round" />
+                                        </svg>
+                                    </div>
+                                    <span class="stash-action-label">Save my money</span>
+                                </div>
+                            </div>
+                            <!-- Invest my money -->
+                            <div class="col-5">
+                                <div class="stash-action-card" onclick="showToast('Opening Invest my money...')">
+                                    <div class="stash-action-icon stash-icon-green">
+                                        <svg viewBox="0 0 44 44" width="38" height="38">
+                                            <path d="M10,32 L10,20 L18,14 L26,22 L34,8" fill="none" stroke="#16a34a"
+                                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <polyline points="28,8 34,8 34,14" fill="none" stroke="#16a34a"
+                                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                            <!-- Bag body -->
+                                            <rect x="8" y="22" width="24" height="18" rx="4" fill="#16a34a"
+                                                opacity="0.18" />
+                                            <rect x="8" y="22" width="24" height="18" rx="4" fill="none"
+                                                stroke="#16a34a" stroke-width="2" />
+                                            <path d="M14,22 Q14,16 20,16 Q26,16 26,22" fill="none" stroke="#16a34a"
+                                                stroke-width="2" />
+                                        </svg>
+                                    </div>
+                                    <span class="stash-action-label">Invest my money</span>
+                                </div>
+                            </div>
+                            <!-- Withdraw to bank -->
+                            <div class="col-5">
+                                <div class="stash-action-card" onclick="showToast('Opening Withdraw to bank...')">
+                                    <div class="stash-action-icon stash-icon-sky">
+                                        <svg viewBox="0 0 44 44" width="38" height="38">
+                                            <!-- Pillar base -->
+                                            <rect x="6" y="34" width="32" height="4" rx="1" fill="#0ea5e9"
+                                                opacity="0.2" />
+                                            <rect x="6" y="34" width="32" height="4" rx="1" fill="none"
+                                                stroke="#0ea5e9" stroke-width="1.5" />
+                                            <!-- Columns -->
+                                            <rect x="10" y="18" width="5" height="16" rx="1" fill="#0ea5e9"
+                                                opacity="0.25" />
+                                            <rect x="10" y="18" width="5" height="16" rx="1" fill="none"
+                                                stroke="#0ea5e9" stroke-width="1.5" />
+                                            <rect x="20" y="18" width="5" height="16" rx="1" fill="#0ea5e9"
+                                                opacity="0.25" />
+                                            <rect x="20" y="18" width="5" height="16" rx="1" fill="none"
+                                                stroke="#0ea5e9" stroke-width="1.5" />
+                                            <rect x="30" y="18" width="5" height="16" rx="1" fill="#0ea5e9"
+                                                opacity="0.25" />
+                                            <rect x="30" y="18" width="5" height="16" rx="1" fill="none"
+                                                stroke="#0ea5e9" stroke-width="1.5" />
+                                            <!-- Roof triangle -->
+                                            <polygon points="22,6 6,18 38,18" fill="#0ea5e9" opacity="0.2" />
+                                            <polygon points="22,6 6,18 38,18" fill="none" stroke="#0ea5e9"
+                                                stroke-width="1.5" stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <span class="stash-action-label">Withdraw to bank</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== RIGHT COLUMN — Transactions ===== -->
+                    <div class="col-lg-6 stash-right-col mt-5 mt-lg-0">
+                        <!-- Statement link desktop -->
+                        <div class="d-none d-lg-flex justify-content-end mb-4">
+                            <a href="#" class="stash-statement-link"
+                                onclick="showToast('Generating Stash statement...'); return false;">
+                                <i class="fa-regular fa-file-lines me-1"></i> Request Stash statement
+                                <i class="fa-solid fa-chevron-right ms-1" style="font-size:10px;"></i>
+                            </a>
+                        </div>
+
+                        <div class="stash-transactions-box p-2">
+                            <!-- Header -->
+                            <div class="stash-tx-header p-2">
+                                <span class="stash-tx-title p-2">TRANSACTIONS</span>
+                                <div class="dropdown">
+                                    <button class="stash-tx-filter-btn dropdown-toggle" data-bs-toggle="dropdown">
+                                        ALL <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;"></i>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item"
+                                                onclick="filterStashTx('all'); return false;">All</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="filterStashTx('credit'); return false;">Credit</a></li>
+                                        <li><a class="dropdown-item"
+                                                onclick="filterStashTx('debit'); return false;">Debit</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Transaction List -->
+                            <div class="stash-tx-list " id="stashTxList">
+                                <!-- TX 1: Transfer out (debit) -->
+                                <div class="stash-tx-item stash-tx-debit p-2">
+                                    <div class="stash-tx-icon-wrap stash-tx-out">
+                                        <i class="fa-solid fa-arrow-up-right"></i>
+                                    </div>
+                                    <div class="stash-tx-info flex-grow-1">
+                                        <div class="stash-tx-name">Transfer to Cowrywise Conservative Portfolio</div>
+                                        <div class="stash-tx-status status-processed">Processed</div>
+                                    </div>
+                                    <div class="stash-tx-meta text-end">
+                                        <div class="stash-tx-amount">₦ 1,000.00</div>
+                                        <div class="stash-tx-date">Apr 12, 2026</div>
+                                    </div>
+                                </div>
+
+                                <!-- TX 2: Top Up (credit) -->
+                                <div class="stash-tx-item stash-tx-credit p-2">
+                                    <div class="stash-tx-icon-wrap stash-tx-in">
+                                        <i class="fa-solid fa-arrow-down-left"></i>
+                                    </div>
+                                    <div class="stash-tx-info flex-grow-1">
+                                        <div class="stash-tx-name">Top Up</div>
+                                        <div class="stash-tx-status status-success">Success</div>
+                                    </div>
+                                    <div class="stash-tx-meta text-end">
+                                        <div class="stash-tx-amount">₦ 1,000.00</div>
+                                        <div class="stash-tx-date">Apr 12, 2026</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End stashPanel -->
+
         </main>
     </div>
 
@@ -710,9 +1064,12 @@
 
             <!-- Modal Sub-Tabs selector header -->
             <div class="topup-tabs-header">
-                <button id="topupTabSavings" class="topup-tab-btn active" onclick="switchTopupModalTab('savings')">Savings</button>
-                <button id="topupTabNaira" class="topup-tab-btn" onclick="switchTopupModalTab('naira')">Naira Investments</button>
-                <button id="topupTabDollar" class="topup-tab-btn" onclick="switchTopupModalTab('dollar')">Dollar Investments</button>
+                <button id="topupTabSavings" class="topup-tab-btn active"
+                    onclick="switchTopupModalTab('savings')">Savings</button>
+                <button id="topupTabNaira" class="topup-tab-btn" onclick="switchTopupModalTab('naira')">Naira
+                    Investments</button>
+                <button id="topupTabDollar" class="topup-tab-btn" onclick="switchTopupModalTab('dollar')">Dollar
+                    Investments</button>
             </div>
 
             <!-- TAB 1: SAVINGS -->
@@ -721,7 +1078,8 @@
                 <div class="topup-options-list">
                     <div class="topup-option-item" onclick="selectTopupOption('Savings - Regular Savings')">
                         <div class="option-icon-container">
-                            <img src="./media/regularsavings.svg" alt="Regular Savings" style="width: 100%; height: 100%;">
+                            <img src="./media/regularsavings.svg" alt="Regular Savings"
+                                style="width: 100%; height: 100%;">
                         </div>
                         <div class="option-details-col">
                             <h4>Regular Savings</h4>
@@ -732,7 +1090,8 @@
 
                     <div class="topup-option-item" onclick="selectTopupOption('Savings - Emergency Plan')">
                         <div class="option-icon-container">
-                            <img src="./media/emergencyplan.svg" alt="Emergency Plan" style="width: 100%; height: 100%;">
+                            <img src="./media/emergencyplan.svg" alt="Emergency Plan"
+                                style="width: 100%; height: 100%;">
                         </div>
                         <div class="option-details-col">
                             <h4>Emergency Plan</h4>
@@ -752,7 +1111,8 @@
 
                     <div class="topup-option-item" onclick="selectTopupOption('Savings - Saving Circle')">
                         <div class="option-icon-container">
-                            <img src="./media/savingcircledownload.svg" alt="Saving Circle" style="width: 100%; height: 100%;">
+                            <img src="./media/savingcircledownload.svg" alt="Saving Circle"
+                                style="width: 100%; height: 100%;">
                         </div>
                         <div class="option-details-col">
                             <h4>Saving Circle</h4>
@@ -768,7 +1128,8 @@
                 <div class="topup-options-list">
                     <div class="topup-option-item" onclick="selectTopupOption('Naira Mutual Fund')">
                         <div class="option-icon-container">
-                            <img src="./media/nairamutual.svg" alt="Naira Mutual Fund" style="width: 100%; height: 100%;">
+                            <img src="./media/nairamutual.svg" alt="Naira Mutual Fund"
+                                style="width: 100%; height: 100%;">
                         </div>
                         <div class="option-details-col">
                             <h4>Naira Mutual Fund</h4>
@@ -782,9 +1143,11 @@
             <!-- TAB 3: DOLLAR INVESTMENTS -->
             <div id="topupPanelDollar" class="topup-panel d-none" style="display: none;">
                 <div class="topup-options-list" style="margin-top: 20px !important;">
-                    <div class="topup-option-item bg-light-green-item" onclick="selectTopupOption('Dollar Mutual Fund')">
+                    <div class="topup-option-item bg-light-green-item"
+                        onclick="selectTopupOption('Dollar Mutual Fund')">
                         <div class="option-icon-container">
-                            <img src="./media/nairamutual.svg" alt="Dollar Mutual Fund" style="width: 100%; height: 100%; filter: hue-rotate(120deg);">
+                            <img src="./media/nairamutual.svg" alt="Dollar Mutual Fund"
+                                style="width: 100%; height: 100%; filter: hue-rotate(120deg);">
                         </div>
                         <div class="option-details-col">
                             <h4>Dollar Mutual Fund</h4>
@@ -807,6 +1170,10 @@
     <script src="./dashboard.js"></script>
 
     <!-- Bootstrap JS Bundle (required for carousel) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>
